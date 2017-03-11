@@ -18,7 +18,7 @@
 	project/    
 		1.a) "template" contains template doc.  
 		1.b) "mockup" contains mockup doc.  
-		1.c) "project" contains project docs, named  project_v.%major_version%.%minor_version%. Also this folder contains project.cfg file, which have actual file version. 
+		1.c) "project" contains project docs, named  project_v.%major_version%.%minor_version%. Also this folder contains project.cfg file, which has actual file version. 
 		For creating new version of document, you can use create_new_version.py from the "scripts" folder. This script requires doc path(with old version or without version), and  cfg file additionally by option(--cfg_file=...),If you ran the script not from the folder that directly contains the config file or your config file has name different from project.cfg (default name)  
 		Examples:  
 		.../create_new_version.py test.txt --cfg_file=C:/test/project_with_different_name.cfg  
