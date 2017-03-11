@@ -15,7 +15,7 @@
 	Specific folder has follow structure:  
 *	template/
 *	mockup/
-*	project/
+*	project/  
 	1.a) "template" contains template doc.  
 	1.b) "mockup" contains mockup doc.  
 	1.c) "project" contains project docs, named  project_v.%major_version%.%minor_version%. Also this folder contains project.cfg file, which have actual file version. 
