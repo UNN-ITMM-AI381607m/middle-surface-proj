@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Shape2D name="BrokenVase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+	<Curve>
+		<Point>
+			<X> 40 </X>
+			<Y> 50 </Y>
+		</Point>
+		<Point>
+			<X> 32 </X>
+			<Y> 55 </Y>
+		</Point>
+		<Point>
+			<X> 35 </X>
+			<Y> 35 </Y>
+		</Point>
+		<Point>
+			<X> 20 </X>
+			<Y> 50 </Y>
+		</Point>
+	</Curve>
+	<Curve>
+		<Point>
+			<X> 20 </X>
+			<Y> 50 </Y>
+		</Point>
+		<Point>
+			<X> 35 </X>
+			<Y> 30 </Y>
+		</Point>
+		<Point>
+			<X> 0 </X>
+			<Y> 25 </Y>
+		</Point>
+		<Point>
+			<X> 20 </X>
+			<Y> 0 </Y>
+		</Point>
+	</Curve>
+	<Line>
+		<Point>
+			<X> 20 </X>
+			<Y> 0 </Y>
+		</Point>
+		<Point>
+			<X> 40 </X>
+			<Y> 0 </Y>
+		</Point>
+	</Line>
+	<Curve>
+		<Point>
+			<X> 40 </X>
+			<Y> 0 </Y>
+		</Point>
+		<Point>
+			<X> 60 </X>
+			<Y> 25 </Y>
+		</Point>
+		<Point>
+			<X> 25 </X>
+			<Y> 30 </Y>
+		</Point>
+		<Point>
+			<X> 40 </X>
+			<Y> 50 </Y>
+		</Point>
+	</Curve>
+	<Cutout>
+		<Curve>
+			<Point>
+				<X> 35 </X>
+				<Y> 15 </Y>
+			</Point>
+			<Point>
+				<X> 20 </X>
+				<Y> 20 </Y>
+			</Point>
+			<Point>
+				<X> 10 </X>
+				<Y> -5 </Y>
+			</Point>
+			<Point>
+				<X> 35 </X>
+				<Y> 15 </Y>
+			</Point>
+		</Curve>
+	</Cutout>
+</Shape2D>
