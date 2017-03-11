@@ -44,7 +44,6 @@ def create_new_version (target_file, cfg_file) :
 
     new_target_file = tuple[0] + ext
     if tuple[1] == 0 :
-       new_target_file = re.sub(r'\.[a-zA-Z]+$', file, '_v_' + version)
        new_target_file = file + version + ext
 
     print('\n Now file is: ' + new_target_file)
