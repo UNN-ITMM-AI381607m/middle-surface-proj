@@ -1,7 +1,10 @@
 #Middle Surface 2d Project
-## UNN_ITMM_AI381607m
-	
-### Information about git repository structure  
+## TEAM: UNN_ITMM_AI381607m
+
+### Description
+    There is project which is aimed at implementing a program for creating middle surface 2d  
+
+### Git repository structure  
   There are 3 main folders:  
   doc/  
   release_doc/  
@@ -24,10 +27,11 @@
 		python .../create_new_version.py test.txt --cfg_file=C:/test/project_with_different_name.cfg  
 		python .../create_new_version.py test_v.0.1.txt  
 		
-		Note: script will work only if the python is installed  
+		NOTE: if your document is folder and you want archive doc, you can use option --zip:  
+		python .../create_new_version.py my_folder --zip
+		NOTE: script will work only if the python is installed  
 	
  2) The "release_doc" folder contains required completed documents for customer.  
  3) The "src" folder constains source files, which are needed to build project.  
  4) The "scripts" folder contains scripts usefull for project development.   
 
-#### NOTE: Guys, let's stick to the uniform notation!

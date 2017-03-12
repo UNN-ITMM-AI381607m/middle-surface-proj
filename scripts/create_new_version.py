@@ -1,4 +1,4 @@
-﻿import sys, ConfigParser, re, argparse, os.path 
+﻿import sys, ConfigParser, re, argparse, os.path, shutil 
 
 def is_file_exists(file) :
     if not os.path.exists(file) :
@@ -6,7 +6,7 @@ def is_file_exists(file) :
         return False
     return True
 
-def create_new_version (target_file, cfg_file) :
+def create_new_version (target_file, cfg_file, zip_flag) :
     print('Creating new version....')
 
     if not is_file_exists(target_file) or not is_file_exists(cfg_file) :
@@ -44,18 +44,23 @@ def create_new_version (target_file, cfg_file) :
 
     new_target_file = tuple[0] + ext
     if tuple[1] == 0 :
-       new_target_file = file + version + ext
+        new_target_file = file + version + ext
 
     print('\n Now file is: ' + new_target_file)
-    target = open(new_target_file, 'w')
-    fin = open(target_file, 'r')
-    target.write(fin.read())
-    fin.close()
-    target.close()
+
+    if zip_flag :
+        shutil.make_archive(new_target_file, 'zip', target_file)
+    else :
+        target = open(new_target_file, 'w')
+        fin = open(target_file, 'r')
+        target.write(fin.read())
+        fin.close()
+        target.close()
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('target_file', type=str, action='store', default='')
 parser.add_argument('--cfg_file', type=str, action='store', default='project.cfg')
+parser.add_argument('--zip', action='store_true', default=False)
 args = parser.parse_args()
-create_new_version(args.target_file, args.cfg_file)
+create_new_version(args.target_file, args.cfg_file, args.zip)
