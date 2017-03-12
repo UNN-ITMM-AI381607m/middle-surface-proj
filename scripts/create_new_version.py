@@ -51,11 +51,7 @@ def create_new_version (target_file, cfg_file, zip_flag) :
     if zip_flag :
         shutil.make_archive(new_target_file, 'zip', target_file)
     else :
-        target = open(new_target_file, 'w')
-        fin = open(target_file, 'r')
-        target.write(fin.read())
-        fin.close()
-        target.close()
+        shutil.copyfile(target_file, new_target_file)
 
 
 parser = argparse.ArgumentParser()
