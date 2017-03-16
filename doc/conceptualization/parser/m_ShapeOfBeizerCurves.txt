@@ -86,7 +86,7 @@
 				</Point>
 			</BezierCurve>
 			<!-- Задание отрезка по двум точкам -->
-			<Line>
+			<BezierCurve>
 				<Point>
 					<X> 40 </X>
 					<Y> 0 </Y>
@@ -95,7 +95,7 @@
 					<X> 20 </X>
 					<Y> 0 </Y>
 				</Point>
-			</Line>
+			</BezierCurve>
 		</Segments>
 	</Contour>
 <!-- 
