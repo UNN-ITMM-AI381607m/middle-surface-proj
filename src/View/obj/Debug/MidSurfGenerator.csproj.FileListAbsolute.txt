@@ -1,0 +1,1 @@
+c:\users\linser\documents\visual studio 2015\Projects\MidSurfGenerator\MidSurfGenerator\bin\Debug\MidSurfGenerator.exe.config
