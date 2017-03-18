@@ -1,46 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--Created with Liquid Studio 2017 - Developer Bundle Edition (Trial) 15.0.4.7283 (https://www.liquid-technologies.com)-->
-<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Point">
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="">
+
+  <xs:complexType name="Point">
+    <xs:sequence>
+      <xs:element name="X" type="xs:double" />
+      <xs:element name="Y" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BezierCurve">
+    <xs:sequence>
+      <xs:element name="Point_1" type="Point" minOccurs="0" />
+      <xs:element name="Point_2" type="Point" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Shape2D">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Contour" type="Contour" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Contour">
+    <xs:sequence>
+      <xs:element name="Points">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="X" type="xs:double" />
-                <xs:element name="Y" type="xs:double" />
-            </xs:sequence>
+          <xs:sequence>
+            <xs:element name="Point" type="Point" minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
         </xs:complexType>
-    </xs:element>
-    <xs:element name="BezierCurve" nillable="false">
+      </xs:element>
+      <xs:element name="Segments">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Point" minOccurs="2" maxOccurs="4" />
-            </xs:sequence>
+          <xs:sequence>
+            <xs:element name="BezierCurve" type="BezierCurve" minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
         </xs:complexType>
-    </xs:element>
-    <xs:element name="Shape2D">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Contour" minOccurs="1" maxOccurs="unbounded" />
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="Contour">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="Points">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element ref="Point" minOccurs="1" maxOccurs="unbounded" />
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="Segments">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element ref="BezierCurve" minOccurs="1" maxOccurs="unbounded" />
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
