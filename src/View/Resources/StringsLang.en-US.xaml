@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:view="clr-namespace:System;assembly=mscorlib">
+
+    <view:String x:Key="app_Title">MidSurface Generator</view:String>
+    <view:String x:Key="m_File">File</view:String>
+    <view:String x:Key="m_Generate">Generate</view:String>
+    <view:String x:Key="m_Settings">Settings</view:String>
+    <view:String x:Key="m_Help">Help</view:String>
+
+    <view:String x:Key="m_f_Import">Import</view:String>
+    <view:String x:Key="m_f_Export">Export</view:String>
+    <view:String x:Key="m_f_Quit">Quit</view:String>
+
+    <view:String x:Key="l_Accuracy">Accuracy</view:String>
+
+    <view:String x:Key="s_Status">Status</view:String>
+
+    <view:String x:Key="s_Status_ReadyForWork">Ready for work</view:String>
+
+</ResourceDictionary>

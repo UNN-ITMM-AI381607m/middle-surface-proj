@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shape2D name="test1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+	<Contour>	
+		<Points>
+			<Point>
+				<X> 134 </X>
+				<Y> 43 </Y>
+			</Point>
+    <Point>
+				<X> 213 </X>
+				<Y> 116 </Y>
+			</Point>
+        <Point>
+				<X> 134 </X>
+				<Y> 188 </Y>
+			</Point>
+        <Point>
+				<X> 56 </X>
+				<Y> 116 </Y>
+			</Point>
+		</Points>
+		<Segments>
+			<BezierCurve>
+				<Point_1>
+					<X> 134 </X>
+					<Y> 43 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 188 </X>
+					<Y> 43 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 213 </X>
+          <Y> 67 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 213 </X>
+          <Y> 116 </Y>
+        </Point_4>
+			</BezierCurve>
+      <BezierCurve>
+				<Point_1>
+					<X> 213 </X>
+					<Y> 116 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 213 </X>
+					<Y> 163 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 195 </X>
+          <Y> 188 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 134 </X>
+          <Y> 188 </Y>
+        </Point_4>
+			</BezierCurve>
+      <BezierCurve>
+				<Point_1>
+					<X> 134 </X>
+					<Y> 188 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 79 </X>
+					<Y> 188 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 56 </X>
+          <Y> 165 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 56 </X>
+          <Y> 116 </Y>
+        </Point_4>
+			</BezierCurve>
+      <BezierCurve>
+				<Point_1>
+					<X> 56 </X>
+					<Y> 116 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 56 </X>
+					<Y> 72 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 78 </X>
+          <Y> 43 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 134 </X>
+          <Y> 43 </Y>
+        </Point_4>
+			</BezierCurve>
+		</Segments>
+	</Contour>
+</Shape2D>

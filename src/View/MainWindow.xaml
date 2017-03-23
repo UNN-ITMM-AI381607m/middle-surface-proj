@@ -1,12 +1,34 @@
-﻿<Window x:Class="MidSurfGenerator.MainWindow"
+﻿<Window x:Name="MainForm" x:Class="View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MidSurfGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="{DynamicResource app_Title}" Height="350" Width="525" Icon="favicon1.ico">
+
     <Grid>
-        
+        <Menu x:Name="menu_MainForm" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}">
+            <MenuItem x:Name="m_File" Header="{DynamicResource m_File}">
+                <MenuItem Header="{DynamicResource m_f_Import}" Click="View_Import"/>
+                <MenuItem Header="{DynamicResource m_f_Export}" Click="View_Export"/>
+                <Separator/>
+                <MenuItem Header="{DynamicResource m_f_Quit}"/>
+            </MenuItem>
+            <MenuItem x:Name="m_Generate" Header="{DynamicResource m_Generate}" Click="view_Generate"/>
+            <MenuItem x:Name="m_Settings" Header="{DynamicResource m_Settings}"/>
+            <MenuItem x:Name="m_Help" Header="{DynamicResource m_Help}"/>
+        </Menu>
+        <ToolBar x:Name="toolBar_MainForm" Margin="0,17.96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.042,-0.231" Height="36.334" d:LayoutOverrides="Width">
+            <Label x:Name="label" Content="{DynamicResource l_Accuracy}"  Margin="0,0,0,-3" Width="58.58" Padding="5,6,5,5"/>
+            <TextBox x:Name="tB_Accuracy" HorizontalAlignment="Stretch" Margin="0,5" TextWrapping="Wrap" Text="0.0001" VerticalAlignment="Stretch" Padding="3,2,2,2" BorderThickness="1" HorizontalContentAlignment="Right" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
+        </ToolBar>
+        <StatusBar Height="25.333" VerticalAlignment="Bottom">
+            <StatusBarItem Content="{DynamicResource s_Status}" HorizontalAlignment="Left" BorderThickness="0,0,2,0" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
+            <StatusBarItem x:Name="s_Status" Content="{DynamicResource s_Status_ReadyForWork}"/>
+        </StatusBar>
+        <Canvas x:Name="mainForm_Canvas" Margin="0,54.294,0,25.333" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}">
+            <Path x:Name="pathMain" Stroke="Blue" StrokeThickness="2"/>
+        </Canvas>
+
     </Grid>
 </Window>
