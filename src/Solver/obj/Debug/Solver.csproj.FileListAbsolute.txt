@@ -1,1 +1,0 @@
-D:\MidSurfaceProj\src\Solver\bin\Debug\Solver.exe.config
