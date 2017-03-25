@@ -95,6 +95,28 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{1a03ae92-4ad6-4c80-8165-f7f277f766be}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Parser\Parser.csproj">
+      <Project>{a7be69c1-1b36-45f0-8b69-1e027d1c89a2}</Project>
+      <Name>Parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Saver\Saver.csproj">
+      <Project>{bfee515c-0e01-4802-acde-d661d038e773}</Project>
+      <Name>Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solver\Solver.csproj">
+      <Project>{eb8eefb4-f72a-47c4-a31b-43a9392d62c1}</Project>
+      <Name>Solver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\View\View.csproj">
+      <Project>{f84ff65d-6e32-4f28-a922-f95793788f5b}</Project>
+      <Name>View</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
