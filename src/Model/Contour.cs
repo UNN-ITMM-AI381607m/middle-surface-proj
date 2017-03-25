@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Model
+{
+    class Contour: IContour
+    {
+        List<ISegment> segments;
+
+        public Contour()
+        {
+            segments = new List<ISegment>();
+        }
+
+        public void Add(ISegment segment)
+        {
+            segments.Add(segment);
+        }
+
+        public List<ISegment> GetSegments()
+        {
+            return segments;
+        }
+    }
+}

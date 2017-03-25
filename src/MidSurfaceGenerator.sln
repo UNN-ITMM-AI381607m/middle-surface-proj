@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saver", "Saver\Saver.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver", "Solver\Solver.csproj", "{EB8EEFB4-F72A-47C4-A31B-43A9392D62C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidSurface", "MidSurface\MidSurface.csproj", "{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{EB8EEFB4-F72A-47C4-A31B-43A9392D62C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8EEFB4-F72A-47C4-A31B-43A9392D62C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8EEFB4-F72A-47C4-A31B-43A9392D62C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
