@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model;
 
-namespace MidSurface
+namespace Model
 {
-    public interface IMidSurface
+    public interface IPointF
     {
-        IEnumerable<ISegment> GetData();
+        double GetX();
+        double GetY();
     }
 }

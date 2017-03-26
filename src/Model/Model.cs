@@ -20,12 +20,12 @@ namespace Model
             figures.Add(figure);
         }
         
-        public List<IFigure> GetData()
+        public IEnumerable<IFigure> GetData()
         {
             return figures;
         }
 
-        public List<ISegment> GetCanvasData()
+        public IEnumerable<ISegment> GetCanvasData()
         {
             List<ISegment> AllSegments = new List<ISegment>();
 

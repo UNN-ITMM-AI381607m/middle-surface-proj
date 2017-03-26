@@ -9,20 +9,20 @@ namespace Model
     class Segment: ISegment
     {
         ICurve curve;
-        List<PointF> pillar;
+        IEnumerable<IPointF> pillar;
 
-        public Segment(ICurve curve, List<PointF> pillar)
+        public Segment(ICurve curve, IEnumerable<IPointF> pillar)
         {
             this.curve = curve;
             this.pillar = pillar;
         }
 
-        public PointF GetCurvePoint(double t)
+        public IPointF GetCurvePoint(double t)
         {
             return curve.GetCurvePoint(pillar, t);
         }
 
-        public List<PointF> GetPillar()
+        public IEnumerable<IPointF> GetPillar()
         {
             return pillar;
         }

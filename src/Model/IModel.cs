@@ -8,7 +8,7 @@ namespace Model
 {
     public interface IModel
     {
-        List<IFigure> GetData();
-        List<ISegment> GetCanvasData();
+        IEnumerable<IFigure> GetData();
+        IEnumerable<ISegment> GetCanvasData();
     }
 }

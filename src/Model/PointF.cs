@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class PointF
+    public class PointF: IPointF
     {
         double X;
         double Y;

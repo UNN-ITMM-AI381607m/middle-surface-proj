@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace Model
             segments.Add(segment);
         }
 
-        public List<ISegment> GetSegments()
+        public IEnumerator<ISegment> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ISegment> GetSegments()
         {
             return segments;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

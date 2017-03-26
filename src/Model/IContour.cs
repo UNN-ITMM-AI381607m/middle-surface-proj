@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public interface IContour
+    public interface IContour: IEnumerable<ISegment>
     {
-        List<ISegment> GetSegments();
+        IEnumerable<ISegment> GetSegments();
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public interface IFigure
+    public interface IFigure: IEnumerable<IContour>
     {
-        List<IContour> GetContours();
+        IEnumerable<IContour> GetContours();
     }
 }

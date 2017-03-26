@@ -8,7 +8,7 @@ namespace Model
 {
     public interface ISegment
     {
-        PointF GetCurvePoint(double t);
-        List<PointF> GetPillar();
+        IPointF GetCurvePoint(double t);
+        IEnumerable<IPointF> GetPillar();
     }
 }

@@ -9,6 +9,6 @@ namespace Model
 {
     public interface ICurve
     {
-        PointF GetCurvePoint(List<PointF> pillar, double t); 
+        IPointF GetCurvePoint(IEnumerable<IPointF> pillar, double t); 
     }
 }

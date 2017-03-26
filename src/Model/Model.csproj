@@ -47,6 +47,7 @@
     <Compile Include="ICurve.cs" />
     <Compile Include="IFigure.cs" />
     <Compile Include="IModel.cs" />
+    <Compile Include="IPointF.cs" />
     <Compile Include="ISegment.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="PointF.cs" />
