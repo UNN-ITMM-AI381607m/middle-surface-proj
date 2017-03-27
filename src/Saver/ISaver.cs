@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface;
 
-namespace Saver
+namespace MidSurface.IO
 {
     public interface ISaver
     {

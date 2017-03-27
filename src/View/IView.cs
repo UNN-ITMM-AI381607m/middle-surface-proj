@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model;
-using MidSurface;
 
-namespace View
+namespace MidSurface.Component
 {
     public interface IView
     {

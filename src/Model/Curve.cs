@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace MidSurface.Primitive
 {
-    class BezierCurve : ICurve
+    public class BezierCurve : ICurve
     {
         public BezierCurve() { }
 

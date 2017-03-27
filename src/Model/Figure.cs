@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace MidSurface.Primitive
 {
-    class Figure: IFigure
+    public class Figure: IFigure
     {
         List<IContour> contours;
 

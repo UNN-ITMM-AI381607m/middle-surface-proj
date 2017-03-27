@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model;
-using MidSurface;
+using MidSurface.Component;
 
-namespace Quality
+namespace MidSurface.Quality
 {
     public class TestQuality
     {

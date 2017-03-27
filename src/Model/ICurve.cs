@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Model
+namespace MidSurface.Primitive
 {
     public interface ICurve
     {

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface;
-using Model;
+using MidSurface.Component;
 
-namespace Solver
+namespace MidSurface.Solver
 {
-    public class Algorithm: IAlgorithm
+    public class Algorithm : IAlgorithm
     {
         public IMidSurface Run(IModel model)
         {
-            IMidSurface midsurface = new MidSurface.MidSurface();
+            IMidSurface midsurface = new MidSurface();
             return midsurface;
         }
     }

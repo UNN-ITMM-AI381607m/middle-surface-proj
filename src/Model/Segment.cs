@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace MidSurface.Primitive
 {
-    class Segment: ISegment
+    public class Segment: ISegment
     {
         ICurve curve;
         IEnumerable<IPointF> pillar;

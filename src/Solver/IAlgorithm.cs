@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface;
-using Model;
+using MidSurface.Component;
 
-namespace Solver
+namespace MidSurface.Solver
 {
     public interface IAlgorithm
     {
