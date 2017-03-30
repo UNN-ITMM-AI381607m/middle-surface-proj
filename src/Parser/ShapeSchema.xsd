@@ -10,7 +10,7 @@
 
   <xs:complexType name="BezierCurve">
     <xs:sequence>
-      <xs:element name="Point" type="Point" minOccurs="0" maxOccurs="2" />
+      <xs:element name="ControlPoint" type="Point" minOccurs="0" maxOccurs="2" />
     </xs:sequence>
   </xs:complexType>
 
@@ -24,10 +24,10 @@
 
   <xs:complexType name="Contour">
     <xs:sequence>
-      <xs:element name="Points">
+      <xs:element name="JointsOfSegments">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Point" type="Point" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="JunctionPoint" type="Point" minOccurs="1" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>

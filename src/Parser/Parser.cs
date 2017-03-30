@@ -29,7 +29,7 @@ namespace MidSurface.IO
             //Temporary check here
             foreach (var contour in deserialized.Contour)
             {
-                if (contour.Points.Count() != contour.Segments.Count())
+                if (contour.JointsOfSegments.Count() != contour.Segments.Count())
                 {
                     return null;
                 }
@@ -103,29 +103,29 @@ namespace MidSurface.IO
 
                 for (int i = 0; i < contour.Segments.Count() - 1; i++)
                 {
-                    points.Add(contour.Points[i]);
+                    points.Add(contour.JointsOfSegments[i]);
 
                     foreach (var point in contour.Segments[i])
                     {
                         points.Add(point);
                     }
 
-                    points.Add(contour.Points[i + 1]);
+                    points.Add(contour.JointsOfSegments[i + 1]);
 
-                    convertContour.Add(new Segment(new Primitive.BezierCurve(), ConvertPoints(points)));
+                    convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
                     points.Clear();
                 }
 
-                points.Add(contour.Points.Last());
+                points.Add(contour.JointsOfSegments.Last());
 
                 foreach (var point in contour.Segments.Last())
                 {
                     points.Add(point);
                 }
 
-                points.Add(contour.Points.First());
+                points.Add(contour.JointsOfSegments.First());
 
-                convertContour.Add(new Segment(new Primitive.BezierCurve(), ConvertPoints(points)));
+                convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
                 result.Add(convertContour);
             }
             return result;
