@@ -40,6 +40,5 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-	<xs:assert test="count(Point) = count(BezierCurve)"/>
   </xs:complexType>
 </xs:schema>
