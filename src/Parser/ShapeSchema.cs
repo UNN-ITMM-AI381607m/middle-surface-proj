@@ -47,7 +47,7 @@ public partial class Contour {
     
     private Point[] pointsField;
     
-    private BezierCurve[] segmentsField;
+    private Point[][] segmentsField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
@@ -61,8 +61,9 @@ public partial class Contour {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
-    public BezierCurve[] Segments {
+    [System.Xml.Serialization.XmlArrayItemAttribute("BezierCurve", IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false, NestingLevel=1)]
+    public Point[][] Segments {
         get {
             return this.segmentsField;
         }
@@ -100,38 +101,6 @@ public partial class Point {
         }
         set {
             this.yField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class BezierCurve {
-    
-    private Point point_1Field;
-    
-    private Point point_2Field;
-    
-    /// <remarks/>
-    public Point Point_1 {
-        get {
-            return this.point_1Field;
-        }
-        set {
-            this.point_1Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public Point Point_2 {
-        get {
-            return this.point_2Field;
-        }
-        set {
-            this.point_2Field = value;
         }
     }
 }

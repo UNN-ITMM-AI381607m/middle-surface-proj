@@ -10,8 +10,7 @@
 
   <xs:complexType name="BezierCurve">
     <xs:sequence>
-      <xs:element name="Point_1" type="Point" minOccurs="0" />
-      <xs:element name="Point_2" type="Point" minOccurs="0" />
+      <xs:element name="Point" type="Point" minOccurs="0" maxOccurs="2" />
     </xs:sequence>
   </xs:complexType>
 

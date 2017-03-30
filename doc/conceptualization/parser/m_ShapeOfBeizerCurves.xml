@@ -3,7 +3,7 @@
 	Данный xml формат описывает стуктуру плоской фигуры, состоящей из замкнутых контуров.
 	Используется как формат входных данных при работе с плоскими замкнутыми фигурами, в частности, при рассчете срединной поверхности.
 -->
-<Shape2D name="BrokenVase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
 <!-- 
 	Описание структуры основного контура фигуры
 -->
@@ -32,34 +32,34 @@
 		<Segments>
 			<!-- Задание кривой Безье 3-го порядка (по 4 опорным точкам) -->
 			<BezierCurve>
-				<Point_1>
+				<Point>
 					<X> 0 </X>
 					<Y> 25 </Y>
-				</Point_1>
-				<Point_2>
+				</Point>
+				<Point>
 					<X> 35 </X>
 					<Y> 30 </Y>
-				</Point_2>
+				</Point>
 			</BezierCurve>
 			<BezierCurve>
-				<Point_1>
+				<Point>
 					<X> 35 </X>
 					<Y> 35 </Y>
-				</Point_1>
-				<Point_2>
+				</Point>
+				<Point>
 					<X> 32 </X>
 					<Y> 55 </Y>
-				</Point_2>
+				</Point>
 			</BezierCurve>
 			<BezierCurve>
-				<Point_1>
+				<Point>
 					<X> 25 </X>
 					<Y> 30 </Y>
-				</Point_1>
-				<Point_2>
+				</Point>
+				<Point>
 					<X> 60 </X>
 					<Y> 25 </Y>
-				</Point_2>
+				</Point>
 			</BezierCurve>
 			<!-- Задание отрезка по двум точкам -->
 			<BezierCurve />
@@ -76,15 +76,15 @@
 			</Point>
 		</Points>
 		<Segments>
-			<BezierCurve>
-				<Point_1>
-					<X> 10 </X>
-					<Y> -5 </Y>
-				</Point_1>
-				<Point_2>
+			<BezierCurve>            
+				<Point>
 					<X> 20 </X>
 					<Y> 20 </Y>
-				</Point_2>
+				</Point>
+				<Point>
+					<X> 10 </X>
+					<Y> -5 </Y>
+				</Point>
 			</BezierCurve>
 		</Segments>
 	</Contour>

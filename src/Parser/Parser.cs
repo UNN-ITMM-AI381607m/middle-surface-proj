@@ -104,14 +104,10 @@ namespace MidSurface.IO
                 for (int i = 0; i < contour.Segments.Count() - 1; i++)
                 {
                     points.Add(contour.Points[i]);
-                    
-                    if (contour.Segments[i].Point_1 != null)
+
+                    foreach (var point in contour.Segments[i])
                     {
-                        points.Add(contour.Segments[i].Point_1);
-                    }
-                    if (contour.Segments[i].Point_2 != null)
-                    {
-                        points.Add(contour.Segments[i].Point_2);
+                        points.Add(point);
                     }
 
                     points.Add(contour.Points[i + 1]);
@@ -122,13 +118,9 @@ namespace MidSurface.IO
 
                 points.Add(contour.Points.Last());
 
-                if (contour.Segments.Last().Point_1 != null)
+                foreach (var point in contour.Segments.Last())
                 {
-                    points.Add(contour.Segments.Last().Point_1);
-                }
-                if (contour.Segments.Last().Point_2 != null)
-                {
-                    points.Add(contour.Segments.Last().Point_2);
+                    points.Add(point);
                 }
 
                 points.Add(contour.Points.First());
