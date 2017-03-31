@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shape2D name="test1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+	<Contour>	
+		<Points>
+      <Point>
+        <X> 246 </X>
+        <Y> 147 </Y>
+      </Point>
+      <Point>
+        <X> 333 </X>
+        <Y> 23 </Y>
+      </Point>
+      <Point>
+        <X> 620 </X>
+        <Y> 170 </Y>
+      </Point>
+      <Point>
+        <X> 582 </X>
+        <Y> 217 </Y>
+      </Point>
+      <Point>
+        <X> 327 </X>
+        <Y> 134 </Y>
+      </Point>
+      <Point>
+        <X> 307 </X>
+        <Y> 215 </Y>
+      </Point>
+      <Point>
+        <X> 234 </X>
+        <Y> 259 </Y>
+      </Point>
+        <Point>
+        <X> 171 </X>
+        <Y> 202 </Y>
+      </Point>
+		</Points>
+		<Segments>
+			<BezierCurve>
+				<Point_1>
+					<X> 246 </X>
+					<Y> 147 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 205 </X>
+					<Y> 65 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 403 </X>
+          <Y> 125 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 333 </X>
+          <Y> 23 </Y>
+        </Point_4>
+			</BezierCurve>
+			<BezierCurve>
+				<Point_1>
+					<X> 333 </X>
+					<Y> 23 </Y>
+				</Point_1>
+				<Point_2>
+					<X> 408 </X>
+					<Y> 105 </Y>
+				</Point_2>
+        <Point_3>
+          <X> 490 </X>
+          <Y> 139 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 602 </X>
+          <Y> 170 </Y>
+        </Point_4>
+			</BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 602 </X>
+          <Y> 170 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 642 </X>
+          <Y> 182 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 617 </X>
+          <Y> 190 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 582 </X>
+          <Y> 217 </Y>
+        </Point_4>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 582 </X>
+          <Y> 217 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 446 </X>
+          <Y> 147 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 404 </X>
+          <Y> 133 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 327 </X>
+          <Y> 216 </Y>
+        </Point_4>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 327 </X>
+          <Y> 216 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 401 </X>
+          <Y> 114 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 413 </X>
+          <Y> 114 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 327 </X>
+          <Y> 134 </Y>
+        </Point_4>
+      </BezierCurve>
+    <BezierCurve>
+        <Point_1>
+          <X> 327 </X>
+          <Y> 134 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 307 </X>
+          <Y> 215 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 307 </X>
+          <Y> 215 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 292 </X>
+          <Y> 251 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 280 </X>
+          <Y> 258 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 234 </X>
+          <Y> 259 </Y>
+        </Point_4>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 234 </X>
+          <Y> 259 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 188 </X>
+          <Y> 259 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 169 </X>
+          <Y> 243 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 171 </X>
+          <Y> 202 </Y>
+        </Point_4>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 171 </X>
+          <Y> 202 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 166 </X>
+          <Y> 169 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 185 </X>
+          <Y> 133 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 246 </X>
+          <Y> 147 </Y>
+        </Point_4>
+      </BezierCurve>
+    </Segments>
+	</Contour>
+</Shape2D>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shape2D name="test1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+	<Contour>	
+		<Points>
+			<Point>
+				<X> 146 </X>
+				<Y> 123 </Y>
+			</Point>
+			<Point>
+				<X> 300 </X>
+				<Y> 183 </Y>
+			</Point>
+			<Point>
+				<X> 381 </X>
+				<Y> 74 </Y>
+			</Point>
+			<Point>
+				<X> 326 </X>
+				<Y> 189 </Y>
+			</Point>
+      <Point>
+				<X> 400 </X>
+				<Y> 87 </Y>
+			</Point>
+			<Point>
+				<X> 346 </X>
+				<Y> 200 </Y>
+			</Point>
+			<Point>
+				<X> 424 </X>
+				<Y> 112 </Y>
+			</Point>
+			<Point>
+				<X> 363 </X>
+				<Y> 217 </Y>
+			</Point>
+      <Point>
+				<X> 446 </X>
+				<Y> 132 </Y>
+			</Point>
+			<Point>
+				<X> 351 </X>
+				<Y> 271 </Y>
+			</Point>
+			<Point>
+				<X> 450 </X>
+				<Y> 205 </Y>
+			</Point>
+			<Point>
+				<X> 360 </X>
+				<Y> 293 </Y>
+			</Point>
+      <Point>
+        <X> 470 </X>
+        <Y> 254 </Y>
+      </Point>
+      <Point>
+        <X> 500 </X>
+        <Y> 346 </Y>
+      </Point>
+      <Point>
+        <X> 195 </X>
+        <Y> 340 </Y>
+      </Point>
+      <Point>
+        <X> 338 </X>
+        <Y> 288 </Y>
+      </Point>
+      <Point>
+        <X> 191 </X>
+        <Y> 323 </Y>
+      </Point>
+      <Point>
+        <X> 338 </X>
+        <Y> 259 </Y>
+      </Point>
+      <Point>
+        <X> 220 </X>
+        <Y> 290 </Y>
+      </Point>
+      <Point>
+        <X> 345 </X>
+        <Y> 236 </Y>
+      </Point>
+      <Point>
+        <X> 223 </X>
+        <Y> 266 </Y>
+      </Point>
+      <Point>
+        <X> 331 </X>
+        <Y> 220 </Y>
+      </Point>
+      <Point>
+        <X> 147 </X>
+        <Y> 220 </Y>
+      </Point>
+		</Points>
+    
+		<Segments>
+			<BezierCurve>
+				<Point_1>
+          <X> 146 </X>
+          <Y> 123 </Y>
+			  </Point_1>
+			  <Point_2>
+				  <X> 132 </X>
+				  <Y> 237 </Y>
+			  </Point_2>
+        <Point_3>
+          <X> 96 </X>
+          <Y> 249 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 300 </X>
+          <Y> 183 </Y>
+        </Point_4>
+			</BezierCurve>
+			<BezierCurve>
+        <Point_1>
+          <X> 300 </X>
+          <Y> 183 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 381 </X>
+          <Y> 74 </Y>
+        </Point_2>
+			</BezierCurve>
+			<BezierCurve>
+        <Point_1>
+          <X> 381 </X>
+          <Y> 74 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 326 </X>
+          <Y> 189 </Y>
+        </Point_2>
+			</BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 326 </X>
+          <Y> 189 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 400 </X>
+          <Y> 87 </Y>
+        </Point_2>
+			</BezierCurve>	
+      <BezierCurve>
+        <Point_1>
+          <X> 400 </X>
+          <Y> 87 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 346 </X>
+          <Y> 200 </Y>
+        </Point_2>
+			</BezierCurve>
+			<BezierCurve>
+        <Point_1>
+          <X> 346 </X>
+          <Y> 200 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 424 </X>
+          <Y> 112 </Y>
+        </Point_2>
+			</BezierCurve>
+			<BezierCurve>
+        <Point_1>
+          <X> 424 </X>
+          <Y> 112 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 363 </X>
+          <Y> 217 </Y>
+        </Point_2>
+			</BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 363 </X>
+          <Y> 217 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 446 </X>
+          <Y> 132 </Y>
+        </Point_2>
+			  </BezierCurve>	
+        <BezierCurve>
+       <Point_1>
+         <X> 446 </X>
+         <Y> 132 </Y>
+       </Point_1>
+       <Point_2>
+         <X> 351 </X>
+         <Y> 271 </Y>
+       </Point_2>
+			  </BezierCurve>	
+        <BezierCurve>
+          <Point_1>
+            <X> 351 </X>
+            <Y> 271 </Y>
+          </Point_1>
+          <Point_2>
+            <X> 450 </X>
+            <Y> 205 </Y>
+          </Point_2>
+			  </BezierCurve>	
+        <BezierCurve>
+          <Point_1>
+            <X> 450 </X>
+            <Y> 205 </Y>
+          </Point_1>
+          <Point_2>
+            <X> 360 </X>
+            <Y> 293 </Y>
+          </Point_2>
+			  </BezierCurve>	
+        <BezierCurve>
+          <Point_1>
+            <X> 360 </X>
+            <Y> 293 </Y>
+          </Point_1>
+          <Point_2>
+            <X> 470 </X>
+            <Y> 254 </Y>
+          </Point_2>
+			  </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 470 </X>
+          <Y> 254 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 500 </X>
+          <Y> 346 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 500 </X>
+          <Y> 346 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 466 </X>
+          <Y> 245 </Y>
+        </Point_2>
+        <Point_3>
+          <X> 504 </X>
+          <Y> 280 </Y>
+        </Point_3>
+        <Point_4>
+          <X> 195 </X>
+          <Y> 340 </Y>
+        </Point_4>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 195 </X>
+          <Y> 340 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 338 </X>
+          <Y> 288 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 338 </X>
+          <Y> 288 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 191 </X>
+          <Y> 323 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 191 </X>
+          <Y> 323 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 338 </X>
+          <Y> 259 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 338 </X>
+          <Y> 259 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 220 </X>
+          <Y> 290 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 220 </X>
+          <Y> 290 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 345 </X>
+          <Y> 236 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 345 </X>
+          <Y> 236 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 223 </X>
+          <Y> 266 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 223 </X>
+          <Y> 266 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 331 </X>
+          <Y> 220 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 331 </X>
+          <Y> 220 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 147 </X>
+          <Y> 220 </Y>
+        </Point_2>
+      </BezierCurve>
+      <BezierCurve>
+        <Point_1>
+          <X> 147 </X>
+          <Y> 220 </Y>
+        </Point_1>
+        <Point_2>
+          <X> 146 </X>
+          <Y> 123 </Y>
+        </Point_2>
+      </BezierCurve>
+    </Segments>
+	</Contour>
+</Shape2D>
