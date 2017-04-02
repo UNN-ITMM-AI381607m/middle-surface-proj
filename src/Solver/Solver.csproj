@@ -43,8 +43,10 @@
     <Compile Include="Algorithm.cs" />
     <Compile Include="IAlgorithm.cs" />
     <Compile Include="ISolver.cs" />
+    <Compile Include="ISolverData.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolverData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MidSurface\MidSurface.csproj">
