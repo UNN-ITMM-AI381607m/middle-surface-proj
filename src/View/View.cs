@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MidSurface.Primitive;
+using View;
 
 namespace MidSurface.Component
 {
@@ -16,16 +17,11 @@ namespace MidSurface.Component
             this.canvas = canvas;
         }
 
-        public void Paint(IModel model)
+        public void Paint(IVisibleData data)
         {
-            foreach (ISegment segment in model.GetCanvasData())
+            foreach (ISegment segment in data.GetSegments())
                 canvas.Draw(segment);
         }
 
-        public void Paint(IMidSurface midsurface)
-        {
-            foreach (ISegment segment in midsurface.GetData())
-                canvas.Draw(segment);
-        }
     }
 }

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using View;
 
-namespace MidSurface.Component
+namespace UserInterface
 {
-    public interface IView
+    public class Class1
     {
-        void Paint(IVisibleData data);
     }
 }
