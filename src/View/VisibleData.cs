@@ -9,10 +9,10 @@ using MidSurface.Primitive;
 
 namespace View
 {
-    public class VisibleData
+    public class VisibleData:IVisibleData
     {
         List<ISegment> segments;
-
+        
         public VisibleData(IModel model)
         {
             segments = model.GetCanvasData().ToList<ISegment>();

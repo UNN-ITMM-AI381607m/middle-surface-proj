@@ -9,82 +9,82 @@
 -->
 	<Contour>	
 		<!-- Точки стыков сегментов -->
-		<Points>
+		<JointsOfSegments>
 			<!-- Координаты точки на плоскости -->
-			<Point>
+			<JunctionPoint>
 				<X> 20 </X>
 				<Y> 50 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 40 </X>
 				<Y> 50 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 40 </X>
 				<Y> 0 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 20 </X>
 				<Y> 0 </Y>
-			</Point>
-		</Points>
+			</JunctionPoint>
+		</JointsOfSegments>
 		<!-- Описание сегментов контура -->
 		<Segments>
 			<!-- Задание кривой Безье 3-го порядка (по 4 опорным точкам) -->
 			<BezierCurve>
-				<Point>
-					<X> 0 </X>
-					<Y> 25 </Y>
-				</Point>
-				<Point>
-					<X> 35 </X>
-					<Y> 30 </Y>
-				</Point>
-			</BezierCurve>
-			<BezierCurve>
-				<Point>
+				<ControlPoint>
 					<X> 35 </X>
 					<Y> 35 </Y>
-				</Point>
-				<Point>
+				</ControlPoint>
+				<ControlPoint>
 					<X> 32 </X>
 					<Y> 55 </Y>
-				</Point>
+				</ControlPoint>
 			</BezierCurve>
 			<BezierCurve>
-				<Point>
+				<ControlPoint>
 					<X> 25 </X>
 					<Y> 30 </Y>
-				</Point>
-				<Point>
+				</ControlPoint>
+				<ControlPoint>
 					<X> 60 </X>
 					<Y> 25 </Y>
-				</Point>
+				</ControlPoint>
 			</BezierCurve>
 			<!-- Задание отрезка по двум точкам -->
 			<BezierCurve />
+			<BezierCurve>
+				<ControlPoint>
+					<X> 0 </X>
+					<Y> 25 </Y>
+				</ControlPoint>
+				<ControlPoint>
+					<X> 35 </X>
+					<Y> 30 </Y>
+				</ControlPoint>
+			</BezierCurve>
 		</Segments>
 	</Contour>
 <!-- 
 	Описание структуры внутреннего выреза
 -->
 	<Contour>
-		<Points>
-			<Point>
+		<JointsOfSegments>
+			<JunctionPoint>
 				<X> 35 </X>
 				<Y> 15 </Y>
-			</Point>
-		</Points>
+			</JunctionPoint>
+		</JointsOfSegments>
 		<Segments>
 			<BezierCurve>            
-				<Point>
+				<ControlPoint>
 					<X> 20 </X>
 					<Y> 20 </Y>
-				</Point>
-				<Point>
+				</ControlPoint>
+				<ControlPoint>
 					<X> 10 </X>
 					<Y> -5 </Y>
-				</Point>
+				</ControlPoint>
 			</BezierCurve>
 		</Segments>
 	</Contour>

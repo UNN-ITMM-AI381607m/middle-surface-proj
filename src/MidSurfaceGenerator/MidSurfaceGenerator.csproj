@@ -96,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MidSurface\MidSurface.csproj">
+      <Project>{fa7d280e-88df-4fc9-9387-1fb2b42f44bd}</Project>
+      <Name>MidSurface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{1a03ae92-4ad6-4c80-8165-f7f277f766be}</Project>
       <Name>Model</Name>
