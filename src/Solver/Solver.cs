@@ -16,9 +16,9 @@ namespace MidSurface.Solver
             this.algorithm = algorithm;
         }
 
-        public IMidSurface FindSurface(IModel model)
+        public IMidSurface FindSurface(ISolverData solverdata)
         {
-            return algorithm.Run(model);
+            return algorithm.Run(solverdata);
         }
     }
 }

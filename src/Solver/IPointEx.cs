@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
 using MidSurface.Primitive;
 
-namespace MidSurface.Solver
+namespace Solver
 {
-    public interface ISolverData
+    public interface IPointEx
     {
-        List<ISegment> GetSegments();
+        ICustomPoint GetFirstParent();
+        ICustomPoint GetSecondParent();
+        IPointF GetMSPoint();
     }
 }

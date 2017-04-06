@@ -9,6 +9,6 @@ namespace MidSurface.Solver
 {
     public interface ISolver
     {
-        IMidSurface FindSurface(IModel model);
+        IMidSurface FindSurface(ISolverData solverdata);
     }
 }

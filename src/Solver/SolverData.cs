@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MidSurface.Primitive;
 using MidSurface.Component;
 
-namespace Solver
+namespace MidSurface.Solver
 {
     public class SolverData: ISolverData
     {

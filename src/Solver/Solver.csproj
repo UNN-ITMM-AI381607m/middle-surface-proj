@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Solver</RootNamespace>
     <AssemblyName>Solver</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,12 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
+    <Compile Include="CustomPoint.cs" />
     <Compile Include="IAlgorithm.cs" />
+    <Compile Include="ICustomPoint.cs" />
+    <Compile Include="IJoinMSPoints.cs" />
+    <Compile Include="IMSPointFinder.cs" />
+    <Compile Include="IPointEx.cs" />
     <Compile Include="ISolver.cs" />
     <Compile Include="ISolverData.cs" />
+    <Compile Include="ISplitter.cs" />
+    <Compile Include="JoinMSPoints.cs" />
+    <Compile Include="MSPointFinder.cs" />
+    <Compile Include="PointEx.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolverData.cs" />
+    <Compile Include="Splitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MidSurface\MidSurface.csproj">

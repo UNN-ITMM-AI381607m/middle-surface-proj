@@ -9,6 +9,6 @@ namespace MidSurface.Solver
 {
     public interface IAlgorithm
     {
-        IMidSurface Run(IModel model);
+        IMidSurface Run(ISolverData solverdata);
     }
 }

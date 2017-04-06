@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
 using MidSurface.Primitive;
 
-namespace MidSurface.Solver
+namespace Solver
 {
-    public interface ISolverData
+    public interface ISplitter
     {
-        List<ISegment> GetSegments();
+        List<ICustomPoint> Split(IEnumerable<ISegment> segments, double accuracy); 
     }
 }
