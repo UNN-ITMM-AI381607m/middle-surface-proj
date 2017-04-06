@@ -22,14 +22,14 @@
         </Menu>
         <ToolBar x:Name="toolBar" Margin="0,18,0,0" VerticalAlignment="Top" Height="31" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
             <Label x:Name="label1" Content="Accuracy" Height="26" VerticalAlignment="Top"/>
-            <TextBox x:Name="textBox_Accuracy" Height="26" Margin="0,1" TextWrapping="Wrap" Text="0.001" VerticalAlignment="Top" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2"/>
+            <TextBox x:Name="textBox_Accuracy" Height="26" Margin="0,1" TextWrapping="Wrap" Text="0.001" VerticalAlignment="Top" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2" MaxWidth="100"/>
             <Label x:Name="label2" Content="Scale"/>
-            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="16" MinWidth="20" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="textBox_Scale" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="25" MinWidth="20" HorizontalContentAlignment="Right" MaxWidth="51" LostKeyboardFocus="textBox_Scale_LostKeyboardFocus"/>
         </ToolBar>
-        <Canvas x:Name="mainCanvas" Margin="0,49,0,22" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
         <StatusBar Margin="0,295,0,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">
             <Label x:Name="label" Content="Status " Padding="0" BorderBrush="Black" BorderThickness="0,0,1,0"/>
             <Label x:Name="currentStatus" Content="Ready for work" Padding="0" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Center"/>
         </StatusBar>
+        <Canvas x:Name="mainCanvas" Margin="0,49,0,22" MouseRightButtonUp="ChangeOriginOfCanvas" Background="White"/>
     </Grid>
 </Window>

@@ -43,8 +43,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas.cs" />
-    <Compile Include="ICanvas.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="IVisibleData.cs" />
     <Compile Include="View.cs" />

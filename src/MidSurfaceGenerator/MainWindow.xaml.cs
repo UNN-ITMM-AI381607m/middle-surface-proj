@@ -23,13 +23,13 @@ namespace MidSurfaceGenerator
     public partial class MainWindow : Window
     {
         private MidSurface.Component.IModel model;
+        private MidSurface.IMidSurface mid_surface_model;
         private MidSurface.Component.IView view;
 
         public MainWindow()
         {
             InitializeComponent();
-            MidSurface.Component.ICanvas canvas = new MidSurface.Component.Canvas(mainCanvas);
-            view = new MidSurface.Component.View(canvas);
+            view = new MidSurface.Component.View(mainCanvas);
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -45,12 +45,12 @@ namespace MidSurfaceGenerator
             if (importDlg.ShowDialog() != null)
             {
                 try
-                {
+                {                   
                     MidSurface.Component.Model model_temp = new MidSurface.Component.Model();
                     model_temp.Add(new Parser().ImportFile(importDlg.FileName));
+                    //TODO: some trick, maybe not good solution
                     model = model_temp;
-                    View.VisibleData visible_data = new View.VisibleData(model);
-                    view.Paint(visible_data);
+                    RedrawModel();
                 }
                 catch (Exception ex)
                 {
@@ -63,11 +63,62 @@ namespace MidSurfaceGenerator
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             //TODO: prepare window with setting. Place for settings! 
+
         }
 
         private void Generate(object sender, RoutedEventArgs e)
         {
             //TODO: prepare generating implementation
+            currentStatus.Content = "Generating...";
+            MidSurface.Solver.IAlgorithm alg = new MidSurface.Solver.Algorithm();
+            mid_surface_model = alg.Run(model);
+            RedrawMisSurface();
+            currentStatus.Content = "Ready for work";
+        }
+
+        private void RedrawModel()
+        {
+            if (model == null) return;
+            //TODO: continue connecting parameters
+            mainCanvas.Children.Clear();
+            View.VisibleDataSettings settings= new View.VisibleDataSettings();
+            settings.Scale = Int32.Parse(textBox_Scale.Text);
+            settings.Brush = Brushes.Black;
+            settings.Offset_X = 0;
+            settings.Offset_Y = mainCanvas.ActualHeight-menu.ActualHeight;
+            settings.Thikness = 2;
+            View.VisibleData visible_data = new View.VisibleData(model,settings);
+            view.Paint(visible_data);
+        }
+        private void RedrawMisSurface()
+        {
+            if (mid_surface_model == null) return;
+            //TODO: continue connecting parameters
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Scale = Int32.Parse(textBox_Scale.Text);
+            settings.Brush = Brushes.Red;
+            settings.Offset_X = 0;
+            settings.Offset_Y = mainCanvas.ActualHeight;
+            settings.Thikness = 1;
+            View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
+            view.Paint(visible_data);
+
+        }
+
+        private void textBox_Scale_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            RedrawModel();
+            RedrawMisSurface();
+        }
+
+        private void ChangeOriginOfCanvas(object sender, MouseButtonEventArgs e)
+        {
+            foreach (UIElement el in mainCanvas.Children)
+            {
+                el.SetValue(Canvas.LeftProperty, e.GetPosition(null).X);
+                el.SetValue(Canvas.TopProperty, e.GetPosition(null).Y-mainCanvas.ActualHeight);
+            }
+            mainCanvas.UpdateLayout();
         }
     }
 }
