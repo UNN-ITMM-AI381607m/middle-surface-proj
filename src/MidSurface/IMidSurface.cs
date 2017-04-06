@@ -10,5 +10,7 @@ namespace MidSurface
     public interface IMidSurface
     {
         IEnumerable<ISegment> GetData();
+
+        void Add(ISegment segment);
     }
 }
