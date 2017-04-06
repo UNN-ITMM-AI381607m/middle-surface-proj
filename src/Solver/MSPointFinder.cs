@@ -7,7 +7,7 @@ using MidSurface.Primitive;
 
 namespace Solver
 {
-    public class MSPointFinder: IMSPointFinder
+    public class MSPointFinder : IMSPointFinder
     {
         List<ISegment> segments;
 
@@ -20,9 +20,165 @@ namespace Solver
         {
             List<IPointEx> mspoints = new List<IPointEx>();
 
-            //извольте ваш кодик-с
+            List<CustomPoint> linear = new List<CustomPoint>();
+            double Rmax = getRmax();
+            for (int i = 0; i < custompoints.Count() - 1; i++)
+            {
+                List<double> normal = new List<double>(2);
+
+                IPointF parrent_1 = segments[custompoints[i].GetN()].GetCurvePoint(custompoints[i].GetT());
+                IPointF parrent_2 = segments[custompoints[i + 1].GetN()].GetCurvePoint(custompoints[i + 1].GetT());
+                double X_1 = parrent_1.GetX();
+                double X_2 = parrent_2.GetX();
+                double Y_1 = parrent_1.GetY();
+                double Y_2 = parrent_2.GetY();
+                double k = 0;
+                if (X_1 == X_2)
+                {
+                    normal.Add(0);
+                    normal.Add(1);
+                }
+                else if (Y_1 == Y_2)
+                {
+                    normal.Add(1);
+                    normal.Add(0);
+                }
+                else
+                {
+                    k = (X_1 - X_2) / (Y_1 - Y_2);
+                    normal.Add(1 / (Math.Sqrt(k * k + 1)));
+                    normal.Add(k / (Math.Sqrt(k * k + 1)));
+                }
+                linear.Add(new CustomPoint(custompoints[i].GetN(), custompoints[i].GetT(), k));
+
+                double R = Rmax;
+                double X = (X_2 + X_1) / 2;
+                double Y = (Y_2 + Y_1) / 2;
+
+
+                IPointF center = new PointF(X + normal[0] * R, Y + normal[1] * R);
+                List<PointF> pCross = cross(center, R, new PointF(X, Y));
+                while (pCross.Count != 1)
+                {
+                    if (pCross.Count >= 2)
+                    {
+                        R = R / 2;
+                    }
+                    else
+                    {
+                        R = R * 3 / 2;
+                    }
+                    center = new PointF(X + normal[0] * R, Y + normal[1] * R);
+                    pCross = cross(center, R, new PointF(X, Y));
+                }
+                ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
+                ICustomPoint second_parent = new CustomPoint(linear[i + 1].GetN(), linear[i + 1].GetT(), linear[i + 1].GetAlpha());
+
+                mspoints.Add(new PointEx(center, first_parent, second_parent));
+            }
+
+            if(custompoints.Count() > 2)
+            {
+                List<double> normal = new List<double>(2);
+                int i = custompoints.Count() - 1;
+                IPointF parrent_1 = segments[custompoints[i].GetN()].GetCurvePoint(custompoints[i].GetT());
+                IPointF parrent_2 = segments[custompoints[0].GetN()].GetCurvePoint(custompoints[0].GetT());
+                double X_1 = parrent_1.GetX();
+                double X_2 = parrent_2.GetX();
+                double Y_1 = parrent_1.GetY();
+                double Y_2 = parrent_2.GetY();
+                double k = 0;
+                if (X_1 == X_2)
+                {
+                    normal.Add(0);
+                    normal.Add(1);
+                }
+                else if (Y_1 == Y_2)
+                {
+                    normal.Add(1);
+                    normal.Add(0);
+                }
+                else
+                {
+                    k = (X_1 - X_2) / (Y_1 - Y_2);
+                    normal.Add(1 / (Math.Sqrt(k * k + 1)));
+                    normal.Add(k / (Math.Sqrt(k * k + 1)));
+                }
+                linear.Add(new CustomPoint(custompoints[0].GetN(), custompoints[0].GetT(), k));
+
+                double R = Rmax;
+                double X = (X_2 + X_1) / 2;
+                double Y = (Y_2 + Y_1) / 2;
+
+
+                IPointF center = new PointF(X + normal[0] * R, Y + normal[1] * R);
+                List<PointF> pCross = cross(center, R, new PointF(X, Y));
+                while (pCross.Count != 1)
+                {
+                    if (pCross.Count >= 2)
+                    {
+                        R = R / 2;
+                    }
+                    else
+                    {
+                        R = R * 3 / 2;
+                    }
+                    center = new PointF(X + normal[0] * R, Y + normal[1] * R);
+                    pCross = cross(center, R, new PointF(X, Y));
+                }
+                ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
+                ICustomPoint second_parent = new CustomPoint(linear[0].GetN(), linear[0].GetT(), linear[0].GetAlpha());
+
+                mspoints.Add(new PointEx(center, first_parent, second_parent));
+            }
+
+            // для 0 и n - 1 надо проделать тоже самое... иначе не все точки поверхности построены
 
             return mspoints;
+        }
+
+        List<PointF> cross(IPointF center, double rad, IPointF rivol)
+        {
+            List<PointF> result = new List<PointF>();
+            const double e = 0.01;
+            for (int i = 0; i < segments.Count; i++)
+            {
+                for (double t = 0; t <= 1; t += 0.01)
+                {
+                    IPointF point = segments[i].GetCurvePoint(t);
+                    if (point.GetX() != rivol.GetX() && point.GetY() != rivol.GetY()  ) // наверное надо сравнивать по компонентам
+                        if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
+                        {
+                            result.Add(new PointF(point.GetX(), point.GetY()));
+                        }
+                    // здесь бы тоже проверить на две точки
+                }
+
+                if (result.Count >= 2)
+                    break; // нам достаточно только две точки
+            }
+
+            return result;
+        }
+
+        double getRmax()
+        {
+            double R, Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
+            for (int i = 0; i < segments.Count; i++)
+            {
+                double X = segments[i].GetCurvePoint(0.0).GetX();
+                double Y = segments[i].GetCurvePoint(0.0).GetY();
+                if (X < Xmin)
+                    Xmin = X;
+                else if (X > Xmax)
+                    Xmax = X;
+                if (Y < Ymin)
+                    Ymin = Y;
+                else if (Y > Ymax)
+                    Ymax = Y;
+            }
+            R = Math.Max(Xmax - Xmin, Ymax - Ymin);
+            return R;
         }
     }
 }
