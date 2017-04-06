@@ -51,8 +51,9 @@ namespace Solver
                 else
                 {
                     k = (X_2 - X_1) / (Y_2 - Y_1);
-                    normal.Add(1 / (Math.Sqrt(k * k + 1)));
                     normal.Add(k / (Math.Sqrt(k * k + 1)));
+                    normal.Add(-1 / (Math.Sqrt(k * k + 1)));
+                    
                 }
                 linear.Add(new CustomPoint(custompoints[i].GetN(), custompoints[i].GetT(), k));
 
