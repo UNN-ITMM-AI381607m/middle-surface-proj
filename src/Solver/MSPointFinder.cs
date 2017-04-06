@@ -35,13 +35,13 @@ namespace Solver
                 double k = 0;
                 if (X_1 == X_2)
                 {
-                    normal.Add(1);
+                    normal.Add((Y_2 > Y_1) ? 1 : -1);
                     normal.Add(0);
                 }
                 else if (Y_1 == Y_2)
                 {
                     normal.Add(0);
-                    normal.Add(1);
+                    normal.Add((X_2 > X_1) ? -1 : 1);
                 }
                 else
                 {
@@ -88,7 +88,7 @@ namespace Solver
             const double e = 0.1;
             for (int i = 0; i < segments.Count; i++)
             {
-                for (double t = 0; t <= 1; t += 0.4)
+                for (double t = 0; t <= 1; t += 0.05)
                 {
                     IPointF point = segments[i].GetCurvePoint(t);
                     //if (Math.Abs(point.GetX() - rivol.GetX()) > e || Math.Abs(point.GetY() - rivol.GetY()) > e) // наверное надо сравнивать по компонентам
