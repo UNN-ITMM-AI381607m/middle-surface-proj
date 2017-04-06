@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Shape2D name="test1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
 	<Contour>	
-		<Points>
-			<Point>
+		<JointsOfSegments>
+			<JunctionPoint>
 				<X> 54 </X>
 				<Y> 54 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 266 </X>
 				<Y> 54 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 266 </X>
 				<Y> 120 </Y>
-			</Point>
-			<Point>
+			</JunctionPoint>
+			<JunctionPoint>
 				<X> 54 </X>
 				<Y> 120 </Y>
-			</Point>
-		</Points>
+			</JunctionPoint>
+		</JointsOfSegments>
 		<Segments>
 			<BezierCurve>
 			</BezierCurve>

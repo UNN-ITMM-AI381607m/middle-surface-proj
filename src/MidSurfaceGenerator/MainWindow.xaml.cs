@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using MidSurface.IO;
+using MidSurface.Solver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,7 @@ namespace MidSurfaceGenerator
             //TODO: prepare generating implementation
             currentStatus.Content = "Generating...";
             MidSurface.Solver.IAlgorithm alg = new MidSurface.Solver.Algorithm();
-            mid_surface_model = alg.Run(model);
+            mid_surface_model = alg.Run(new SolverData(model));
             RedrawMisSurface();
             currentStatus.Content = "Ready for work";
         }
