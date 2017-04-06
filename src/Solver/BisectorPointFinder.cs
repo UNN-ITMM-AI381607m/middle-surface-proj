@@ -11,8 +11,6 @@ namespace Solver
     {
         public IPointEx FindBisectorPoint(ICustomPoint custompoint)
         {
-            var point = segments[custompoint.GetN()].GetCurvePoint(custompoint.GetT());
-            var newPoint = new PointF(point.GetX() * custompoint.GetAlpha(), point.GetY());
 
             throw new NotImplementedException();
         }

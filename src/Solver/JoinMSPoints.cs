@@ -52,11 +52,11 @@ namespace Solver
                     }
                     else
                     {  //TO DO: add bisector implementation
-                        var bisectorPoint = new CustomPoint(currentPointParents[1].GetN(),
-                                                currentPointParents[1].GetT(),
-                                                currentPointParents[0].GetAlpha() + nextPointParents[1].GetAlpha());
+                        //var bisectorPoint = new CustomPoint(currentPointParents[1].GetN(),
+                        //                        currentPointParents[1].GetT(),
+                        //                        currentPointParents[0].GetAlpha() + nextPointParents[1].GetAlpha());
 
-                        result.Add(mspointfinder.FindBisectorPoint(bisectorPoint).GetMSPoint());
+                        //result.Add(mspointfinder.FindBisectorPoint(bisectorPoint).GetMSPoint());
 
                         currentPointParents = new List<ICustomPoint>()
                             {
