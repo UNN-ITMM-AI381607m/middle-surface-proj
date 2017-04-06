@@ -73,6 +73,7 @@ namespace Solver
                     {
                         R = R * 3 / 2;
                     }
+                    
                     center = new PointF(X + normal[0] * R, Y + normal[1] * R);
                     pCross = cross(center, R, new PointF(X, Y));
                 }
@@ -88,19 +89,19 @@ namespace Solver
         List<PointF> cross(IPointF center, double rad, IPointF rivol)
         {
             List<PointF> result = new List<PointF>();
-            const double e = 0.01;
+            const double e = 0.1;
             for (int i = 0; i < segments.Count; i++)
             {
-                for (double t = 0; t <= 1; t += 0.01)
+                for (double t = 0; t <= 1; t += 0.1)
                 {
                     IPointF point = segments[i].GetCurvePoint(t);
-                    if (point.GetX() != rivol.GetX() && point.GetY() != rivol.GetY()) // наверное надо сравнивать по компонентам
+                    if (Math.Abs(point.GetX() - rivol.GetX()) > e || Math.Abs(point.GetY() - rivol.GetY()) > e) // наверное надо сравнивать по компонентам
                     {
                         if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
                         {
                             result.Add(new PointF(point.GetX(), point.GetY()));
                         }
-                        else if (Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2) < Math.Pow(rad, 2))
+                        else if (Math.Pow(point.GetX() - center.GetX(), 2) + Math.Pow(point.GetY() - center.GetY(), 2) < Math.Pow(rad, 2))
                             result.Add(new PointF(point.GetX(), point.GetY()));
                     }
 
