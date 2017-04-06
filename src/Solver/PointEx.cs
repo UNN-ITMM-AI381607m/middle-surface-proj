@@ -7,7 +7,7 @@ using MidSurface.Primitive;
 
 namespace Solver
 {
-    public class PointEx
+    public class PointEx:IPointEx
     {
         List<ICustomPoint> parents;
         IPointF mspoint;
@@ -25,14 +25,14 @@ namespace Solver
             return mspoint;
         }
 
-        public ICustomPoint GetFirstParent()
+        public List<ICustomPoint> GetParent()
         {
-            return parents[0];
+            return parents;
         }
 
-        public ICustomPoint GetSecondParent()
+        public double GetDistance(IPointEx p)
         {
-            return parents[1];
+            return Math.Sqrt(Math.Pow(mspoint.GetX() - p.GetMSPoint().GetX(), 2) + Math.Pow(mspoint.GetY() - p.GetMSPoint().GetY(), 2));
         }
     }
 }

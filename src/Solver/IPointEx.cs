@@ -9,8 +9,7 @@ namespace Solver
 {
     public interface IPointEx
     {
-        ICustomPoint GetFirstParent();
-        ICustomPoint GetSecondParent();
+        List<ICustomPoint> GetParents();
         IPointF GetMSPoint();
     }
 }
