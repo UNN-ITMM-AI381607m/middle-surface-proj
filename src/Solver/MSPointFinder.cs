@@ -72,7 +72,7 @@ namespace Solver
                     pCross = cross(center, R, new PointF(X, Y));
                 }
                 ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
-                ICustomPoint second_parent = new CustomPoint(linear[j].GetN(), linear[j].GetT(), linear[j].GetAlpha());
+                ICustomPoint second_parent = new CustomPoint(custompoints[j].GetN(), custompoints[j].GetT(), custompoints[j].GetAlpha());
 
                 mspoints.Add(new PointEx(center, first_parent, second_parent));
             }
@@ -89,12 +89,18 @@ namespace Solver
                 for (double t = 0; t <= 1; t += 0.01)
                 {
                     IPointF point = segments[i].GetCurvePoint(t);
-                    if (point.GetX() != rivol.GetX() && point.GetY() != rivol.GetY()  ) // наверное надо сравнивать по компонентам
+                    if (point.GetX() != rivol.GetX() && point.GetY() != rivol.GetY()) // наверное надо сравнивать по компонентам
+                    {
                         if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
                         {
                             result.Add(new PointF(point.GetX(), point.GetY()));
                         }
-                    // здесь бы тоже проверить на две точки
+                        else if (Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2) < Math.Pow(rad, 2))
+                            result.Add(new PointF(point.GetX(), point.GetY()));
+                    }
+
+                    if (result.Count >= 2)// здесь бы тоже проверить на две точки
+                        break; // нам достаточно только две точки
                 }
 
                 if (result.Count >= 2)
