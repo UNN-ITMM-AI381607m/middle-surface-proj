@@ -11,5 +11,6 @@ namespace Solver
     {
         List<ICustomPoint> GetParents();
         IPointF GetMSPoint();
+        double GetDistance(IPointEx p);
     }
 }

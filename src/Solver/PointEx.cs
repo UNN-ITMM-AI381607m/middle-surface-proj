@@ -25,7 +25,7 @@ namespace Solver
             return mspoint;
         }
 
-        public List<ICustomPoint> GetParent()
+        public List<ICustomPoint> GetParents()
         {
             return parents;
         }
