@@ -22,12 +22,12 @@ namespace Solver
 
             List<CustomPoint> linear = new List<CustomPoint>();
             double Rmax = getRmax();
-            for (int i = 0; i < custompoints.Count() - 1; i++)
+            for (int i = 0; i < custompoints.Count(); i++)
             {
                 List<double> normal = new List<double>(2);
-
+                int j = (i + 1 == custompoints.Count()) ? 0 : i + 1;
                 IPointF parrent_1 = segments[custompoints[i].GetN()].GetCurvePoint(custompoints[i].GetT());
-                IPointF parrent_2 = segments[custompoints[i + 1].GetN()].GetCurvePoint(custompoints[i + 1].GetT());
+                IPointF parrent_2 = segments[custompoints[j].GetN()].GetCurvePoint(custompoints[j].GetT());
                 double X_1 = parrent_1.GetX();
                 double X_2 = parrent_2.GetX();
                 double Y_1 = parrent_1.GetY();
@@ -72,68 +72,11 @@ namespace Solver
                     pCross = cross(center, R, new PointF(X, Y));
                 }
                 ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
-                ICustomPoint second_parent = new CustomPoint(linear[i + 1].GetN(), linear[i + 1].GetT(), linear[i + 1].GetAlpha());
+                ICustomPoint second_parent = new CustomPoint(linear[j].GetN(), linear[j].GetT(), linear[j].GetAlpha());
 
                 mspoints.Add(new PointEx(center, first_parent, second_parent));
             }
-
-            if(custompoints.Count() > 2)
-            {
-                List<double> normal = new List<double>(2);
-                int i = custompoints.Count() - 1;
-                IPointF parrent_1 = segments[custompoints[i].GetN()].GetCurvePoint(custompoints[i].GetT());
-                IPointF parrent_2 = segments[custompoints[0].GetN()].GetCurvePoint(custompoints[0].GetT());
-                double X_1 = parrent_1.GetX();
-                double X_2 = parrent_2.GetX();
-                double Y_1 = parrent_1.GetY();
-                double Y_2 = parrent_2.GetY();
-                double k = 0;
-                if (X_1 == X_2)
-                {
-                    normal.Add(0);
-                    normal.Add(1);
-                }
-                else if (Y_1 == Y_2)
-                {
-                    normal.Add(1);
-                    normal.Add(0);
-                }
-                else
-                {
-                    k = (X_1 - X_2) / (Y_1 - Y_2);
-                    normal.Add(1 / (Math.Sqrt(k * k + 1)));
-                    normal.Add(k / (Math.Sqrt(k * k + 1)));
-                }
-                linear.Add(new CustomPoint(custompoints[0].GetN(), custompoints[0].GetT(), k));
-
-                double R = Rmax;
-                double X = (X_2 + X_1) / 2;
-                double Y = (Y_2 + Y_1) / 2;
-
-
-                IPointF center = new PointF(X + normal[0] * R, Y + normal[1] * R);
-                List<PointF> pCross = cross(center, R, new PointF(X, Y));
-                while (pCross.Count != 1)
-                {
-                    if (pCross.Count >= 2)
-                    {
-                        R = R / 2;
-                    }
-                    else
-                    {
-                        R = R * 3 / 2;
-                    }
-                    center = new PointF(X + normal[0] * R, Y + normal[1] * R);
-                    pCross = cross(center, R, new PointF(X, Y));
-                }
-                ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
-                ICustomPoint second_parent = new CustomPoint(linear[0].GetN(), linear[0].GetT(), linear[0].GetAlpha());
-
-                mspoints.Add(new PointEx(center, first_parent, second_parent));
-            }
-
-            // для 0 и n - 1 надо проделать тоже самое... иначе не все точки поверхности построены
-
+            
             return mspoints;
         }
 
