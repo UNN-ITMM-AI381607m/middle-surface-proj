@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
+	<Contour>	
+		<JointsOfSegments>
+			<JunctionPoint>
+				<X> 196 </X>
+				<Y> 108 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 263 </X>
+				<Y> 107 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 300 </X>
+				<Y> 53 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 337 </X>
+				<Y> 107 </Y>
+			</JunctionPoint>
+      <JunctionPoint>
+				<X> 403 </X>
+				<Y> 110 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 375 </X>
+				<Y> 164 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 406 </X>
+				<Y> 222 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 336 </X>
+				<Y> 221 </Y>
+			</JunctionPoint>
+      <JunctionPoint>
+				<X> 300 </X>
+				<Y> 275 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 264 </X>
+				<Y> 221 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 196 </X>
+				<Y> 220 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 228 </X>
+				<Y> 166 </Y>
+			</JunctionPoint>
+      <JunctionPoint>
+        <X> 375 </X>
+        <Y> 164 </Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X> 337 </X>
+        <Y> 107 </Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X> 264 </X>
+        <Y> 221 </Y>
+      </JunctionPoint>
+		</JointsOfSegments>
+    
+		<Segments>
+			<BezierCurve>				
+			</BezierCurve>
+			<BezierCurve>			
+			</BezierCurve>
+			<BezierCurve>			
+			</BezierCurve>
+      <BezierCurve>			
+			</BezierCurve>	
+      <BezierCurve>
+			</BezierCurve>
+			<BezierCurve>
+			</BezierCurve>
+			<BezierCurve>
+			</BezierCurve>
+      <BezierCurve>
+			</BezierCurve>	
+      <BezierCurve>
+			</BezierCurve>	
+      <BezierCurve>
+			</BezierCurve>	
+      <BezierCurve>
+		  </BezierCurve>	
+      <BezierCurve>
+			</BezierCurve>
+      <BezierCurve>
+      </BezierCurve>
+      <BezierCurve>
+      </BezierCurve>
+      <BezierCurve>
+      </BezierCurve>
+    </Segments>
+	</Contour>
+</Shape2D>
