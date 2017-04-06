@@ -33,7 +33,7 @@ namespace Solver
             {
                 if (mspoints[i].GetDistance(mspoints[i + 1]) <= accuracy)
                 {
-                    result.Add((IPointF)mspoints[i]);
+                    result.Add(mspoints[i].GetMSPoint());
                 }
                 else
                 {
@@ -44,17 +44,31 @@ namespace Solver
                     {
                         currentPointParents = new List<ICustomPoint>()
                             {
-                                new CustomPoint(currentPointParents[0].GetN(), Math.Abs(currentPointParents[1].GetT() - currentPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha()),
-                                new CustomPoint(currentPointParents[0].GetN(), Math.Abs(nextPointParents[1].GetT() - nextPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha())
+                                new CustomPoint(currentPointParents[0].GetN(), 
+                                                Math.Abs(currentPointParents[1].GetT() - currentPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha()),
+                                new CustomPoint(currentPointParents[0].GetN(),
+                                                Math.Abs(nextPointParents[1].GetT() - nextPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha())
                             };
                     }
                     else
-                    {
+                    {  //TO DO: add bisector implementation
+                        var bisectorPoint = new CustomPoint(currentPointParents[1].GetN(),
+                                                currentPointParents[1].GetT(),
+                                                currentPointParents[0].GetAlpha() + nextPointParents[1].GetAlpha());
+
+                        result.Add(mspointfinder.FindBisectorPoint(bisectorPoint).GetMSPoint());
+
                         currentPointParents = new List<ICustomPoint>()
                             {
-                                new CustomPoint(currentPointParents[0].GetN(), Math.Abs(currentPointParents[1].GetT() - currentPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha()),
+                                new CustomPoint(currentPointParents[0].GetN(),
+                                                Math.Abs(currentPointParents[1].GetT() - currentPointParents[0].GetT()) / 2,
+                                                currentPointParents[0].GetAlpha()),
+
                                 nextPointParents[0],
-                                new CustomPoint(currentPointParents[0].GetN(), Math.Abs(nextPointParents[1].GetT() - nextPointParents[0].GetT()) / 2, currentPointParents[0].GetAlpha())
+
+                                new CustomPoint(currentPointParents[0].GetN(),
+                                                Math.Abs(nextPointParents[1].GetT() - nextPointParents[0].GetT()) / 2,
+                                                currentPointParents[0].GetAlpha())
                             };
                     }
 

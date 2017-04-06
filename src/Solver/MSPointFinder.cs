@@ -7,7 +7,7 @@ using MidSurface.Primitive;
 
 namespace Solver
 {
-    public class MSPointFinder : IMSPointFinder
+    public partial class MSPointFinder : IMSPointFinder
     {
         List<ISegment> segments;
 
@@ -15,11 +15,6 @@ namespace Solver
         {
             this.segments = segments;
         }
-
-        /*public IPointEx FindBisectorPoint(ICustomPoint custompoint)
-        {
-            //
-        }*/
 
         public List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints)
         {

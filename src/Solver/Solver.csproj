@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
+    <Compile Include="BisectorPointFinder.cs" />
     <Compile Include="CustomPoint.cs" />
     <Compile Include="IAlgorithm.cs" />
     <Compile Include="ICustomPoint.cs" />
