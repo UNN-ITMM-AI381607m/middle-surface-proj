@@ -16,10 +16,10 @@ namespace Solver
             this.segments = segments;
         }
 
-        public IPointEx FindBisectorPoint(ICustomPoint custompoint)
+        /*public IPointEx FindBisectorPoint(ICustomPoint custompoint)
         {
             //
-        }
+        }*/
 
         public List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints)
         {

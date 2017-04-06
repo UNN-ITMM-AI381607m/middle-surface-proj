@@ -9,6 +9,6 @@ namespace Solver
     public interface IMSPointFinder
     {
         List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints);
-        IPointEx FindBisectorPoint(ICustomPoint custompoint);
+        /*IPointEx FindBisectorPoint(ICustomPoint custompoint);*/
     }
 }
