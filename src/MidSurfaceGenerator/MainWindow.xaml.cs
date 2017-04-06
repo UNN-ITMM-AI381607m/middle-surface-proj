@@ -25,11 +25,13 @@ namespace MidSurfaceGenerator
         private MidSurface.Component.IModel model;
         private MidSurface.IMidSurface mid_surface_model;
         private MidSurface.Component.IView view;
+        System.Windows.Point origin, mouse_point;
 
         public MainWindow()
         {
             InitializeComponent();
             view = new MidSurface.Component.View(mainCanvas);
+ 
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -79,13 +81,14 @@ namespace MidSurfaceGenerator
         private void RedrawModel()
         {
             if (model == null) return;
+            origin = new System.Windows.Point(0, mainCanvas.ActualHeight - menu.ActualHeight);
             //TODO: continue connecting parameters
             mainCanvas.Children.Clear();
             View.VisibleDataSettings settings= new View.VisibleDataSettings();
             settings.Scale = Int32.Parse(textBox_Scale.Text);
             settings.Brush = Brushes.Black;
-            settings.Offset_X = 0;
-            settings.Offset_Y = mainCanvas.ActualHeight-menu.ActualHeight;
+            settings.Offset_X = origin.X; 
+            settings.Offset_Y = origin.Y;
             settings.Thikness = 2;
             View.VisibleData visible_data = new View.VisibleData(model,settings);
             view.Paint(visible_data);
@@ -93,12 +96,13 @@ namespace MidSurfaceGenerator
         private void RedrawMisSurface()
         {
             if (mid_surface_model == null) return;
+            origin = new System.Windows.Point(0, mainCanvas.ActualHeight - menu.ActualHeight);
             //TODO: continue connecting parameters
             View.VisibleDataSettings settings = new View.VisibleDataSettings();
             settings.Scale = Int32.Parse(textBox_Scale.Text);
             settings.Brush = Brushes.Red;
-            settings.Offset_X = 0;
-            settings.Offset_Y = mainCanvas.ActualHeight;
+            settings.Offset_X = origin.X;
+            settings.Offset_Y = origin.Y;
             settings.Thikness = 1;
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
@@ -117,6 +121,25 @@ namespace MidSurfaceGenerator
             {
                 el.SetValue(Canvas.LeftProperty, e.GetPosition(null).X);
                 el.SetValue(Canvas.TopProperty, e.GetPosition(null).Y-mainCanvas.ActualHeight);
+            }
+            mainCanvas.UpdateLayout();
+        }
+
+        private void mainCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Control c = sender as Control;
+            Mouse.Capture(c);
+            mouse_point = e.GetPosition(null);
+        }
+
+        private void mainCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            origin.X += (e.GetPosition(null).X - mouse_point.X);
+            origin.Y += (e.GetPosition(null).Y - mouse_point.Y);
+            foreach (UIElement el in mainCanvas.Children)
+            {
+                el.SetValue(Canvas.LeftProperty, origin.X);
+                el.SetValue(Canvas.TopProperty, origin.Y-mainCanvas.ActualHeight);
             }
             mainCanvas.UpdateLayout();
         }
