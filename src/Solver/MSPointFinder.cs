@@ -40,13 +40,13 @@ namespace Solver
                 double k = 0;
                 if (X_1 == X_2)
                 {
-                    normal.Add(0);
                     normal.Add(1);
+                    normal.Add(0);
                 }
                 else if (Y_1 == Y_2)
                 {
-                    normal.Add(1);
                     normal.Add(0);
+                    normal.Add(1);
                 }
                 else
                 {
