@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MidSurface.Solver;
 
 namespace MidSurfaceGenerator
 {
@@ -73,7 +74,7 @@ namespace MidSurfaceGenerator
             //TODO: prepare generating implementation
             currentStatus.Content = "Generating...";
             MidSurface.Solver.IAlgorithm alg = new MidSurface.Solver.Algorithm();
-            mid_surface_model = alg.Run(model);
+            mid_surface_model = alg.Run(new SolverData(model));
             RedrawMisSurface();
             currentStatus.Content = "Ready for work";
         }

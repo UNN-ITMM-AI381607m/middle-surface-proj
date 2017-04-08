@@ -7,7 +7,7 @@ using MidSurface.Primitive;
 
 namespace Solver
 {
-    public class MSPointFinder : IMSPointFinder
+    public partial class MSPointFinder : IMSPointFinder
     {
         List<ISegment> segments;
 
@@ -15,11 +15,6 @@ namespace Solver
         {
             this.segments = segments;
         }
-
-        /*public IPointEx FindBisectorPoint(ICustomPoint custompoint)
-        {
-            //
-        }*/
 
         public List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints)
         {
@@ -40,19 +35,20 @@ namespace Solver
                 double k = 0;
                 if (X_1 == X_2)
                 {
+                    normal.Add((Y_2 > Y_1) ? 1 : -1);
                     normal.Add(0);
-                    normal.Add(1);
                 }
                 else if (Y_1 == Y_2)
                 {
-                    normal.Add(1);
                     normal.Add(0);
+                    normal.Add((X_2 > X_1) ? -1 : 1);
                 }
                 else
                 {
-                    k = (X_1 - X_2) / (Y_1 - Y_2);
-                    normal.Add(1 / (Math.Sqrt(k * k + 1)));
+                    k = (X_2 - X_1) / (Y_2 - Y_1);
                     normal.Add(k / (Math.Sqrt(k * k + 1)));
+                    normal.Add(-1 / (Math.Sqrt(k * k + 1)));
+                    
                 }
                 linear.Add(new CustomPoint(custompoints[i].GetN(), custompoints[i].GetT(), k));
 
@@ -92,16 +88,26 @@ namespace Solver
             const double e = 0.1;
             for (int i = 0; i < segments.Count; i++)
             {
-                for (double t = 0; t <= 1; t += 0.1)
+                for (double t = 0; t <= 1; t += 0.05)
                 {
                     IPointF point = segments[i].GetCurvePoint(t);
-                    if (Math.Abs(point.GetX() - rivol.GetX()) > e || Math.Abs(point.GetY() - rivol.GetY()) > e) // наверное надо сравнивать по компонентам
+                    //if (Math.Abs(point.GetX() - rivol.GetX()) > e || Math.Abs(point.GetY() - rivol.GetY()) > e) // наверное надо сравнивать по компонентам
+                    //{
+                    //    if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
+                    //    {
+                    //        result.Add(new PointF(point.GetX(), point.GetY()));
+                    //    }
+                    //    else if (Math.Pow(point.GetX() - center.GetX(), 2) + Math.Pow(point.GetY() - center.GetY(), 2) < Math.Pow(rad, 2))
+                    //        result.Add(new PointF(point.GetX(), point.GetY()));
+                    //}
+                    if (point.GetX() != rivol.GetX() || point.GetY() != rivol.GetY()) // наверное надо сравнивать по компонентам
                     {
-                        if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
-                        {
-                            result.Add(new PointF(point.GetX(), point.GetY()));
-                        }
-                        else if (Math.Pow(point.GetX() - center.GetX(), 2) + Math.Pow(point.GetY() - center.GetY(), 2) < Math.Pow(rad, 2))
+                        //if (Math.Abs(rad * rad - Math.Pow(point.GetX() - center.GetX(), 2) - Math.Pow(point.GetY() - center.GetY(), 2)) <= e) // попали в окрестность контура окружности можем уточнить половинным делением, потом...
+                        //{
+                        //    result.Add(new PointF(point.GetX(), point.GetY()));
+                        //}
+                        //else 
+                        if (Math.Pow(point.GetX() - center.GetX(), 2) + Math.Pow(point.GetY() - center.GetY(), 2) <= Math.Pow(rad, 2))
                             result.Add(new PointF(point.GetX(), point.GetY()));
                     }
 
