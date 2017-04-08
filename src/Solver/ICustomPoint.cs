@@ -12,5 +12,6 @@ namespace MidSurfaceNameSpace.Solver
     {
         int GetN();
         double GetT();
+        Point GetPoint();
     }
 }

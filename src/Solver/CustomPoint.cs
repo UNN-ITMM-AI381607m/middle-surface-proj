@@ -12,11 +12,19 @@ namespace MidSurfaceNameSpace.Solver
     {
         int N;
         double t;
+        Point point;
 
         public CustomPoint(int N, double t)
         {
             this.N = N;
             this.t = t;
+        }
+
+        public CustomPoint(int N, double t, Point point)
+        {
+            this.N = N;
+            this.t = t;
+            this.point = point;
         }
 
         public int GetN()
@@ -27,6 +35,11 @@ namespace MidSurfaceNameSpace.Solver
         public double GetT()
         {
             return t;
+        }
+
+        public Point GetPoint()
+        {
+            return point;
         }
     }
 }
