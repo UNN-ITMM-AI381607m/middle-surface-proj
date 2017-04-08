@@ -17,6 +17,7 @@ namespace MidSurfaceNameSpace.Solver
         {
             point1 = firstPoint;
             point2 = secondPoint;
+            CalculateNormalVector();
         }
 
         public ICustomPoint GetPoint1()
@@ -39,6 +40,7 @@ namespace MidSurfaceNameSpace.Solver
             double dx = point2.GetPoint().X - point1.GetPoint().X;
             double dy = point2.GetPoint().Y - point1.GetPoint().Y;
             rightNormalVector = new Vector(dy, -dx);
+            rightNormalVector.Normalize();
         }
     }
 }
