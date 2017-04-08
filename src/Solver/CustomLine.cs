@@ -9,30 +9,36 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class CustomLine: ICustomLine
     {
-        ICustomPoint firstpoint;
-        ICustomPoint secondpoint;
-        Vector vector;
+        ICustomPoint point1;
+        ICustomPoint point2;
+        Vector rightNormalVector;
 
-        public CustomLine(ICustomPoint firstpoint, ICustomPoint secondpoint, Vector vector)
+        public CustomLine(ICustomPoint firstPoint, ICustomPoint secondPoint)
         {
-            this.firstpoint = firstpoint;
-            this.secondpoint = secondpoint;
-            this.vector = vector;
+            point1 = firstPoint;
+            point2 = secondPoint;
         }
 
         public ICustomPoint GetPoint1()
         {
-            return firstpoint;
+            return point1;
         }
 
         public ICustomPoint GetPoint2()
         {
-            return secondpoint;
+            return point2;
         }
 
-        public Vector GetNormal()
+        public Vector GetRightNormal()
         {
-            return vector;
+            return rightNormalVector;
+        }
+
+        void CalculateNormalVector()
+        {
+            double dx = point2.GetPoint().X - point1.GetPoint().X;
+            double dy = point2.GetPoint().Y - point1.GetPoint().Y;
+            rightNormalVector = new Vector(dy, -dx);
         }
     }
 }
