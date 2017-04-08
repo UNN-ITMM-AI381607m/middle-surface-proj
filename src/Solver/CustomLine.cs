@@ -17,6 +17,7 @@ namespace MidSurfaceNameSpace.Solver
         {
             point1 = firstPoint;
             point2 = secondPoint;
+            CalculateNormalVector();
         }
 
         public ICustomPoint GetPoint1()
