@@ -8,7 +8,7 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface IMSPointFinder
     {
-        List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints);
-        IPointEx FindBisectorPoint(ICustomPoint custompoint);
+        List<IMSPoint> FindMSPoints(List<ICustomLine> customline);
+        IMSPoint FindBisectorPoint(ICustomLine customline);
     }
 }

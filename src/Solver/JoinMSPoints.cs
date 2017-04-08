@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MidSurfaceNameSpace.Component;
 using MidSurfaceNameSpace;
 using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace  MidSurfaceNameSpace.Solver
 {
@@ -13,23 +14,23 @@ namespace  MidSurfaceNameSpace.Solver
     {
         public JoinMSPoints() { }
 
-        public IMidSurface Join(IMSPointFinder mspointfinder, List<IPointEx> mspoints, double accuracy)
+        public IMidSurface Join(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy)
         {
             IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
-            var points = JoinPoints(mspointfinder, mspoints, accuracy);
+            /*var points = JoinPoints(mspointfinder, mspoints, accuracy);
 
             for (int i = 0; i < points.Count() - 1; i++)
             {
                 midsurface.Add(PointsToSegment(points[i], points[i + 1]));
-            }
+            }*/
             return midsurface;
         }
 
-        private List<IPointF> JoinPoints(IMSPointFinder mspointfinder, List<IPointEx> mspoints, double accuracy)
+        private List<Point> JoinPoints(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy)
         {
-            List<IPointF> result = new List<IPointF>();
+            List<Point> result = new List<Point>();
 
-            for (var i = 0; i < mspoints.Count() - 1; i++)
+            /*for (var i = 0; i < mspoints.Count() - 1; i++)
             {
                 if (mspoints[i].GetDistance(mspoints[i + 1]) <= accuracy)
                 {
@@ -75,13 +76,14 @@ namespace  MidSurfaceNameSpace.Solver
                     var newPoints = mspointfinder.FindMSPoints(currentPointParents);
                     result.AddRange(JoinPoints(mspointfinder, newPoints, accuracy));
                 }
-            }
+            }*/
             return result;
         }
 
-        ISegment PointsToSegment(IPointF begin, IPointF end)
+        ISegment PointsToSegment(Point begin, Point end)
         {
-            return new Segment(new BezierCurve(), new List<IPointF> { begin, end });
+            /*return new Segment(new BezierCurve(), new List<Point> { begin, end });*/
+            return null;
         }
     }
 }

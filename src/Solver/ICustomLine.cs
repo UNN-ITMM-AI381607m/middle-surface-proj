@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
-    public interface ISplitter
+    public interface ICustomLine
     {
-        List<ICustomLine> Split(IEnumerable<ISegment> segments, double accuracy); 
+        ICustomPoint GetPoint1();
+        ICustomPoint GetPoint2();
+        Vector GetNormal();
     }
 }

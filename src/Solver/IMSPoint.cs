@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
-    public interface IPointEx
+    public interface IMSPoint
     {
-        List<ICustomPoint> GetParents();
-        IPointF GetMSPoint();
-        double GetDistance(IPointEx p);
+        ICustomLine GetLine();
+        Point GetPoint();
     }
 }

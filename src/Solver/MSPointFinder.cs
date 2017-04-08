@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
@@ -16,11 +17,11 @@ namespace MidSurfaceNameSpace.Solver
             this.segments = segments;
         }
 
-        public List<IPointEx> FindMSPoints(List<ICustomPoint> custompoints)
+        public List<IMSPoint> FindMSPoints(List<ICustomLine> custompoints)
         {
-            List<IPointEx> mspoints = new List<IPointEx>();
+            List<IMSPoint> mspoints = new List<IMSPoint>();
 
-            List<CustomPoint> linear = new List<CustomPoint>();
+            /*List<CustomPoint> linear = new List<CustomPoint>();
             double Rmax = getRmax();
             for (int i = 0; i < custompoints.Count(); i++)
             {
@@ -76,16 +77,16 @@ namespace MidSurfaceNameSpace.Solver
                 ICustomPoint first_parent = new CustomPoint(linear[i].GetN(), linear[i].GetT(), linear[i].GetAlpha());
                 ICustomPoint second_parent = new CustomPoint(custompoints[j].GetN(), custompoints[j].GetT(), custompoints[j].GetAlpha());
 
-                mspoints.Add(new PointEx(center, first_parent, second_parent));
+                mspoints.Add(new MSPoint(center, first_parent, second_parent));
             }
-            
+            */
             return mspoints;
         }
 
-        List<PointF> cross(IPointF center, double rad, IPointF rivol)
+        List<Point> cross(Point center, double rad, Point rivol)
         {
-            List<PointF> result = new List<PointF>();
-            const double e = 0.1;
+            List<Point> result = new List<Point>();
+            /*const double e = 0.1;
             for (int i = 0; i < segments.Count; i++)
             {
                 for (double t = 0; t <= 1; t += 0.05)
@@ -117,7 +118,7 @@ namespace MidSurfaceNameSpace.Solver
 
                 if (result.Count >= 2)
                     break; // нам достаточно только две точки
-            }
+            }*/
 
             return result;
         }
@@ -127,8 +128,8 @@ namespace MidSurfaceNameSpace.Solver
             double R, Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
             for (int i = 0; i < segments.Count; i++)
             {
-                double X = segments[i].GetCurvePoint(0.0).GetX();
-                double Y = segments[i].GetCurvePoint(0.0).GetY();
+                double X = segments[i].GetCurvePoint(0.0).X;
+                double Y = segments[i].GetCurvePoint(0.0).Y;
                 if (X < Xmin)
                     Xmin = X;
                 else if (X > Xmax)

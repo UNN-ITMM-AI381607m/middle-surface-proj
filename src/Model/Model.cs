@@ -7,9 +7,18 @@ using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.Component
 {
+    struct Size
+    {
+        public double Xmin;
+        public double Xmax;
+        public double Ymin;
+        public double Ymax;
+    }
+
     public class Model: IModel
     {
         List<IFigure> figures;
+        Size size;
 
         public Model()
         {
@@ -19,6 +28,7 @@ namespace MidSurfaceNameSpace.Component
         public void Add(IFigure figure)
         {
             figures.Add(figure);
+            getRmax();
         }
         
         public IEnumerable<IFigure> GetData()
@@ -35,6 +45,30 @@ namespace MidSurfaceNameSpace.Component
                     AllSegments.AddRange(contour.GetSegments());
 
             return AllSegments;
+        }
+
+        void getRmax()
+        {
+            double Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
+            List<ISegment> segments = GetCanvasData().ToList();
+            for (int i = 0; i < segments.Count; i++)
+            {
+                double X = segments[i].GetCurvePoint(0.0).X;
+                double Y = segments[i].GetCurvePoint(0.0).Y;
+                if (X < Xmin)
+                    Xmin = X;
+                else if (X > Xmax)
+                    Xmax = X;
+                if (Y < Ymin)
+                    Ymin = Y;
+                else if (Y > Ymax)
+                    Ymax = Y;
+            }
+
+            size.Xmin = Xmin;
+            size.Xmax = Xmax;
+            size.Ymin = Ymin;
+            size.Ymax = Ymax;
         }
     }
 }

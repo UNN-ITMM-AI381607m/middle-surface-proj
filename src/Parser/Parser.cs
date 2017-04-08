@@ -112,7 +112,7 @@ namespace MidSurfaceNameSpace.IO
 
                     points.Add(contour.JointsOfSegments[i + 1]);
 
-                    convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
+                   // convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
                     points.Clear();
                 }
 
@@ -125,18 +125,18 @@ namespace MidSurfaceNameSpace.IO
 
                 points.Add(contour.JointsOfSegments.First());
 
-                convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
+               // convertContour.Add(new Segment(new BezierCurve(), ConvertPoints(points)));
                 result.Add(convertContour);
             }
             return result;
         }
 
-        private List<PointF> ConvertPoints(List<Point> points)
+        private List<Point> ConvertPoints(List<Point> points)
         {
-            List<PointF> convertedPoints = new List<PointF>();
+            List<Point> convertedPoints = new List<Point>();
             foreach (var point in points)
             {
-                convertedPoints.Add(new PointF(point.X, point.Y));
+                //convertedPoints.Add(new Point(point.X, point.Y));
             }
             return convertedPoints;
         }

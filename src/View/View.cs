@@ -27,7 +27,7 @@ namespace MidSurfaceNameSpace.Component
                 
                 double zoom = data.GetSettings().Scale;
                 double step = 1d/(zoom*100d);
-                IPointF point = new PointF();
+                Point point = new Point();
                 Polyline pl = new Polyline();
                 pl.StrokeThickness = data.GetSettings().Thikness;
                 //TODO: check brushes
@@ -36,15 +36,15 @@ namespace MidSurfaceNameSpace.Component
                 double center_Y = data.GetSettings().Offset_Y;
 
                 point = segment.GetCurvePoint(0);
-                pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.GetX()), center_Y - zoom * (point.GetY())));
+                pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
 
                 for (double t = 0.0d+step; t <= 1.0d; t += step)
                 {
                     point = segment.GetCurvePoint(t);
-                    pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.GetX()), center_Y - zoom * (point.GetY())));
+                    pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
                 }
                 point = segment.GetCurvePoint(1d);
-                pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.GetX()), center_Y - zoom * (point.GetY())));
+                pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
 
                 canvas.Children.Add(pl);
             }

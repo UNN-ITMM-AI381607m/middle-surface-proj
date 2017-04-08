@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Primitive
 {
     public interface ISegment
     {
-        IPointF GetCurvePoint(double t);
-        IEnumerable<IPointF> GetPillar();
+        Point GetCurvePoint(double t);
+        IEnumerable<Point> GetPillar();
     }
 }

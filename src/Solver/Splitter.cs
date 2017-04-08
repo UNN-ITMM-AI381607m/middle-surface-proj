@@ -14,10 +14,10 @@ namespace MidSurfaceNameSpace.Solver
             m_lastPointInaccuracy = lastPointInaccuracy;
         }
 
-        public List<ICustomPoint> Split(IEnumerable<ISegment> segments, double accuracy)
+        public List<ICustomLine> Split(IEnumerable<ISegment> segments, double accuracy)
         {
-            List<ICustomPoint> customPoints = new List<ICustomPoint>();
-            for (int i = 0; i < segments.Count(); i++)
+            List<ICustomLine> customLines = new List<ICustomLine>();
+            /*for (int i = 0; i < segments.Count(); i++)
             {
                 double t = 0;
                 while (t <= 1)
@@ -30,8 +30,8 @@ namespace MidSurfaceNameSpace.Solver
                     customPoints.RemoveAt(customPoints.Count() - 1);
                 }
                 customPoints.Add(new CustomPoint(i, 1));
-            }
-            return customPoints;
+            }*/
+            return customLines;
         }
     }
 }
