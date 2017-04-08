@@ -10,13 +10,13 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class MSPoint:IMSPoint
     {
-        ICustomLine parents;
+        ICustomLine line;
         Point mspoint;
 
-        public MSPoint(Point mspoint, ICustomLine parents)
+        public MSPoint(Point mspoint, ICustomLine line)
         {
             this.mspoint = mspoint;
-            this.parents = parents;
+            this.line = line;
         }
 
         public Point GetPoint()
@@ -26,7 +26,7 @@ namespace MidSurfaceNameSpace.Solver
 
         public ICustomLine GetLine()
         {
-            return parents;
+            return line;
         }
     }
 }

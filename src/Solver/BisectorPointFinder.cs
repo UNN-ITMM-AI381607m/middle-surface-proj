@@ -8,9 +8,8 @@ namespace MidSurfaceNameSpace.Solver
 {
     public partial class MSPointFinder : IMSPointFinder
     {
-        public IMSPoint FindBisectorPoint(ICustomLine custompoint)
+        public IMSPoint FindBisectorPoint(ICustomLine line)
         {
-
             throw new NotImplementedException();
         }
     }
