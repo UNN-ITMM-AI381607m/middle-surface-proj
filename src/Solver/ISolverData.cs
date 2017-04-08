@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
-using MidSurface.Primitive;
+using MidSurfaceNameSpace.Component;
+using MidSurfaceNameSpace.Primitive;
 
-namespace MidSurface.Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public interface ISolverData
     {
-        List<ISegment> GetSegments();
+        List<IContour> GetContours();
     }
 }

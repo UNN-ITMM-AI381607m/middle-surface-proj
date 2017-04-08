@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
-using MidSurface.Primitive;
-using MidSurface;
+using MidSurfaceNameSpace.Component;
+using MidSurfaceNameSpace.Primitive;
+using MidSurfaceNameSpace;
 using System.Windows.Media;
 
-namespace View
+namespace MidSurfaceNameSpace.View
 {
     public struct VisibleDataSettings
     {

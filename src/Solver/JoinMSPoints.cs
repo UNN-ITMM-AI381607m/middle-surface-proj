@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
-using MidSurface;
-using MidSurface.Primitive;
+using MidSurfaceNameSpace.Component;
+using MidSurfaceNameSpace;
+using MidSurfaceNameSpace.Primitive;
 
-namespace Solver
+namespace  MidSurfaceNameSpace.Solver
 {
     public class JoinMSPoints : IJoinMSPoints
     {
@@ -15,7 +15,7 @@ namespace Solver
 
         public IMidSurface Join(IMSPointFinder mspointfinder, List<IPointEx> mspoints, double accuracy)
         {
-            IMidSurface midsurface = new MidSurface.MidSurface();
+            IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
             var points = JoinPoints(mspointfinder, mspoints, accuracy);
 
             for (int i = 0; i < points.Count() - 1; i++)

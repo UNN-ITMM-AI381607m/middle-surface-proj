@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
+using MidSurfaceNameSpace.Component;
 
-namespace MidSurface.Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public class Solver: ISolver
     {

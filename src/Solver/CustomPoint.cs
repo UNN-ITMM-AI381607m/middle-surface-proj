@@ -3,20 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MidSurfaceNameSpace.Primitive;
 
-namespace Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public class CustomPoint: ICustomPoint
     {
         int N;
         double t;
         double alpha;
+        IPointF normalPoint;
 
         public CustomPoint(int N, double t, double alpha=0)
         {
             this.N = N;
             this.t = t;
             this.alpha = alpha;
+        }
+
+        public CustomPoint(int N, double t)
+        {
+            this.N = N;
+            this.t = t;
+        }
+
+        public CustomPoint(int N, double t, double alpha, IPointF normalPoint)
+        {
+            this.N = N;
+            this.t = t;
+            this.alpha = alpha;
+            this.normalPoint = normalPoint;
         }
 
         public int GetN()
@@ -32,6 +48,11 @@ namespace Solver
         public double GetAlpha()
         {
             return alpha;
+        }
+
+        public IPointF GetNormal()
+        {
+            return normalPoint;
         }
     }
 }

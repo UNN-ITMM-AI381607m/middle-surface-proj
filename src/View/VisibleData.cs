@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface;
-using MidSurface.Component;
-using MidSurface.Primitive;
+using MidSurfaceNameSpace;
+using MidSurfaceNameSpace.Component;
+using MidSurfaceNameSpace.Primitive;
 using System.Windows.Media;
-namespace View
+namespace MidSurfaceNameSpace.View
 {
     public class VisibleData:IVisibleData
     {

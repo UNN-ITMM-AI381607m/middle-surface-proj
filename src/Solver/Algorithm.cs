@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Component;
-using Solver;
+using MidSurfaceNameSpace.Component;
 
-namespace MidSurface.Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public class Algorithm : IAlgorithm
     {
@@ -14,10 +13,10 @@ namespace MidSurface.Solver
         {
             IMidSurface midsurface = new MidSurface();
             ISplitter splitter = new Splitter();
-            IMSPointFinder mspointfinder = new MSPointFinder(solverdata.GetSegments());
+            IMSPointFinder mspointfinder = new MSPointFinder(/*solverdata.GetSegments()*/null);
             IJoinMSPoints jointpoints = new JoinMSPoints();
 
-            return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(solverdata.GetSegments(), 0.1)), 5.0);
+            return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(/*solverdata.GetSegments()*/null, 0.1)), 5.0);
         }
     }
 }

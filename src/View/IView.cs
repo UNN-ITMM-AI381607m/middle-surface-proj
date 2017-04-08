@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using View;
+using MidSurfaceNameSpace.View;
 
-namespace MidSurface.Component
+namespace MidSurfaceNameSpace.Component
 {
     public interface IView
     {

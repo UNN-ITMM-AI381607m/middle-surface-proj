@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Primitive;
-using MidSurface.Component;
+using MidSurfaceNameSpace.Primitive;
+using MidSurfaceNameSpace.Component;
 
-namespace MidSurface.Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public class SolverData: ISolverData
     {
-        List<ISegment> segments;
+        List<IContour> contours;
 
         public SolverData(IModel model)
         {
-            segments = model.GetCanvasData().ToList<ISegment>();
+            contours = new List<IContour>();
+            List<IFigure> figures = new List<IFigure>();
+            foreach (var figure in figures)
+            {
+                contours.AddRange(figure.GetContours());
+            }
         }
 
-        public List<ISegment> GetSegments()
+        public List<IContour> GetContours()
         {
-            return segments;
+            return contours;
         }
     }
 }

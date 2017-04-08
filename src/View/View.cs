@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Primitive;
-using View;
+using MidSurfaceNameSpace.Primitive;
+using MidSurfaceNameSpace.View;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace MidSurface.Component
+namespace MidSurfaceNameSpace.Component
 {
     public class View: IView
     {

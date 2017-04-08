@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Primitive;
+using MidSurfaceNameSpace.Primitive;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 
-namespace MidSurface.IO
+namespace MidSurfaceNameSpace.IO
 {
     public interface IParser
     {

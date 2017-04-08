@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurface.Primitive;
+using MidSurfaceNameSpace.Primitive;
 
-namespace MidSurface.Component
+namespace MidSurfaceNameSpace.Component
 {
     public class Model: IModel
     {

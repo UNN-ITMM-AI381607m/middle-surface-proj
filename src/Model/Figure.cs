@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MidSurface.Primitive
+namespace MidSurfaceNameSpace.Primitive
 {
     public class Figure: IFigure
     {

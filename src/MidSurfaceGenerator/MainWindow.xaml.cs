@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using MidSurface.IO;
+using MidSurfaceNameSpace.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +14,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MidSurface.Solver;
+using MidSurfaceNameSpace.Solver;
 
-namespace MidSurfaceGenerator
+namespace MidSurfaceNameSpace.MidSurfaceGenerator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MidSurface.Component.IModel model;
-        private MidSurface.IMidSurface mid_surface_model;
-        private MidSurface.Component.IView view;
+        private MidSurfaceNameSpace.Component.IModel model;
+        private MidSurfaceNameSpace.IMidSurface mid_surface_model;
+        private MidSurfaceNameSpace.Component.IView view;
         System.Windows.Point origin, mouse_point;
 
         public MainWindow()
         {
             InitializeComponent();
-            view = new MidSurface.Component.View(mainCanvas);
+            view = new MidSurfaceNameSpace.Component.View(mainCanvas);
  
         }
 
@@ -49,7 +49,7 @@ namespace MidSurfaceGenerator
             {
                 try
                 {                   
-                    MidSurface.Component.Model model_temp = new MidSurface.Component.Model();
+                    MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
                     model_temp.Add(new Parser().ImportFile(importDlg.FileName));
                     //TODO: some trick, maybe not good solution
                     model = model_temp;
@@ -73,7 +73,7 @@ namespace MidSurfaceGenerator
         {
             //TODO: prepare generating implementation
             currentStatus.Content = "Generating...";
-            MidSurface.Solver.IAlgorithm alg = new MidSurface.Solver.Algorithm();
+            MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
             mid_surface_model = alg.Run(new SolverData(model));
             RedrawMisSurface();
             currentStatus.Content = "Ready for work";
