@@ -60,7 +60,7 @@ namespace MidSurfaceNameSpace.Solver
                     }
                     else
                     {  //TO DO: add bisector implementation
-                       //var bisector = mspointfinder.FindBisectorPoint(currentLine, nextLine);
+                       //var bisectorPoint = mspointfinder.FindBisectorPoint(currentLine, nextLine);
 
                         var line1 = new CustomLine
                             (
