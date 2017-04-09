@@ -24,8 +24,7 @@ namespace MidSurfaceNameSpace.UnitTests
 
             var midsurface = new JoinMSPoints().Join(null, points, 5);
             // 4 points = 4 segments of contour
-            Assert.AreEqual(4, midsurface.GetData().Count());
-            
+            Assert.AreEqual(4, midsurface.GetData().Count());       
         }
 
         [TestMethod]

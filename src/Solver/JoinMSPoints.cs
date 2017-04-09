@@ -81,11 +81,12 @@ namespace MidSurfaceNameSpace.Solver
                     }
 
                     var newPoints = mspointfinder.FindMSPoints(lines);
-                    for (int k = 0; k < newPoints.Count(); k++)
+                    var newPointsSize = newPoints.Count();
+                    for (int k = 0; k < newPointsSize; k++)
                     {
                         mspoints.Insert(i + 1 + k, newPoints[k]);
                     }
-                    i--;
+                    if(newPointsSize > 0) i--;
                 }
             }
             return result;
