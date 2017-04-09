@@ -17,8 +17,8 @@ namespace MidSurfaceNameSpace.Solver
         public IMidSurface Join(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy)
         {
             IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
+    
             var points = JoinPoints(mspointfinder, mspoints, accuracy);
-
             for (int i = 0; i < points.Count(); i++)
             {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
@@ -26,6 +26,7 @@ namespace MidSurfaceNameSpace.Solver
             }
             return midsurface;
         }
+        
 
         private List<Point> JoinPoints(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy)
         {
@@ -44,9 +45,10 @@ namespace MidSurfaceNameSpace.Solver
                     var nextLine = mspoints[j].GetLine();
 
                     List<ICustomLine> lines = new List<ICustomLine>();
+
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
-                        currentLine = new CustomLine
+                        var line = new CustomLine
                             (
                                 new CustomPoint(currentLine.GetPoint1().GetN(),
                                                 Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2 ),
@@ -54,40 +56,44 @@ namespace MidSurfaceNameSpace.Solver
                                                 Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
                             );
 
-                        lines.Add(currentLine);
+                        lines.Add(line);
                     }
                     else
                     {  //TO DO: add bisector implementation
                        //var bisector = mspointfinder.FindBisectorPoint(currentLine, nextLine);
 
-                        currentLine = new CustomLine
+                        var line1 = new CustomLine
                             (
                                 new CustomPoint(currentLine.GetPoint1().GetN(),
                                                 Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2),
                                 currentLine.GetPoint2()
                             );
 
-                         nextLine = new CustomLine
+                         var line2 = new CustomLine
                             (
                                 nextLine.GetPoint1(),
                                 new CustomPoint(nextLine.GetPoint1().GetN(),
                                                 Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
                             );
            
-                        lines.Add(currentLine);
-                        lines.Add(nextLine);
+                        lines.Add(line1);
+                        lines.Add(line2);
                     }
 
                     var newPoints = mspointfinder.FindMSPoints(lines);
-                    result.AddRange(JoinPoints(mspointfinder, newPoints, accuracy));
+                    for (int k = 0; k < newPoints.Count(); k++)
+                    {
+                        mspoints.Insert(i + 1 + k, newPoints[k]);
+                    }
+                    i--;
                 }
             }
             return result;
         }
 
-        ISegment PointsToSegment(Point begin, Point end)
+        private ISegment PointsToSegment(Point begin, Point end)
         {
             return new Segment(new BezierCurve(), new List<Point> { begin, end });
-        }
+        } 
     }
 }

@@ -30,7 +30,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         public MainWindow()
         {
             InitializeComponent();
-            view = new MidSurfaceNameSpace.Component.View(mainCanvas);
+            view = new MidSurfaceNameSpace.Component.View(
+                mainCanvas);
  
         }
 
