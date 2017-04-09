@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Linq;
 
-namespace UnitTests
+namespace MidSurfaceNameSpace.UnitTests
 {
     [TestClass]
     public class ViewTest
@@ -18,21 +18,23 @@ namespace UnitTests
             MidSurfaceNameSpace.Primitive.Figure figure = new MidSurfaceNameSpace.Primitive.Figure();
             MidSurfaceNameSpace.Primitive.Contour countour = new MidSurfaceNameSpace.Primitive.Contour();
             MidSurfaceNameSpace.Primitive.BezierCurve curve = new MidSurfaceNameSpace.Primitive.BezierCurve();
-            System.Collections.Generic.List<Point> pillars = new System.Collections.Generic.List< Point > ();
+            System.Collections.Generic.List<System.Windows.Point> pillars = new System.Collections.Generic.List<System.Windows.Point>
+            {
+                new System.Windows.Point(0, 0),
+                new System.Windows.Point(10, 0),
+                new System.Windows.Point(10, 10),
+                new System.Windows.Point(0, 10)
+            };
 
-            pillars.Add(new Point(0, 0));
-            pillars.Add(new Point(10, 0));
-            pillars.Add(new Point(10,10));
-            pillars.Add(new Point(0, 10));
             MidSurfaceNameSpace.Primitive.Segment segment1 = new MidSurfaceNameSpace.Primitive.Segment(curve, pillars);
             countour.Add(segment1);
 
             pillars.Clear();
 
-            pillars.Add(new Point(0, 0));
-            pillars.Add(new Point(-20, 0));
-            pillars.Add(new Point(-20, 20));
-            pillars.Add(new Point(0, 10));
+            pillars.Add(new System.Windows.Point(0, 0));
+            pillars.Add(new System.Windows.Point(-20, 0));
+            pillars.Add(new System.Windows.Point(-20, 20));
+            pillars.Add(new System.Windows.Point(0, 10));
             MidSurfaceNameSpace.Primitive.Segment segment2 = new MidSurfaceNameSpace.Primitive.Segment(curve, pillars);
             countour.Add(segment2);
 
