@@ -12,10 +12,7 @@ namespace MidSurfaceNameSpace.View
 {
     public struct VisibleDataSettings
     {
-        public double Offset_X { get; set; }
-        public double Offset_Y { get; set; }
         public double Thikness { get; set; }
-        public double Scale { get; set; }
         public Brush Brush { get; set; }
     }
 
@@ -23,6 +20,7 @@ namespace MidSurfaceNameSpace.View
         {
             IEnumerable<ISegment> GetSegments();
             VisibleDataSettings  GetSettings();
+            double GetMaxLinearSize();
         }
 
 }

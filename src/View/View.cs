@@ -22,33 +22,34 @@ namespace MidSurfaceNameSpace.Component
 
         public void Paint(IVisibleData data)
         {
+            double zoom = Math.Max(canvas.ActualWidth, canvas.ActualHeight)/data.GetMaxLinearSize();
+            //TODO: Dinar: check step when parser will be updated
+            double step = 1d / (Math.Round(zoom) * 100d);
+            double center_X = canvas.ActualHeight/2;
+            double center_Y = canvas.ActualWidth/2;
+
             foreach (ISegment segment in data.GetSegments())
-            {
-                
-                double zoom = data.GetSettings().Scale;
-                double step = 1d/(zoom*100d);
+            {           
                 Point point = new Point();
                 Polyline pl = new Polyline();
+                
                 pl.StrokeThickness = data.GetSettings().Thikness;
-                //TODO: check brushes
                 pl.Stroke = data.GetSettings().Brush;
-                double center_X = data.GetSettings().Offset_X;
-                double center_Y = data.GetSettings().Offset_Y;
-
+                                
                 point = segment.GetCurvePoint(0);
                 pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
 
-                for (double t = 0.0d+step; t <= 1.0d; t += step)
+                for (double t = 0.0d+step; t < 1.0d; t += step)
                 {
                     point = segment.GetCurvePoint(t);
                     pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
                 }
+
                 point = segment.GetCurvePoint(1d);
                 pl.Points.Add(new System.Windows.Point(center_X + zoom * (point.X), center_Y - zoom * (point.Y)));
 
                 canvas.Children.Add(pl);
             }
-               //DrawSegment(segment);
         }
     }
 }

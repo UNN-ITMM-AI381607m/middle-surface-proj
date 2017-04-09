@@ -26,7 +26,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private MidSurfaceNameSpace.Component.IModel model;
         private MidSurfaceNameSpace.IMidSurface mid_surface_model;
         private MidSurfaceNameSpace.Component.IView view;
-        System.Windows.Point origin, mouse_point;
 
         public MainWindow()
         {
@@ -37,7 +36,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: think about changing statuses and implementation
+            //TODO: Dinar: think about changing statuses and implementation
             currentStatus.Content = "Imporing model...";
 
             OpenFileDialog importDlg = new OpenFileDialog();
@@ -51,13 +50,13 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 {                   
                     MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
                     model_temp.Add(new Parser().ImportFile(importDlg.FileName));
-                    //TODO: some trick, maybe not good solution
+                    //TODO: Dinar: some trick, maybe not good solution
                     model = model_temp;
                     RedrawModel();
                 }
                 catch (Exception ex)
                 {
-                    //TODO : replace 
+                    //TODO: Dinar: replace 
                     MessageBox.Show("Error: Could not read file from disk, cause is: " + ex.Message);
                 }
             }
@@ -65,13 +64,13 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         }
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: prepare window with setting. Place for settings! 
+            //TODO: Dinar: prepare window with setting. Place for settings! 
 
         }
 
         private void Generate(object sender, RoutedEventArgs e)
         {
-            //TODO: prepare generating implementation
+            //TODO: Dinar: prepare generating implementation
             currentStatus.Content = "Generating...";
             MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
             mid_surface_model = alg.Run(new SolverData(model));
@@ -82,14 +81,10 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void RedrawModel()
         {
             if (model == null) return;
-            origin = new System.Windows.Point(0, mainCanvas.ActualHeight - menu.ActualHeight);
-            //TODO: continue connecting parameters
+            //TODO: Dinar: continue connecting parameters
             mainCanvas.Children.Clear();
             View.VisibleDataSettings settings= new View.VisibleDataSettings();
-            settings.Scale = Int32.Parse(textBox_Scale.Text);
             settings.Brush = Brushes.Black;
-            settings.Offset_X = origin.X; 
-            settings.Offset_Y = origin.Y;
             settings.Thikness = 2;
             View.VisibleData visible_data = new View.VisibleData(model,settings);
             view.Paint(visible_data);
@@ -97,52 +92,12 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void RedrawMisSurface()
         {
             if (mid_surface_model == null) return;
-            origin = new System.Windows.Point(0, mainCanvas.ActualHeight - menu.ActualHeight);
-            //TODO: continue connecting parameters
+            //TODO: Dinar: continue connecting parameters
             View.VisibleDataSettings settings = new View.VisibleDataSettings();
-            settings.Scale = Int32.Parse(textBox_Scale.Text);
             settings.Brush = Brushes.Red;
-            settings.Offset_X = origin.X;
-            settings.Offset_Y = origin.Y;
             settings.Thikness = 1;
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
-
-        }
-
-        private void textBox_Scale_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            RedrawModel();
-            RedrawMisSurface();
-        }
-
-        private void ChangeOriginOfCanvas(object sender, MouseButtonEventArgs e)
-        {
-            foreach (UIElement el in mainCanvas.Children)
-            {
-                el.SetValue(Canvas.LeftProperty, e.GetPosition(null).X);
-                el.SetValue(Canvas.TopProperty, e.GetPosition(null).Y-mainCanvas.ActualHeight);
-            }
-            mainCanvas.UpdateLayout();
-        }
-
-        private void mainCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Control c = sender as Control;
-            Mouse.Capture(c);
-            mouse_point = e.GetPosition(null);
-        }
-
-        private void mainCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            origin.X += (e.GetPosition(null).X - mouse_point.X);
-            origin.Y += (e.GetPosition(null).Y - mouse_point.Y);
-            foreach (UIElement el in mainCanvas.Children)
-            {
-                el.SetValue(Canvas.LeftProperty, origin.X);
-                el.SetValue(Canvas.TopProperty, origin.Y-mainCanvas.ActualHeight);
-            }
-            mainCanvas.UpdateLayout();
         }
     }
 }
