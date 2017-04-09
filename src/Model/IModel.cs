@@ -11,5 +11,6 @@ namespace MidSurfaceNameSpace.Component
     {
         IEnumerable<IFigure> GetData();
         IEnumerable<ISegment> GetCanvasData();
+        Size GetSize();
     }
 }

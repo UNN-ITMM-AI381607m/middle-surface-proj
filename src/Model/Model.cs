@@ -7,7 +7,7 @@ using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.Component
 {
-    struct Size
+    public struct Size
     {
         public double Xmin;
         public double Xmax;
@@ -47,9 +47,14 @@ namespace MidSurfaceNameSpace.Component
             return AllSegments;
         }
 
+        public Size GetSize()
+        {
+            return size;
+        }
+
         void getRmax()
         {
-            double Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
+            double Xmax = double.MinValue, Xmin = double.MaxValue, Ymax = double.MinValue, Ymin = double.MaxValue;
             List<ISegment> segments = GetCanvasData().ToList();
             for (int i = 0; i < segments.Count; i++)
             {
