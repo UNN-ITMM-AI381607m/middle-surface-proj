@@ -16,6 +16,7 @@ namespace MidSurfaceNameSpace.Solver
         {
             contours = new List<IContour>();
             List<IFigure> figures = new List<IFigure>();
+            figures = model.GetData().ToList();
             foreach (var figure in figures)
             {
                 contours.AddRange(figure.GetContours());
