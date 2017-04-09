@@ -16,7 +16,7 @@ namespace MidSurfaceNameSpace.Solver
             IMSPointFinder mspointfinder = new MSPointFinder(/*solverdata.GetSegments()*/null);
             IJoinMSPoints jointpoints = new JoinMSPoints();
 
-            return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(/*solverdata.GetSegments()*/null, 0.1)), 5.0);
+            return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(solverdata.GetContours(), 0.1)), 5.0);
         }
     }
 }

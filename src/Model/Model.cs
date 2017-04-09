@@ -28,7 +28,7 @@ namespace MidSurfaceNameSpace.Component
         public void Add(IFigure figure)
         {
             figures.Add(figure);
-            getRmax();
+            CountSize();
         }
         
         public IEnumerable<IFigure> GetData()
@@ -52,7 +52,7 @@ namespace MidSurfaceNameSpace.Component
             return size;
         }
 
-        void getRmax()
+        void CountSize()
         {
             double Xmax = double.MinValue, Xmin = double.MaxValue, Ymax = double.MinValue, Ymin = double.MaxValue;
             List<ISegment> segments = GetCanvasData().ToList();

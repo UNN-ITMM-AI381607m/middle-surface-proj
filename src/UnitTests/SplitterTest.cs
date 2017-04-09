@@ -11,12 +11,15 @@ namespace MidSurfaceNameSpace.UnitTests
     [TestClass]
     public class SplitterTest
     {
-        List<ISegment> segments;
+        List<IContour> contours;
         Splitter splitter;
 
         public SplitterTest()
         {
-            segments = new List<ISegment>
+            contours = new List<IContour>();
+            Primitive.Contour contour = new Primitive.Contour();
+            
+            List<ISegment> segments = new List<ISegment>
             {
                 new Segment(new BezierCurve(), new List<System.Windows.Point>
                 {
@@ -34,13 +37,20 @@ namespace MidSurfaceNameSpace.UnitTests
                     new System.Windows.Point(0, 0)
                 })
             };
+
+            foreach (var segment in segments)
+            {
+                contour.Add(segment);
+            }
+            contours.Add(contour);
+            
             splitter = new Splitter();
         }
 
         [TestMethod]
         public void TestSplitMethodReturnsNotNull()
         {
-            List<ICustomLine> lines = splitter.Split(segments, 0.17);
+            List<ICustomLine> lines = splitter.Split(contours, 0.17);
 
             Assert.AreNotEqual(0, lines.Count);
         }
@@ -48,8 +58,12 @@ namespace MidSurfaceNameSpace.UnitTests
         [TestMethod]
         public void TestSplitLinesContainJointsOfSegments()
         {
-            List<ICustomLine> lines = splitter.Split(segments, 0.17);
-            List<System.Windows.Point> joints = GetJoints(segments);
+            List<ICustomLine> lines = splitter.Split(contours, 0.17);
+            List<System.Windows.Point> joints = new List<System.Windows.Point>();
+            foreach (var contour in contours)
+            {
+                joints.AddRange(GetJoints(contour.GetSegments()));
+            }
             List<System.Windows.Point> jointLines = GetJoints(lines);
             foreach (var point in jointLines)
             {
@@ -59,7 +73,7 @@ namespace MidSurfaceNameSpace.UnitTests
             Assert.AreEqual(0, joints.Count);
         }
 
-        List<System.Windows.Point> GetJoints(List<ISegment> segments)
+        List<System.Windows.Point> GetJoints(IEnumerable<ISegment> segments)
         {
             List<System.Windows.Point> joints = new List<System.Windows.Point>();
             foreach (var segment in segments)
@@ -69,7 +83,7 @@ namespace MidSurfaceNameSpace.UnitTests
             return joints;
         }
 
-        List<System.Windows.Point> GetJoints(List<ICustomLine> lines)
+        List<System.Windows.Point> GetJoints(IEnumerable<ICustomLine> lines)
         {
             List<System.Windows.Point> joints = new List<System.Windows.Point>();
             foreach (var line in lines)

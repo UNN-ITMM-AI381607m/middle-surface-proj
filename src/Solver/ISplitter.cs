@@ -9,6 +9,6 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface ISplitter
     {
-        List<ICustomLine> Split(IEnumerable<ISegment> segments, double accuracy); 
+        List<ICustomLine> Split(IEnumerable<IContour> contours, double accuracy); 
     }
 }
