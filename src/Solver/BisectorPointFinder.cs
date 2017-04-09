@@ -10,6 +10,7 @@ namespace MidSurfaceNameSpace.Solver
     {
         public IMSPoint FindBisectorPoint(ICustomLine line1, ICustomLine line2)
         {
+            var bisector = line1.GetRightNormal() + line2.GetRightNormal();
             throw new NotImplementedException();
         }
     }

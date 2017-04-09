@@ -64,6 +64,7 @@
     <Compile Include="ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplitterTest.cs" />
+    <Compile Include="JoinMsPointsTest.cs" />
     <Compile Include="ViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

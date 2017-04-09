@@ -8,7 +8,7 @@ using MidSurfaceNameSpace;
 using MidSurfaceNameSpace.Primitive;
 using System.Windows;
 
-namespace  MidSurfaceNameSpace.Solver
+namespace MidSurfaceNameSpace.Solver
 {
     public class JoinMSPoints : IJoinMSPoints
     {
@@ -32,7 +32,7 @@ namespace  MidSurfaceNameSpace.Solver
 
             for (var i = 0; i < mspoints.Count() - 1; i++)
             {
-                if ((mspoints[i + 1].GetPoint() - mspoints[i].GetPoint()).LengthSquared <= accuracy)
+                if ((mspoints[i + 1].GetPoint() - mspoints[i].GetPoint()).Length <= accuracy)
                 {
                     result.Add(mspoints[i].GetPoint());
                 }
@@ -56,11 +56,7 @@ namespace  MidSurfaceNameSpace.Solver
                     }
                     else
                     {  //TO DO: add bisector implementation
-                        //var bisectorPoint = new CustomPoint(currentPointParents[1].GetN(),
-                        //                        currentPointParents[1].GetT(),
-                        //                        currentPointParents[0].GetAlpha() + nextPointParents[1].GetAlpha());
-
-                        //result.Add(mspointfinder.FindBisectorPoint(bisectorPoint).GetMSPoint());
+                       //var bisector = mspointfinder.FindBisectorPoint(currentLine, nextLine);
 
                         currentLine = new CustomLine
                             (
@@ -84,6 +80,7 @@ namespace  MidSurfaceNameSpace.Solver
                     result.AddRange(JoinPoints(mspointfinder, newPoints, accuracy));
                 }
             }
+            result.Add(mspoints.Last().GetPoint());
             return result;
         }
 
