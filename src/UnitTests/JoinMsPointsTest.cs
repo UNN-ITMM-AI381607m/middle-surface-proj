@@ -17,36 +17,20 @@ namespace MidSurfaceNameSpace.UnitTests
         {
             List<IMSPoint> points = new List<IMSPoint>();
 
-            for(double i = 0.5; i < 4.5; i += 0.5)
-            {
-                points.Add(new MSPoint(new System.Windows.Point(i, 1), null));
-            }
-
-            Assert.AreEqual(8, points.Count());
+            points.Add(new MSPoint(new System.Windows.Point(0, 0), null));
+            points.Add(new MSPoint(new System.Windows.Point(0, 2), null));
+            points.Add(new MSPoint(new System.Windows.Point(2, 2), null));
+            points.Add(new MSPoint(new System.Windows.Point(2, 0), null));
 
             var midsurface = new JoinMSPoints().Join(null, points, 5);
-
-            // 8 points = 7 segments
-            Assert.AreEqual(7, midsurface.GetData().Count());
+            // 4 points = 4 segments of contour
+            Assert.AreEqual(4, midsurface.GetData().Count());
             
         }
 
         [TestMethod]
         public void TestJoinMSPointsNotSuitableForAccuracy()
         {
-            //List<IMSPoint> points = new List<IMSPoint>();
-
-            //for (double i = 0.5; i < 4.5; i += 0.5)
-            //{
-            //    points.Add(new MSPoint(new System.Windows.Point(i, 1), null));
-            //}
-
-            //Assert.AreEqual(8, points.Count());
-
-            //var midsurface = new JoinMSPoints().Join(null, points, 1);
-
-            //// 8 points = 7 segments
-            //Assert.AreEqual(7, midsurface.GetData().Count());
             Assert.AreEqual(0, 0);
         }
     }

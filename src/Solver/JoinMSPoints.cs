@@ -19,9 +19,10 @@ namespace MidSurfaceNameSpace.Solver
             IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
             var points = JoinPoints(mspointfinder, mspoints, accuracy);
 
-            for (int i = 0; i < points.Count() - 1; i++)
+            for (int i = 0; i < points.Count(); i++)
             {
-                midsurface.Add(PointsToSegment(points[i], points[i + 1]));
+                int j = i == mspoints.Count() - 1 ? 0 : i + 1;
+                midsurface.Add(PointsToSegment(points[i], points[j]));
             }
             return midsurface;
         }
@@ -30,16 +31,17 @@ namespace MidSurfaceNameSpace.Solver
         {
             List<Point> result = new List<Point>();
 
-            for (var i = 0; i < mspoints.Count() - 1; i++)
+            for (var i = 0; i < mspoints.Count(); i++)
             {
-                if ((mspoints[i + 1].GetPoint() - mspoints[i].GetPoint()).Length <= accuracy)
+                int j = i == mspoints.Count() - 1 ? 0 : i + 1;
+                if ((mspoints[j].GetPoint() - mspoints[i].GetPoint()).Length <= accuracy)
                 {
                     result.Add(mspoints[i].GetPoint());
                 }
                 else
                 {
                     var currentLine = mspoints[i].GetLine();
-                    var nextLine = mspoints[i + 1].GetLine();
+                    var nextLine = mspoints[j].GetLine();
 
                     List<ICustomLine> lines = new List<ICustomLine>();
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
@@ -80,7 +82,6 @@ namespace MidSurfaceNameSpace.Solver
                     result.AddRange(JoinPoints(mspointfinder, newPoints, accuracy));
                 }
             }
-            result.Add(mspoints.Last().GetPoint());
             return result;
         }
 
