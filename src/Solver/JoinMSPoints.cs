@@ -39,6 +39,7 @@ namespace MidSurfaceNameSpace.Solver
             for (var i = 0; i < mspoints.Count(); i++)
             {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
+
                 if ((mspoints[j].GetPoint() - mspoints[i].GetPoint()).Length <= accuracy)
                 {
                     result.Add(mspoints[i].GetPoint());
@@ -54,36 +55,34 @@ namespace MidSurfaceNameSpace.Solver
 
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
+                        var t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
+                        var t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
+
                         currentLine = new CustomLine
                             (
                                 new CustomPoint(currentLine.GetPoint1().GetN(),
-                                                Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2,
-                                                segments[currentLine.GetPoint1().GetN()].GetCurvePoint(currentLine.GetPoint1().GetT())),
-                                                
+                                                t1,
+                                                segments[currentLine.GetPoint1().GetN()].GetCurvePoint(t1)),
+
                                 new CustomPoint(nextLine.GetPoint1().GetN(),
-                                                Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2,
-                                                segments[nextLine.GetPoint1().GetN()].GetCurvePoint(nextLine.GetPoint1().GetT()))
+                                                t2,
+                                                segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
                             );
 
-                        lines.Add(currentLine);
-
-                        var newPoints = mspointfinder.FindMSPoints(lines);
+                        var newPoints = mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
                         newPointsSize = newPoints.Count();
-                        for (int k = 0; k < newPointsSize; k++)
-                        {
-                            mspoints.Insert(i + 1 + k, newPoints[k]);
-                        }
+                        mspoints.Insert(i + 1, newPoints[0]);
                     }
                     else
                     {
                         var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
                         bisector.Normalize();
                         var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), nextLine);
-                        newPointsSize = 1;
+                        if (msPoint != null) newPointsSize = 1;
                         mspoints.Insert(i + 1, msPoint);
                     }
 
-                    if(newPointsSize > 0) i--;
+                    if (newPointsSize > 0) i--;
                 }
             }
             return result;
