@@ -11,11 +11,13 @@ namespace MidSurfaceNameSpace.Solver
     public partial class MSPointFinder : IMSPointFinder
     {
         List<ICustomLine> custompoints;
+        List<ISegment> segments;
         double Rmax;
 
-        public MSPointFinder()
+        public MSPointFinder(List<ISegment> segments)
         {
-            //this.Rmax = getRmax();
+            this.segments = segments;
+            this.Rmax = getRmax();
         }
 
         public List<IMSPoint> FindMSPoints(List<ICustomLine> custompoints)
@@ -38,12 +40,12 @@ namespace MidSurfaceNameSpace.Solver
 
         public IMSPoint GetMSPoint(Vector vector, Point point, ICustomLine line)
         {
-            double Rmax = getRmax();
+            double Rmax = this.Rmax;
             double Rmin = 0;
             double R = Rmax;
             Point center = new Point(point.X + vector.X * R, point.Y + vector.Y * R);
             List<Point> pCross = cross(center, R, new Point(point.X, point.Y));
-            while (pCross.Count != 1 || Rmax != Rmin)
+            while (pCross.Count != 1 && Rmax != Rmin)
             {
                 if (pCross.Count >= 2)
                 {
@@ -61,7 +63,7 @@ namespace MidSurfaceNameSpace.Solver
                 pCross = cross(center, R, point);
             }
 
-            return new MSPoint(point, line);
+            return new MSPoint(center, line);
         }
 
         List<Point> cross(Point center, double rad, Point rivol)
@@ -136,10 +138,10 @@ namespace MidSurfaceNameSpace.Solver
         double getRmax()
         {
             double R, Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
-            for (int i = 0; i < this.custompoints.Count; i++)
+            for (int i = 0; i < this.segments.Count; i++)
             {
-                double X = this.custompoints[i].GetPoint1().GetPoint().X;
-                double Y = this.custompoints[i].GetPoint1().GetPoint().Y;
+                double X = this.segments[i].GetCurvePoint(0.0).X;
+                double Y = this.segments[i].GetCurvePoint(0.0).Y;
                 if (X < Xmin)
                     Xmin = X;
                 else if (X > Xmax)
