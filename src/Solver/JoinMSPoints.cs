@@ -52,15 +52,16 @@ namespace MidSurfaceNameSpace.Solver
 
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
-                        var line = new CustomLine
+                        currentLine = new CustomLine
                             (
                                 new CustomPoint(currentLine.GetPoint1().GetN(),
                                                 Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2 ),
+                                                
                                 new CustomPoint(nextLine.GetPoint1().GetN(),
                                                 Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
                             );
 
-                        lines.Add(line);
+                        lines.Add(currentLine);
 
                         var newPoints = mspointfinder.FindMSPoints(lines);
                         newPointsSize = newPoints.Count();
@@ -76,23 +77,6 @@ namespace MidSurfaceNameSpace.Solver
                         var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), nextLine);
                         newPointsSize = 1;
                         mspoints.Insert(i + 1, msPoint);
-
-                        //var line1 = new CustomLine
-                        //    (
-                        //        new CustomPoint(currentLine.GetPoint1().GetN(),
-                        //                        Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2),
-                        //        currentLine.GetPoint2()
-                        //    );
-
-                        // var line2 = new CustomLine
-                        //    (
-                        //        nextLine.GetPoint1(),            
-                        //        new CustomPoint(nextLine.GetPoint1().GetN(),
-                        //                        Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
-                        //    );
-
-                        //lines.Add(line1);
-                        //lines.Add(line2);
                     }
 
                     if(newPointsSize > 0) i--;
