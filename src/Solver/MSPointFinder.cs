@@ -31,8 +31,9 @@ namespace MidSurfaceNameSpace.Solver
                 ICustomPoint point2 = custompoints[i].GetPoint2();
                 double X = (point2.GetPoint().X + point1.GetPoint().X) / 2;
                 double Y = (point2.GetPoint().Y + point1.GetPoint().Y) / 2;
-                
-                mspoints.Add(GetMSPoint(custompoints[i].GetRightNormal(), new Point(X, Y), custompoints[i]));
+
+                Vector normal = custompoints[i].GetRightNormal();
+                    mspoints.Add(GetMSPoint(normal, new Point(X, Y), custompoints[i]));
             }
             return mspoints;
         }
@@ -111,7 +112,8 @@ namespace MidSurfaceNameSpace.Solver
                 {
                     double xa = -B / (2.0 * A);
                     double ya = (p * xa + z) / s;
-                    result.Add(new Point(xa, ya));
+                    if(rivol.X != xa || rivol.Y != ya)
+                        result.Add(new Point(xa, ya));
                     //return 1;
                 }
                 else
@@ -122,8 +124,10 @@ namespace MidSurfaceNameSpace.Solver
                     double xb = (-B - Math.Sqrt(D)) / (2.0 * A);
                     double yb = (p * xb + z) / s;
 
-                    result.Add(new Point(xa, ya));
-                    result.Add(new Point(xb, yb));
+                    if (rivol.X != xa || rivol.Y != ya)
+                        result.Add(new Point(xa, ya));
+                    if (rivol.X != xb || rivol.Y != yb)
+                        result.Add(new Point(xb, yb));
                 }
 
                 //return 2;
