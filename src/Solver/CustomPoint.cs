@@ -14,12 +14,6 @@ namespace MidSurfaceNameSpace.Solver
         double t;
         Point point;
 
-        public CustomPoint(int N, double t)
-        {
-            this.N = N;
-            this.t = t;
-        }
-
         public CustomPoint(int N, double t, Point point)
         {
             this.N = N;

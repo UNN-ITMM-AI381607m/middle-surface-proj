@@ -83,6 +83,11 @@ namespace MidSurfaceNameSpace.Solver
             return mspoints;
         }
 
+        public List<ISegment> GetSegments()
+        {
+            return segments;
+        }
+
         List<Point> cross(Point center, double rad, Point rivol)
         {
             List<Point> result = new List<Point>();
