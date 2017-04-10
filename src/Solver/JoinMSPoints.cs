@@ -72,6 +72,7 @@ namespace MidSurfaceNameSpace.Solver
                     else
                     {
                         var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
+                        bisector.Normalize();
                         var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), nextLine);
                         newPointsSize = 1;
                         mspoints.Insert(i + 1, msPoint);
@@ -85,7 +86,7 @@ namespace MidSurfaceNameSpace.Solver
 
                         // var line2 = new CustomLine
                         //    (
-                        //        nextLine.GetPoint1(),
+                        //        nextLine.GetPoint1(),            
                         //        new CustomPoint(nextLine.GetPoint1().GetN(),
                         //                        Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
                         //    );
