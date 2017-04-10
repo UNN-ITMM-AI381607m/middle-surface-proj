@@ -34,6 +34,8 @@ namespace MidSurfaceNameSpace.Solver
         {
             List<Point> result = new List<Point>();
 
+            var segments = mspointfinder.GetSegments();
+
             for (var i = 0; i < mspoints.Count(); i++)
             {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
@@ -55,10 +57,12 @@ namespace MidSurfaceNameSpace.Solver
                         currentLine = new CustomLine
                             (
                                 new CustomPoint(currentLine.GetPoint1().GetN(),
-                                                Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2 ),
+                                                Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2,
+                                                segments[currentLine.GetPoint1().GetN()].GetCurvePoint(currentLine.GetPoint1().GetT())),
                                                 
                                 new CustomPoint(nextLine.GetPoint1().GetN(),
-                                                Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
+                                                Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2,
+                                                segments[nextLine.GetPoint1().GetN()].GetCurvePoint(nextLine.GetPoint1().GetT()))
                             );
 
                         lines.Add(currentLine);
