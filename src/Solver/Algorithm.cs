@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MidSurfaceNameSpace.Component;
+using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.Solver
 {
@@ -13,7 +13,13 @@ namespace MidSurfaceNameSpace.Solver
         {
             IMidSurface midsurface = new MidSurface();
             ISplitter splitter = new Splitter();
-            IMSPointFinder mspointfinder = new MSPointFinder(/*solverdata.GetSegments()*/null);
+            List < IContour > contours = solverdata.GetContours();
+            List<ISegment> segments = new List<ISegment>();
+            foreach (var contour in contours)
+            {
+                segments.AddRange(contour.GetSegments());
+            }
+            IMSPointFinder mspointfinder = new MSPointFinder(segments);
             IJoinMSPoints jointpoints = new JoinMSPoints();
 
             return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(solverdata.GetContours(), 0.1)), 5.0);
