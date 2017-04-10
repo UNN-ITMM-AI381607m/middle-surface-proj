@@ -6,6 +6,7 @@ using System.Windows.Shapes;
 using System.Linq;
 using System.Collections.Generic;
 using MidSurfaceNameSpace.Solver;
+using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.UnitTests
 {
@@ -22,7 +23,8 @@ namespace MidSurfaceNameSpace.UnitTests
             points.Add(new MSPoint(new System.Windows.Point(2, 2), null));
             points.Add(new MSPoint(new System.Windows.Point(2, 0), null));
 
-            var midsurface = new JoinMSPoints().Join(null, points, 5);
+            var FakePointFinder = new MSPointFinder(new List<ISegment>());
+            var midsurface = new JoinMSPoints().Join(FakePointFinder, points, 5);
             // 4 points = 4 segments of contour
             Assert.AreEqual(4, midsurface.GetData().Count());       
         }

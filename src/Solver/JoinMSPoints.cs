@@ -19,7 +19,7 @@ namespace MidSurfaceNameSpace.Solver
             if (mspointfinder == null) return null;
 
             IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
-    
+
             var points = JoinPoints(mspointfinder, mspoints, accuracy);
             for (int i = 0; i < points.Count(); i++)
             {
