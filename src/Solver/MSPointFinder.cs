@@ -31,13 +31,6 @@ namespace MidSurfaceNameSpace.Solver
                 ICustomPoint point2 = custompoints[i].GetPoint2();
                 double X = (point2.GetPoint().X + point1.GetPoint().X) / 2;
                 double Y = (point2.GetPoint().Y + point1.GetPoint().Y) / 2;
-
-                if (point2.GetPoint().X == point1.GetPoint().X && point2.GetPoint().Y == point1.GetPoint().Y)
-                {
-                    X = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).X + segments[point1.GetN()].GetCurvePoint(point1.GetT()).X) / 2;
-                    Y = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).Y + segments[point1.GetN()].GetCurvePoint(point1.GetT()).Y) / 2;
-
-                }
                 
                 mspoints.Add(GetMSPoint(custompoints[i].GetRightNormal(), new Point(X, Y), custompoints[i]));
             }
@@ -87,10 +80,10 @@ namespace MidSurfaceNameSpace.Solver
             {
                 ICustomPoint point1 = this.custompoints[i].GetPoint1();
                 ICustomPoint point2 = this.custompoints[i].GetPoint2();
-                double x1 = segments[point1.GetN()].GetCurvePoint(point1.GetT()).X;
-                double y1 = segments[point1.GetN()].GetCurvePoint(point1.GetT()).Y;           
-                double x2 = segments[point2.GetN()].GetCurvePoint(point2.GetT()).X;
-                double y2 = segments[point2.GetN()].GetCurvePoint(point2.GetT()).Y;
+                double x1 = point1.GetPoint().X;
+                double y1 = point1.GetPoint().Y;           
+                double x2 = point2.GetPoint().X;
+                double y2 = point2.GetPoint().Y;
                 double q = x0 * x0 + y0 * y0 - rad * rad;
                 double k = -2.0 * x0;
                 double l = -2.0 * y0;
