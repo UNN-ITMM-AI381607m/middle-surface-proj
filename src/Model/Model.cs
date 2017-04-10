@@ -49,6 +49,7 @@ namespace MidSurfaceNameSpace.Component
 
         public Size GetSize()
         {
+            CountSize();
             return size;
         }
 
