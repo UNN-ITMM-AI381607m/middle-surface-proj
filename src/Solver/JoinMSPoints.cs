@@ -16,6 +16,8 @@ namespace MidSurfaceNameSpace.Solver
 
         public IMidSurface Join(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy)
         {
+            if (mspointfinder == null) return null;
+
             IMidSurface midsurface = new MidSurfaceNameSpace.MidSurface();
     
             var points = JoinPoints(mspointfinder, mspoints, accuracy);
@@ -46,6 +48,8 @@ namespace MidSurfaceNameSpace.Solver
 
                     List<ICustomLine> lines = new List<ICustomLine>();
 
+                    int newPointsSize = 0;
+
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
                         var line = new CustomLine
@@ -57,35 +61,39 @@ namespace MidSurfaceNameSpace.Solver
                             );
 
                         lines.Add(line);
+
+                        var newPoints = mspointfinder.FindMSPoints(lines);
+                        newPointsSize = newPoints.Count();
+                        for (int k = 0; k < newPointsSize; k++)
+                        {
+                            mspoints.Insert(i + 1 + k, newPoints[k]);
+                        }
                     }
                     else
-                    {  //TO DO: add bisector implementation
-                       //var bisectorPoint = mspointfinder.FindBisectorPoint(currentLine, nextLine);
-
-                        var line1 = new CustomLine
-                            (
-                                new CustomPoint(currentLine.GetPoint1().GetN(),
-                                                Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2),
-                                currentLine.GetPoint2()
-                            );
-
-                         var line2 = new CustomLine
-                            (
-                                nextLine.GetPoint1(),
-                                new CustomPoint(nextLine.GetPoint1().GetN(),
-                                                Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
-                            );
-           
-                        lines.Add(line1);
-                        lines.Add(line2);
-                    }
-
-                    var newPoints = mspointfinder.FindMSPoints(lines);
-                    var newPointsSize = newPoints.Count();
-                    for (int k = 0; k < newPointsSize; k++)
                     {
-                        mspoints.Insert(i + 1 + k, newPoints[k]);
+                        var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
+                        var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), nextLine);
+                        newPointsSize = 1;
+                        mspoints.Insert(i + 1, msPoint);
+
+                        //var line1 = new CustomLine
+                        //    (
+                        //        new CustomPoint(currentLine.GetPoint1().GetN(),
+                        //                        Math.Abs(currentLine.GetPoint2().GetT() - currentLine.GetPoint1().GetT()) / 2),
+                        //        currentLine.GetPoint2()
+                        //    );
+
+                        // var line2 = new CustomLine
+                        //    (
+                        //        nextLine.GetPoint1(),
+                        //        new CustomPoint(nextLine.GetPoint1().GetN(),
+                        //                        Math.Abs(nextLine.GetPoint2().GetT() - nextLine.GetPoint1().GetT()) / 2)
+                        //    );
+
+                        //lines.Add(line1);
+                        //lines.Add(line2);
                     }
+
                     if(newPointsSize > 0) i--;
                 }
             }
