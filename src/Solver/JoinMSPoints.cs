@@ -51,8 +51,6 @@ namespace MidSurfaceNameSpace.Solver
 
                     List<ICustomLine> lines = new List<ICustomLine>();
 
-                    int newPointsSize = 0;
-
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
                         var t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
@@ -70,7 +68,6 @@ namespace MidSurfaceNameSpace.Solver
                             );
 
                         var newPoints = mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
-                        newPointsSize = newPoints.Count();
                         mspoints.Insert(i + 1, newPoints[0]);
                     }
                     else
@@ -78,11 +75,9 @@ namespace MidSurfaceNameSpace.Solver
                         var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
                         bisector.Normalize();
                         var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), nextLine);
-                        if (msPoint != null) newPointsSize = 1;
                         mspoints.Insert(i + 1, msPoint);
                     }
-
-                    if (newPointsSize > 0) i--;
+                    i--;
                 }
             }
             return result;

@@ -54,7 +54,7 @@ namespace MidSurfaceNameSpace.Component
 
                 //The last point shoud be added
                 point = segment.GetCurvePoint(1d);
-                pl.Points.Add(TransfromFill(point));
+                pl.Points.Add(point);            //TransfromFill(point)
 
                 canvas.Children.Add(pl);
             }
