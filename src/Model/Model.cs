@@ -58,16 +58,19 @@ namespace MidSurfaceNameSpace.Component
             List<ISegment> segments = GetCanvasData().ToList();
             for (int i = 0; i < segments.Count; i++)
             {
-                double X = segments[i].GetCurvePoint(0.0).X;
-                double Y = segments[i].GetCurvePoint(0.0).Y;
-                if (X < Xmin)
-                    Xmin = X;
-                else if (X > Xmax)
-                    Xmax = X;
-                if (Y < Ymin)
-                    Ymin = Y;
-                else if (Y > Ymax)
-                    Ymax = Y;
+                for (double j = 0.0; j < 1.0; j += 0.1)
+                {
+                    double X = segments[i].GetCurvePoint(j).X;
+                    double Y = segments[i].GetCurvePoint(j).Y;
+                    if (X < Xmin)
+                        Xmin = X;
+                    else if (X > Xmax)
+                        Xmax = X;
+                    if (Y < Ymin)
+                        Ymin = Y;
+                    else if (Y > Ymax)
+                        Ymax = Y;
+                }
             }
 
             size.Xmin = Xmin;
