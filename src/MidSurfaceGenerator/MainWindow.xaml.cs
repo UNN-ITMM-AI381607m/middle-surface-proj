@@ -71,6 +71,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void Generate(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: prepare generating implementation
+            if (model == null) return;
             currentStatus.Content = "Generating...";
             MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
             mid_surface_model = alg.Run(new SolverData(model));

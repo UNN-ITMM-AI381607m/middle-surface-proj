@@ -20,7 +20,7 @@ namespace MidSurfaceNameSpace.View
         {
             IEnumerable<ISegment> GetSegments();
             VisibleDataSettings  GetSettings();
-            double GetMaxLinearSize();
+            Size GetSize();
         }
 
 }
