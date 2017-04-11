@@ -8,16 +8,16 @@
 				<Y> 54 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
-				<X> 266 </X>
-				<Y> 54 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 266 </X>
-				<Y> 120 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
 				<X> 54 </X>
 				<Y> 120 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 266 </X>
+				<Y> 120 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 266 </X>
+				<Y> 54 </Y>
 			</JunctionPoint>
 		</JointsOfSegments>
 		<Segments>

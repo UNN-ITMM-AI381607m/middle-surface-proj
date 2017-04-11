@@ -8,16 +8,16 @@
 				<Y> 0 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
-				<X> 5 </X>
-				<Y> 0 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 5 </X>
-				<Y> 5 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
 				<X> 0 </X>
 				<Y> 5 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 5 </X>
+				<Y> 5 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 5 </X>
+				<Y> 0 </Y>
 			</JunctionPoint>
 		</JointsOfSegments>
 		<Segments>

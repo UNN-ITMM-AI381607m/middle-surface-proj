@@ -2,64 +2,64 @@
 
 <Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
 	<Contour>
-    <JointsOfSegments>
-      <JunctionPoint>
+		<JointsOfSegments>
+			<JunctionPoint>
 				<X> 134 </X>
 				<Y> 43 </Y>
 			</JunctionPoint>
-      <JunctionPoint>
-				<X> 213 </X>
+			<JunctionPoint>
+				<X> 56 </X>
 				<Y> 116 </Y>
 			</JunctionPoint>
-      <JunctionPoint>
+			<JunctionPoint>
 				<X> 134 </X>
 				<Y> 188 </Y>
 			</JunctionPoint>
-      <JunctionPoint>
-				<X> 56 </X>
+			<JunctionPoint>
+				<X> 213 </X>
 				<Y> 116 </Y>
 			</JunctionPoint>
 		</JointsOfSegments>
 		<Segments>
 			<BezierCurve>
 				<ControlPoint>
-					<X> 188 </X>
-					<Y> 43 </Y>
+				  <X> 78 </X>
+				  <Y> 43 </Y>
 				</ControlPoint>
-        <ControlPoint>
-          <X> 213 </X>
-          <Y> 67 </Y>
-        </ControlPoint>
-			</BezierCurve>
-      <BezierCurve>
-				<ControlPoint>
-					<X> 213 </X>
-					<Y> 163 </Y>
-				</ControlPoint>
-        <ControlPoint>
-          <X> 195 </X>
-          <Y> 188 </Y>
-        </ControlPoint>
-			</BezierCurve>
-      <BezierCurve>
-				<ControlPoint>
-					<X> 79 </X>
-					<Y> 188 </Y>
-				</ControlPoint>
-        <ControlPoint>
-          <X> 56 </X>
-          <Y> 165 </Y>
-        </ControlPoint>
-			</BezierCurve>
-      <BezierCurve>
 				<ControlPoint>
 					<X> 56 </X>
 					<Y> 72 </Y>
 				</ControlPoint>
-        <ControlPoint>
-          <X> 78 </X>
-          <Y> 43 </Y>
-        </ControlPoint>
+			</BezierCurve>
+			<BezierCurve>
+				<ControlPoint>
+				  <X> 56 </X>
+				  <Y> 165 </Y>
+				</ControlPoint>
+				<ControlPoint>
+					<X> 79 </X>
+					<Y> 188 </Y>
+				</ControlPoint>
+			</BezierCurve>
+			<BezierCurve>
+				<ControlPoint>
+				  <X> 195 </X>
+				  <Y> 188 </Y>
+				</ControlPoint>
+				<ControlPoint>
+					<X> 213 </X>
+					<Y> 163 </Y>
+				</ControlPoint>
+			</BezierCurve>
+			<BezierCurve>
+				<ControlPoint>
+				  <X> 213 </X>
+				  <Y> 67 </Y>
+				</ControlPoint>
+				<ControlPoint>
+					<X> 188 </X>
+					<Y> 43 </Y>
+				</ControlPoint>
 			</BezierCurve>
 		</Segments>
 	</Contour>

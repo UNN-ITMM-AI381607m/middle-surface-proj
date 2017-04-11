@@ -7,24 +7,24 @@
 				<X> 216 </X>
 				<Y> 86 </Y>
 			</JunctionPoint>
-      <JunctionPoint>
-        <X> 300 </X>
-        <Y> 132 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 300 </X>
-        <Y> 221 </Y>
-      </JunctionPoint>
 			<JunctionPoint>
-				<X> 216 </X>
-				<Y> 266 </Y>
+				<X> 131 </X>
+				<Y> 132 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
 				<X> 131 </X>
 				<Y> 222 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
-				<X> 131 </X>
+				<X> 216 </X>
+				<Y> 266 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 300 </X>
+				<Y> 221 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 300 </X>
 				<Y> 132 </Y>
 			</JunctionPoint>
 		</JointsOfSegments>
