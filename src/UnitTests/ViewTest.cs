@@ -45,8 +45,8 @@ namespace MidSurfaceNameSpace.UnitTests
                          new System.Windows.Point(10, 10),
                          new System.Windows.Point(0, 10),
                          new System.Windows.Point(0, 10),
-                         new System.Windows.Point(-20, 20),
-                         new System.Windows.Point(-20, 0),
+                         new System.Windows.Point(-200, 200),
+                         new System.Windows.Point(-200, 0),
                          new System.Windows.Point(0, 0)
 
                     });

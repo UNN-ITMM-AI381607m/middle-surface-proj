@@ -31,13 +31,13 @@ namespace MidSurfaceNameSpace.Component
 
         public void Paint(IVisibleData data)
         {
-            transform_data.model_center_X = (data.GetSize().Xmax - data.GetSize().Xmin) / 2;
-            transform_data.model_center_Y = (data.GetSize().Ymax - data.GetSize().Ymin) / 2;
+            transform_data.model_center_X = (data.GetSize().Xmax + data.GetSize().Xmin) / 2;
+            transform_data.model_center_Y = (data.GetSize().Ymax + data.GetSize().Ymin) / 2;
             transform_data.center_X = canvas.ActualWidth / 2;
             transform_data.center_Y = canvas.ActualHeight/ 2;
-            // scale will be mult to 0.9 in purpose of creating borders
-            transform_data.scale = 0.9d * ( Math.Min(canvas.ActualWidth, canvas.ActualHeight) / Math.Max(Math.Abs(data.GetSize().Xmax-data.GetSize().Xmin), Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin)));
-            double step = 100;// 1d / (Math.Round(transform_data.scale) * 100d);
+            // scale will be mult to 0.98 in purpose of creating borders
+            transform_data.scale = 0.98d * Math.Min(canvas.ActualWidth/Math.Abs(data.GetSize().Xmax- data.GetSize().Xmin),canvas.ActualHeight/Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin));
+            double step = 1d / (Math.Round(transform_data.scale) * 100d);
             foreach (ISegment segment in data.GetSegments())
             {           
                 Point point = new Point();
@@ -54,7 +54,7 @@ namespace MidSurfaceNameSpace.Component
 
                 //The last point shoud be added
                 point = segment.GetCurvePoint(1d);
-                pl.Points.Add(point);            //TransfromFill(point)
+                pl.Points.Add(TransfromFill(point));
 
                 canvas.Children.Add(pl);
             }
