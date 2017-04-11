@@ -3,28 +3,28 @@
 <Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
 	<Contour>	
 		<JointsOfSegments>
-      <JunctionPoint>
-        <X> 325 </X>
-        <Y> 64 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 125 </X>
-        <Y> 61 </Y>
-      </JunctionPoint>
+			<JunctionPoint>
+				<X> 325 </X>
+				<Y> 64 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 125 </X>
+				<Y> 61 </Y>
+			</JunctionPoint>
 		</JointsOfSegments>
 		<Segments>
 			<BezierCurve>
-        <ControlPoint>
+				<ControlPoint>
 					<X> 225 </X>
 					<Y> 220 </Y>
 				</ControlPoint>
 			</BezierCurve>
 			<BezierCurve>
-        <ControlPoint>
+				<ControlPoint>
 					<X> 223 </X>
 					<Y> 340 </Y>
 				</ControlPoint>
 			</BezierCurve>
-    </Segments>
+		</Segments>
 	</Contour>
 </Shape2D>

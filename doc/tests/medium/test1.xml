@@ -8,75 +8,63 @@
 				<Y> 15 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
-				<X> 287 </X>
-				<Y> 15 </Y>
+				<X> 214 </X>
+				<Y> 96 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
-				<X> 287 </X>
-				<Y> 100 </Y>
+				<X> 127 </X>
+				<Y> 96 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 127 </X>
+				<Y> 153 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 212 </X>
+				<Y> 153 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 212 </X>
+				<Y> 238 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 283 </X>
+				<Y> 238 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 283 </X>
+				<Y> 157 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 368 </X>
+				<Y> 157 </Y>
 			</JunctionPoint>
 			<JunctionPoint>
 				<X> 368 </X>
 				<Y> 100 </Y>
 			</JunctionPoint>
-      <JunctionPoint>
-        <X> 368 </X>
-        <Y> 157 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 283 </X>
-        <Y> 157 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 283 </X>
-        <Y> 238 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 212 </X>
-        <Y> 238 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 212 </X>
-        <Y> 153 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 127 </X>
-        <Y> 153 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 127 </X>
-        <Y> 96 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 214 </X>
-        <Y> 96 </Y>
-      </JunctionPoint>
+			<JunctionPoint>
+				<X> 287 </X>
+				<Y> 100 </Y>
+			</JunctionPoint>
+			<JunctionPoint>
+				<X> 287 </X>
+				<Y> 15 </Y>
+			</JunctionPoint>
 		</JointsOfSegments>
-		<Segments>
-			<BezierCurve>
-			</BezierCurve>
-			<BezierCurve>
-			</BezierCurve>
-			<BezierCurve>
-			</BezierCurve>
-      <BezierCurve>
-		  </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+	<Segments>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
+			<BezierCurve/>
     </Segments>
 	</Contour>
 </Shape2D>
