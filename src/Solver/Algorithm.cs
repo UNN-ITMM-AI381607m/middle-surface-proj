@@ -12,7 +12,7 @@ namespace MidSurfaceNameSpace.Solver
         public IMidSurface Run(ISolverData solverdata)
         {
             IMidSurface midsurface = new MidSurface();
-            ISplitter splitter = new Splitter();
+            ISplitter splitter = new Splitter(10);
             List < IContour > contours = solverdata.GetContours();
             List<ISegment> segments = new List<ISegment>();
             foreach (var contour in contours)

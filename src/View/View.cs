@@ -36,8 +36,8 @@ namespace MidSurfaceNameSpace.Component
             transform_data.center_X = canvas.ActualWidth / 2;
             transform_data.center_Y = canvas.ActualHeight/ 2;
             // scale will be mult to 0.98 in purpose of creating borders
-            transform_data.scale = 0.98d * Math.Min(canvas.ActualWidth/Math.Abs(data.GetSize().Xmax- data.GetSize().Xmin),canvas.ActualHeight/Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin));
-            double step = 1d / (Math.Round(transform_data.scale) * 100d);
+            transform_data.scale = 0.98d * ( Math.Min(canvas.ActualWidth, canvas.ActualHeight) / Math.Max(Math.Abs(data.GetSize().Xmax-data.GetSize().Xmin), Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin)));
+            double step = 1d / (1 + Math.Round(transform_data.scale) * 100d);
             foreach (ISegment segment in data.GetSegments())
             {           
                 Point point = new Point();

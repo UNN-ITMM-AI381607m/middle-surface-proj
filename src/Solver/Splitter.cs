@@ -24,7 +24,7 @@ namespace MidSurfaceNameSpace.Solver
                 for (int i = 0; i < segments.Count(); i++)
                 {
                     double t = 0;
-                    while (t < 1 - accuracy)
+                    while (t <= 1 - accuracy)
                     {
                         customLines.Add(new CustomLine(new CustomPoint(i, t, segments[i].GetCurvePoint(t)),
                             new CustomPoint(i, t + accuracy, segments[i].GetCurvePoint(t + accuracy))));
@@ -35,7 +35,8 @@ namespace MidSurfaceNameSpace.Solver
                     {
                         customLines.RemoveAt(customLines.Count() - 1);
                     }
-                    customLines.Add(new CustomLine(customLines.Last().GetPoint2(),
+                    if (customLines.Last().GetPoint2().GetT() != 1)
+                        customLines.Add(new CustomLine(customLines.Last().GetPoint2(),
                         new CustomPoint(i, 1, segments[i].GetCurvePoint(1))));
                 }
             }

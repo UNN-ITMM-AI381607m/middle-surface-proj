@@ -13,7 +13,7 @@ namespace MidSurfaceNameSpace.View
     {
         private List<ISegment> segments;
         private VisibleDataSettings settings;
-        private Size model_size;
+        static private Size model_size;
         private VisibleData()
         {
             SetDefaultSetting();
@@ -21,13 +21,13 @@ namespace MidSurfaceNameSpace.View
         public VisibleData(IModel model):this()
         { 
             segments = model.GetCanvasData().ToList<ISegment>();
-            this.model_size = model.GetSize();
+            model_size = model.GetSize();
         }
         public VisibleData(IModel model, VisibleDataSettings settings)
         {
             segments = model.GetCanvasData().ToList<ISegment>();
             this.settings = settings;
-            this.model_size = model.GetSize();
+            model_size = model.GetSize();
         }
         public VisibleData(IMidSurface midsurface):this()
         {
