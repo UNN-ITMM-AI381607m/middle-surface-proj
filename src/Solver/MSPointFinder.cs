@@ -62,7 +62,7 @@ namespace MidSurfaceNameSpace.Solver
             double Rmin = 0;
             double R = Rmax;
             Point center = new Point(point.X + vector.X * R, point.Y + vector.Y * R);
-            int crossStatus = validateCircleDueModel(center, R, line.GetPoint1().GetN());
+            int crossStatus = ValidateCircleDueModel(center, R, point);
 
             while (!EqualDoubles(Rmax, Rmin, 0.001))
             {
@@ -71,7 +71,7 @@ namespace MidSurfaceNameSpace.Solver
                 center.X = point.X + vector.X * R;
                 center.Y = point.Y + vector.Y * R;
 
-                crossStatus = validateCircleDueModel(center, R, line.GetPoint1().GetN());
+                crossStatus = ValidateCircleDueModel(center, R, point);
                 if (crossStatus == 1)
                 {
                     Rmin = R;
@@ -94,15 +94,20 @@ namespace MidSurfaceNameSpace.Solver
             return segments;
         }
 
-        int validateCircleDueModel(Point center, double R, int indexOfCurrentLine)
+        bool IsRivol(Point rivol, Point point)
+        {
+            if (EqualDoubles(rivol.X, point.X, 1) && EqualDoubles(rivol.Y, point.Y, 1))
+                return true;
+            return false;
+        }
+
+        int ValidateCircleDueModel(Point center, double R, Point rivol)
         {
             bool foundGood = false;
             bool needToDecrease = false;
             bool needToIncrease = false;
             for (int i =0; i < simplifiedModel.Count(); i++)
             {
-                if (i == indexOfCurrentLine)
-                    continue;
                 Point linePoint1 = simplifiedModel[i].GetPoint1().GetPoint();
                 Point linePoint2 = simplifiedModel[i].GetPoint2().GetPoint();
 
@@ -118,13 +123,15 @@ namespace MidSurfaceNameSpace.Solver
                     && resultPoint1.X >= xmin && resultPoint1.X <= xmax
                     && resultPoint1.Y >= ymin && resultPoint1.Y <= ymax)
                 {
-                    intersecCounter++;
+                    if (!IsRivol(rivol, resultPoint1))
+                        intersecCounter++;
                 }
                 if (lineIntersecsFound == 2
                     && resultPoint2.X >= xmin && resultPoint2.X <= xmax
                     && resultPoint2.Y >= ymin && resultPoint2.Y <= ymax)
                 {
-                    intersecCounter++;
+                    if (!IsRivol(rivol, resultPoint2))
+                        intersecCounter++;
                 }
                 int mutualArrangement = checkMutualArrangementLineCircle(linePoint1, linePoint2, center, R);
                 if (intersecCounter == 1 && mutualArrangement == 0)
