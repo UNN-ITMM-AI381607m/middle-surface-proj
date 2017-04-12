@@ -84,9 +84,8 @@ namespace MidSurfaceNameSpace.Solver
                         }
                         else if (isPoint2FromBisector)
                         {
-                            var line = mspoints[j].GetLine();
-                            t1 = (line.GetPoint2().GetT() + line.GetPoint1().GetT()) / 2;
-                            t2 = line.GetPoint2().GetT();
+                            t1 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
+                            t2 = nextLine.GetPoint2().GetT();
 
                             if (Math.Abs(t2 - t1) <= 0.001)
                             {
@@ -94,12 +93,12 @@ namespace MidSurfaceNameSpace.Solver
                                 continue;
                             }
 
-                            line = new CustomLine
+                            var line = new CustomLine
                                 (
-                                    new CustomPoint(line.GetPoint1().GetN(),
+                                    new CustomPoint(nextLine.GetPoint1().GetN(),
                                                     t1,
-                                                    segments[line.GetPoint1().GetN()].GetCurvePoint(t1)),
-                                     line.GetPoint2()
+                                                    segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t1)),
+                                     nextLine.GetPoint2()
                                 );
 
                             var msPointFromBisector = new MSPoint(mspoints[j].GetPoint(), line, mspoints[j].GetAdditionLine());
@@ -130,7 +129,7 @@ namespace MidSurfaceNameSpace.Solver
                         }
                         var newPoints = mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
                             mspoints.Insert(i + 1, newPoints[0]);
-                        }
+                    }
                     else
                     {
                         var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();

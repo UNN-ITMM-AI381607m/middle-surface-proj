@@ -101,8 +101,8 @@ namespace MidSurfaceNameSpace.Solver
             bool needToIncrease = false;
             for (int i =0; i < simplifiedModel.Count(); i++)
             {
-      //          if (i == indexOfCurrentLine)
-     //               continue;
+                if (i == indexOfCurrentLine)
+                    continue;
                 Point linePoint1 = simplifiedModel[i].GetPoint1().GetPoint();
                 Point linePoint2 = simplifiedModel[i].GetPoint2().GetPoint();
 
