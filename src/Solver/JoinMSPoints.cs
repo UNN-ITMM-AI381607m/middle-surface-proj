@@ -125,7 +125,7 @@ namespace MidSurfaceNameSpace.Solver
 
                                     new CustomPoint(nextLine.GetPoint1().GetN(),
                                                     t2,
-                                                    segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
+                                                   segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
                                 );
                         }
                         var newPoints = mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
