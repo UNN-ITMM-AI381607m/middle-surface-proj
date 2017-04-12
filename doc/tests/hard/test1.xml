@@ -90,57 +90,57 @@
         <Y>125</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>185</X>
+        <X>218</X>
         <Y>141</Y>
       </JunctionPoint>
       <JunctionPoint>
         <X>200</X>
         <Y>154</Y>
-      </JunctionPoint>
+      </JunctionPoint>      
       <JunctionPoint>
-        <X>218</X>
+        <X>185</X>
         <Y>141</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
       <BezierCurve>
         <ControlPoint>
-          <X>187</X>
-          <Y>126</Y>
+          <X>211</X>
+          <Y>124</Y>
         </ControlPoint>
-        <ControlPoint>
-          <X>182</X>
-          <Y>131</Y>
-        </ControlPoint>
-      </BezierCurve>
-      <BezierCurve>
-        <ControlPoint>
-          <X>185</X>
-          <Y>151</Y>
-        </ControlPoint>
-        <ControlPoint>
-          <X>191</X>
-          <Y>156</Y>
-        </ControlPoint>
-      </BezierCurve>
-      <BezierCurve>
-        <ControlPoint>
-          <X>213</X>
-          <Y>155</Y>
-        </ControlPoint>
-        <ControlPoint>
-          <X>218</X>
-          <Y>150</Y>
-        </ControlPoint>
-      </BezierCurve>
-      <BezierCurve>
         <ControlPoint>
           <X>219</X>
           <Y>131</Y>
         </ControlPoint>
+      </BezierCurve>
+      <BezierCurve>
         <ControlPoint>
-          <X>211</X>
-          <Y>124</Y>
+          <X>218</X>
+          <Y>150</Y>
+        </ControlPoint>
+        <ControlPoint>
+          <X>213</X>
+          <Y>155</Y>
+        </ControlPoint>
+      </BezierCurve>
+      <BezierCurve>
+        <ControlPoint>
+          <X>191</X>
+          <Y>156</Y>
+        </ControlPoint>
+        <ControlPoint>
+          <X>185</X>
+          <Y>151</Y>
+        </ControlPoint>
+      </BezierCurve>      
+      <BezierCurve>
+        <ControlPoint>
+          <X>182</X>
+          <Y>131</Y>
+        </ControlPoint>
+        <ControlPoint>
+          <X>187</X>
+          <Y>126</Y>
         </ControlPoint>
       </BezierCurve>
     </Segments>

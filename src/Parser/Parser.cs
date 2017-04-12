@@ -21,7 +21,7 @@ namespace MidSurfaceNameSpace.IO
         public Figure ImportFile(string filePath)
         {
             Shape2D deserialized = Parse(filePath);
-
+            
             if (deserialized == null)
             {
                 return null;
@@ -51,6 +51,28 @@ namespace MidSurfaceNameSpace.IO
             Shape2D shape = (Shape2D)serializer.Deserialize(fs);
             fs.Close();
 
+            //Can be used to invert path for model
+            //string path = Path.GetDirectoryName(filePath);
+            //string filename = Path.GetFileNameWithoutExtension(filePath);
+            //if (!filename.Contains("_new"))
+            //{
+            //    fs = new FileStream(path + @"\" + filename + "_new.xml", FileMode.CreateNew);
+
+            //    foreach (var contour in shape.Contour)
+            //    {
+            //        List<Point> tmp = contour.JointsOfSegments.ToList();
+            //        tmp.Reverse(1, tmp.Count - 1);
+            //        contour.JointsOfSegments = tmp.ToArray();
+            //        for (int i = 0; i < contour.Segments.Count(); i++)
+            //        {
+            //            contour.Segments[i] = contour.Segments[i].Reverse().ToArray();
+            //        }
+            //        contour.Segments = contour.Segments.Reverse().ToArray();
+            //    }
+
+            //    serializer.Serialize(fs, shape);
+            //    fs.Close();
+            //}
             return shape;
         }
 
