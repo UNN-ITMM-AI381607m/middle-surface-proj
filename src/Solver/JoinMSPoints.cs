@@ -34,6 +34,7 @@ namespace MidSurfaceNameSpace.Solver
             List<Point> result = new List<Point>();
 
             var segments = mspointfinder.GetSegments();
+
             double t1, t2;
             bool ignoreAccuracy = false;
 
@@ -42,7 +43,7 @@ namespace MidSurfaceNameSpace.Solver
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
 
                 if ((mspoints[j].GetPoint() - mspoints[i].GetPoint()).Length <= accuracy ||
-                     GetDistanceFromLines(mspoints[i], mspoints[j]) <= accuracy/4 ||
+                     GetDistanceFromLines(mspoints[i], mspoints[j]) <= accuracy / 4 ||
                      ignoreAccuracy)
                 {
                     result.Add(mspoints[i].GetPoint());
@@ -107,14 +108,14 @@ namespace MidSurfaceNameSpace.Solver
                         }
                         else
                         {
-                                t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
-                                t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
+                            t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
+                            t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
 
-                                if (Math.Abs(t2 - t1) <= 0.01)
-                                {
-                                    ignoreAccuracy = true;
-                                    continue;
-                                }
+                            if (Math.Abs(t2 - t1) <= 0.001)
+                            {
+                                ignoreAccuracy = true;
+                                continue;
+                            }
 
                             currentLine = new CustomLine
                                 (
@@ -127,43 +128,58 @@ namespace MidSurfaceNameSpace.Solver
                                                    segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
                                 );
                         }
-                        var newPoints = mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
-                            mspoints.Insert(i + 1, newPoints[0]);
+                        //temporary action
+                        ICustomPoint point1 = currentLine.GetPoint1();
+                        ICustomPoint point2 = currentLine.GetPoint2();
+                        double X = (point2.GetPoint().X + point1.GetPoint().X) / 2;
+                        double Y = (point2.GetPoint().Y + point1.GetPoint().Y) / 2;
+
+                        if (point2.GetPoint().X == point1.GetPoint().X && point2.GetPoint().Y == point1.GetPoint().Y)
+                        {
+                            X = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).X + segments[point1.GetN()].GetCurvePoint(point1.GetT()).X) / 2;
+                            Y = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).Y + segments[point1.GetN()].GetCurvePoint(point1.GetT()).Y) / 2;
+                        }
+
+                        var newPoint = mspointfinder.GetMSPoint(currentLine.GetRightNormal(), new Point(X, Y), currentLine);
+                        //
+                        // mspointfinder.FindMSPoints(new List<ICustomLine>() { currentLine });
+                        mspoints.Insert(i + 1, newPoint);
                     }
                     else
                     {
-                        var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
-                        bisector.Normalize();
+                        ignoreAccuracy = true;
+                        //var bisector = currentLine.GetRightNormal() + nextLine.GetRightNormal();
+                        //bisector.Normalize();
 
-                        t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
-                        t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
+                        //t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
+                        //t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
 
-                        if (Math.Abs(t2 - t1) <= 0.001)
-                        {
-                            ignoreAccuracy = true;
-                            continue;
-                        }
+                        //if (Math.Abs(t2 - t1) <= 0.001)
+                        //{
+                        //    ignoreAccuracy = true;
+                        //    continue;
+                        //}
 
-                        currentLine = new CustomLine
-                            (
-                                new CustomPoint(currentLine.GetPoint1().GetN(),
-                                                t1,
-                                                segments[currentLine.GetPoint1().GetN()].GetCurvePoint(t1)),
-                                currentLine.GetPoint2()
-                            );
+                        //currentLine = new CustomLine
+                        //    (
+                        //        new CustomPoint(currentLine.GetPoint1().GetN(),
+                        //                        t1,
+                        //                        segments[currentLine.GetPoint1().GetN()].GetCurvePoint(t1)),
+                        //        currentLine.GetPoint2()
+                        //    );
 
-                        nextLine = new CustomLine
-                           (
-                               nextLine.GetPoint1(),
+                        //nextLine = new CustomLine
+                        //   (
+                        //       nextLine.GetPoint1(),
 
-                               new CustomPoint(nextLine.GetPoint1().GetN(),
-                                               t2,
-                                               segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
-                           );
+                        //       new CustomPoint(nextLine.GetPoint1().GetN(),
+                        //                       t2,
+                        //                       segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2))
+                        //   );
 
-                        var msPoint = mspointfinder.GetMSPoint(bisector, nextLine.GetPoint1().GetPoint(), currentLine);
-                        var msPointFromBisector = new MSPoint(msPoint.GetPoint(), currentLine, nextLine);
-                        mspoints.Insert(i + 1, msPointFromBisector);
+                        //var msPoint = mspointfinder.GetMSPoint(bisector, mspoints[j].GetLine().GetPoint1().GetPoint(), currentLine);
+                        //var msPointFromBisector = new MSPoint(msPoint.GetPoint(), currentLine, nextLine);
+                        //mspoints.Insert(i + 1, msPointFromBisector);
                     }
                     i--;
                 }
