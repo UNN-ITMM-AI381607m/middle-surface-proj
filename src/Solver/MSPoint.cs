@@ -39,7 +39,7 @@ namespace MidSurfaceNameSpace.Solver
 
         public ICustomLine GetAdditionLine()
         {
-            return line;
+            return additionLine;
         }
     }
 }
