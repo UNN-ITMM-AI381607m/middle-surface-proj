@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
-	<Contour>	
-		<JointsOfSegments>
+<?xml version="1.0"?>
+<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Contour>
+    <JointsOfSegments>
       <JunctionPoint>
-				<X> 168 </X>
-				<Y> 106 </Y>
-			</JunctionPoint>
+        <X>168</X>
+        <Y>106</Y>
+      </JunctionPoint>
       <JunctionPoint>
-				<X> 432 </X>
-				<Y> 106 </Y>
-			</JunctionPoint>
-		</JointsOfSegments>
-    
-		<Segments>
-			<BezierCurve>
-			</BezierCurve>
-		</Segments>
-	</Contour>
+        <X>432</X>
+        <Y>106</Y>
+      </JunctionPoint>
+    </JointsOfSegments>
+    <Segments>
+      <BezierCurve />
+    </Segments>
+  </Contour>
 </Shape2D>

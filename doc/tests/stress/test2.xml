@@ -1,778 +1,651 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ShapeScheme.xsd">
-	<Contour>	
-		<JointsOfSegments>
-			<JunctionPoint>
-				<X> 247 </X>
-				<Y> 50 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 351 </X>
-				<Y> 50 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 351 </X>
-				<Y> 68 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 400 </X>
-				<Y> 68 </Y>
-			</JunctionPoint>
-      <JunctionPoint>
-				<X> 400 </X>
-				<Y> 46 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 443 </X>
-				<Y> 45 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 443 </X>
-				<Y> 21 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 573 </X>
-				<Y> 21 </Y>
-			</JunctionPoint>
-      <JunctionPoint>
-				<X> 573 </X>
-				<Y> 59 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 475 </X>
-				<Y> 59 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 475 </X>
-				<Y> 68 </Y>
-			</JunctionPoint>
-			<JunctionPoint>
-				<X> 590 </X>
-				<Y> 68 </Y>
-			</JunctionPoint>
-      <JunctionPoint>
-        <X> 590 </X>
-        <Y> 100 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 632 </X>
-        <Y> 100 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 632 </X>
-        <Y> 41 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 659 </X>
-        <Y> 41 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 659 </X>
-        <Y> 98 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 674 </X>
-        <Y> 98 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 674 </X>
-        <Y> 177 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 589 </X>
-        <Y> 177 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 589 </X>
-        <Y> 208 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 666 </X>
-        <Y> 208 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 666 </X>
-        <Y> 228 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 730 </X>
-        <Y> 228 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 730 </X>
-        <Y> 267 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 614 </X>
-        <Y> 267 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 614 </X>
-        <Y> 241 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 591 </X>
-        <Y> 241 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 591 </X>
-        <Y> 280 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 531 </X>
-        <Y> 280 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 531 </X>
-        <Y> 313 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 352 </X>
-        <Y> 313 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 352 </X>
-        <Y> 282 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 288 </X>
-        <Y> 282 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 288 </X>
-        <Y> 206 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 270 </X>
-        <Y> 206 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 270 </X>
-        <Y> 240 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 192 </X>
-        <Y> 240 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 192 </X>
-        <Y> 188 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 229 </X>
-        <Y> 188 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 229 </X>
-        <Y> 130 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 288 </X>
-        <Y> 130 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 288 </X>
-        <Y> 105 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 247 </X>
-        <Y> 105 </Y>
-      </JunctionPoint>
-		</JointsOfSegments>
-
-    <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-    </Segments>
-	</Contour>
-
+<?xml version="1.0"?>
+<Shape2D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 265 </X>
-        <Y> 65 </Y>
+        <X>247</X>
+        <Y>50</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 265 </X>
-        <Y> 92 </Y>
+        <X>247</X>
+        <Y>105</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 284 </X>
-        <Y> 92 </Y>
+        <X>288</X>
+        <Y>105</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>288</X>
+        <Y>130</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>229</X>
+        <Y>130</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>229</X>
+        <Y>188</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>192</X>
+        <Y>188</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>192</X>
+        <Y>240</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>270</X>
+        <Y>240</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>270</X>
+        <Y>206</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>288</X>
+        <Y>206</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>288</X>
+        <Y>282</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>352</X>
+        <Y>282</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>352</X>
+        <Y>313</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>531</X>
+        <Y>313</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>531</X>
+        <Y>280</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>591</X>
+        <Y>280</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>591</X>
+        <Y>241</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>614</X>
+        <Y>241</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>614</X>
+        <Y>267</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>730</X>
+        <Y>267</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>730</X>
+        <Y>228</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>666</X>
+        <Y>228</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>666</X>
+        <Y>208</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>589</X>
+        <Y>208</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>589</X>
+        <Y>177</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>674</X>
+        <Y>177</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>674</X>
+        <Y>98</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>659</X>
+        <Y>98</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>659</X>
+        <Y>41</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>632</X>
+        <Y>41</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>632</X>
+        <Y>100</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>590</X>
+        <Y>100</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>590</X>
+        <Y>68</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>475</X>
+        <Y>68</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>475</X>
+        <Y>59</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>573</X>
+        <Y>59</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>573</X>
+        <Y>21</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>443</X>
+        <Y>21</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>443</X>
+        <Y>45</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>400</X>
+        <Y>46</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>400</X>
+        <Y>68</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>351</X>
+        <Y>68</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>351</X>
+        <Y>50</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 306 </X>
-        <Y> 83 </Y>
+        <X>265</X>
+        <Y>65</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 306 </X>
-        <Y> 113 </Y>
+        <X>284</X>
+        <Y>92</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 343 </X>
-        <Y> 113 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 343 </X>
-        <Y> 83 </Y>
+        <X>265</X>
+        <Y>92</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 379 </X>
-        <Y> 87 </Y>
+        <X>306</X>
+        <Y>83</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 379 </X>
-        <Y> 120 </Y>
+        <X>343</X>
+        <Y>83</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 425 </X>
-        <Y> 120 </Y>
+        <X>343</X>
+        <Y>113</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 425 </X>
-        <Y> 87 </Y>
+        <X>306</X>
+        <Y>113</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 470 </X>
-        <Y> 30 </Y>
+        <X>379</X>
+        <Y>87</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 470 </X>
-        <Y> 46 </Y>
+        <X>425</X>
+        <Y>87</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 503 </X>
-        <Y> 47 </Y>
+        <X>425</X>
+        <Y>120</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 503 </X>
-        <Y> 30 </Y>
+        <X>379</X>
+        <Y>120</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 440 </X>
-        <Y> 106 </Y>
+        <X>470</X>
+        <Y>30</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 440 </X>
-        <Y> 129 </Y>
+        <X>503</X>
+        <Y>30</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 463 </X>
-        <Y> 129 </Y>
+        <X>503</X>
+        <Y>47</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>470</X>
+        <Y>46</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 482 </X>
-        <Y> 93 </Y>
+        <X>440</X>
+        <Y>106</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 482 </X>
-        <Y> 118 </Y>
+        <X>463</X>
+        <Y>129</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 522 </X>
-        <Y> 118 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 522 </X>
-        <Y> 93 </Y>
+        <X>440</X>
+        <Y>129</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 541 </X>
-        <Y> 91 </Y>
+        <X>482</X>
+        <Y>93</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 541 </X>
-        <Y> 109 </Y>
+        <X>522</X>
+        <Y>93</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 560 </X>
-        <Y> 109 </Y>
+        <X>522</X>
+        <Y>118</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>482</X>
+        <Y>118</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-  
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 565 </X>
-        <Y> 124 </Y>
+        <X>541</X>
+        <Y>91</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 565 </X>
-        <Y> 157 </Y>
+        <X>560</X>
+        <Y>109</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 608 </X>
-        <Y> 157 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 608 </X>
-        <Y> 123 </Y>
+        <X>541</X>
+        <Y>109</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 631 </X>
-        <Y> 130 </Y>
+        <X>565</X>
+        <Y>124</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 631 </X>
-        <Y> 147 </Y>
+        <X>608</X>
+        <Y>123</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 657 </X>
-        <Y> 147 </Y>
+        <X>608</X>
+        <Y>157</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 655 </X>
-        <Y> 131 </Y>
+        <X>565</X>
+        <Y>157</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 210 </X>
-        <Y> 213 </Y>
+        <X>631</X>
+        <Y>130</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 210 </X>
-        <Y> 225 </Y>
+        <X>655</X>
+        <Y>131</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 234 </X>
-        <Y> 225 </Y>
+        <X>657</X>
+        <Y>147</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 235 </X>
-        <Y> 213 </Y>
+        <X>631</X>
+        <Y>147</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 249 </X>
-        <Y> 147 </Y>
+        <X>210</X>
+        <Y>213</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 249 </X>
-        <Y> 186 </Y>
+        <X>235</X>
+        <Y>213</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 295 </X>
-        <Y> 186 </Y>
+        <X>234</X>
+        <Y>225</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>210</X>
+        <Y>225</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 314 </X>
-        <Y> 147 </Y>
+        <X>249</X>
+        <Y>147</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 314 </X>
-        <Y> 183 </Y>
+        <X>295</X>
+        <Y>186</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 399 </X>
-        <Y> 183 </Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X> 399 </X>
-        <Y> 148 </Y>
+        <X>249</X>
+        <Y>186</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 417 </X>
-        <Y> 147 </Y>
+        <X>314</X>
+        <Y>147</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 417 </X>
-        <Y> 181 </Y>
+        <X>399</X>
+        <Y>148</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 512 </X>
-        <Y> 181 </Y>
+        <X>399</X>
+        <Y>183</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 512 </X>
-        <Y> 147 </Y>
+        <X>314</X>
+        <Y>183</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 539 </X>
-        <Y> 177 </Y>
+        <X>417</X>
+        <Y>147</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 539 </X>
-        <Y> 198 </Y>
+        <X>512</X>
+        <Y>147</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 564 </X>
-        <Y> 198 </Y>
+        <X>512</X>
+        <Y>181</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 564 </X>
-        <Y> 177 </Y>
+        <X>417</X>
+        <Y>181</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 640 </X>
-        <Y> 247 </Y>
+        <X>539</X>
+        <Y>177</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 640 </X>
-        <Y> 254 </Y>
+        <X>564</X>
+        <Y>177</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 698 </X>
-        <Y> 255 </Y>
+        <X>564</X>
+        <Y>198</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 698 </X>
-        <Y> 247 </Y>
+        <X>539</X>
+        <Y>198</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 319 </X>
-        <Y> 213 </Y>
+        <X>640</X>
+        <Y>247</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 319 </X>
-        <Y> 242 </Y>
+        <X>698</X>
+        <Y>247</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 355 </X>
-        <Y> 242 </Y>
+        <X>698</X>
+        <Y>255</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 355 </X>
-        <Y> 213 </Y>
+        <X>640</X>
+        <Y>254</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
-        <X> 380 </X>
-        <Y> 195 </Y>
+        <X>319</X>
+        <Y>213</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 380 </X>
-        <Y> 227 </Y>
+        <X>355</X>
+        <Y>213</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 519 </X>
-        <Y> 227 </Y>
+        <X>355</X>
+        <Y>242</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X> 519 </X>
-        <Y> 195 </Y>
+        <X>319</X>
+        <Y>242</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
-      <BezierCurve>
-      </BezierCurve>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+    </Segments>
+  </Contour>
+  <Contour>
+    <JointsOfSegments>
+      <JunctionPoint>
+        <X>380</X>
+        <Y>195</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>519</X>
+        <Y>195</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>519</X>
+        <Y>227</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>380</X>
+        <Y>227</Y>
+      </JunctionPoint>
+    </JointsOfSegments>
+    <Segments>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
 </Shape2D>
