@@ -20,30 +20,22 @@ namespace MidSurfaceNameSpace.Solver
             Rmax = getRmax();
         }
 
-        public List<IMSPoint> FindMSPoints(List<ICustomLine> simplifiedModel)
+        public void SetLines(List<ICustomLine> lines)
         {
-            this.simplifiedModel = simplifiedModel;
+            simplifiedModel = lines;
+        }
+        public List<IMSPoint> FindMSPoints()
+        {
             List<IMSPoint> mspoints = new List<IMSPoint>();
 
-            for (int i = 0; i < simplifiedModel.Count(); i++)
+            foreach (var line in simplifiedModel)
             {
-                ICustomPoint point1 = simplifiedModel[i].GetPoint1();
-                ICustomPoint point2 = simplifiedModel[i].GetPoint2();
-                double X = (point2.GetPoint().X + point1.GetPoint().X) / 2;
-                double Y = (point2.GetPoint().Y + point1.GetPoint().Y) / 2;
-
-                if (point2.GetPoint().X == point1.GetPoint().X && point2.GetPoint().Y == point1.GetPoint().Y)
-                {
-                    X = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).X + segments[point1.GetN()].GetCurvePoint(point1.GetT()).X) / 2;
-                    Y = (segments[point2.GetN()].GetCurvePoint(point2.GetT()).Y + segments[point1.GetN()].GetCurvePoint(point1.GetT()).Y) / 2;
-                }
-                
-                mspoints.Add(GetMSPoint(simplifiedModel[i].GetRightNormal(), new Point(X, Y), simplifiedModel[i]));
+                mspoints.Add(FindMSPointForLine(line));
             }
             return mspoints;
         }
 
-        int checkMutualArrangementLineCircle(Point line1, Point line2, Point center, double R)
+        int CheckMutualArrangementLineCircle(Point line1, Point line2, Point center, double R)
         {
             double d1 = new Vector(line1.X - center.X, line1.Y - center.Y).Length;
             double d2 = new Vector(line2.X - center.X, line2.Y - center.Y).Length;
@@ -56,7 +48,7 @@ namespace MidSurfaceNameSpace.Solver
             return -1;
         }
 
-        public IMSPoint GetMSPoint(Vector vector, Point point, ICustomLine line)
+        IMSPoint CalculateMSPoint(Vector vector, Point point, ICustomLine line)
         {
             double Rmax = this.Rmax;
             double Rmin = 0;
@@ -133,7 +125,7 @@ namespace MidSurfaceNameSpace.Solver
                     if (!IsRivol(rivol, resultPoint2))
                         intersecCounter++;
                 }
-                int mutualArrangement = checkMutualArrangementLineCircle(linePoint1, linePoint2, center, R);
+                int mutualArrangement = CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R);
                 if (intersecCounter == 1 && mutualArrangement == 0)
                     foundGood = true;
                 else if (intersecCounter == 0 && mutualArrangement == 0)
@@ -224,6 +216,13 @@ namespace MidSurfaceNameSpace.Solver
             }
             R = Math.Max(Xmax - Xmin, Ymax - Ymin) / 2;
             return R;
+        }
+
+        public IMSPoint FindMSPointForLine(ICustomLine line)
+        {
+            Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
+                (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
+            return CalculateMSPoint(line.GetRightNormal(), middlePoint, line);
         }
     }
 }

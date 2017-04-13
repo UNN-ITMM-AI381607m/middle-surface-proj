@@ -9,6 +9,6 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface IJoinMSPoints
     {
-        IMidSurface Join(IMSPointFinder mspointfinder, List<IMSPoint> mspoints, double accuracy);
+        IMidSurface Join();
     }
 }

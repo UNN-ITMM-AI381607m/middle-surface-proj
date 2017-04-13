@@ -12,6 +12,5 @@ namespace MidSurfaceNameSpace.Solver
     {
         ICustomLine GetLine();
         Point GetPoint();
-        ICustomLine GetAdditionLine();
     }
 }

@@ -12,17 +12,22 @@ namespace MidSurfaceNameSpace.Solver
         public IMidSurface Run(ISolverData solverdata)
         {
             IMidSurface midsurface = new MidSurface();
-            ISplitter splitter = new Splitter(10);
-            List < IContour > contours = solverdata.GetContours();
+
+            List<IContour> contours = solverdata.GetContours();
+
             List<ISegment> segments = new List<ISegment>();
             foreach (var contour in contours)
             {
                 segments.AddRange(contour.GetSegments());
             }
-            IMSPointFinder mspointfinder = new MSPointFinder(segments);
-            IJoinMSPoints jointpoints = new JoinMSPoints();
 
-            return jointpoints.Join(mspointfinder, mspointfinder.FindMSPoints(splitter.Split(solverdata.GetContours(), 0.1)), 5.0);
+            ISplitter splitter = new Splitter(10);
+            IMSPointFinder mspointfinder = new MSPointFinder(segments);
+
+            mspointfinder.SetLines(splitter.Split(solverdata.GetContours(), 0.1));
+
+            IJoinMSPoints jointpoints = new JoinMSPoints(mspointfinder, segments, 20);
+            return jointpoints.Join();
         }
     }
 }
