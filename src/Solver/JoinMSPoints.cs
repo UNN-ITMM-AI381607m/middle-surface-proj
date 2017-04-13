@@ -32,18 +32,9 @@ namespace MidSurfaceNameSpace.Solver
 
             private double GetDistanceFromLines(IMSPoint mspoint1, IMSPoint mspoint2)
             {
-                Point point1, point2;
-                if (mspoint1.GetAdditionLine() != null)
-                {
-                    point1 = mspoint1.GetAdditionLine().GetPoint1().GetPoint();
-                    point2 = mspoint2.GetLine().GetPoint2().GetPoint();
-                }
-                else
-                {
-                    point1 = mspoint1.GetLine().GetPoint1().GetPoint();
-                    point2 = mspoint2.GetLine().GetPoint2().GetPoint();
-                }
-                return (point1 - point2).Length;
+                 var point1 = mspoint1.GetLine().GetPoint1().GetPoint();
+                 var point2 = mspoint2.GetLine().GetPoint2().GetPoint();
+                 return (point1 - point2).Length;
             }
         }
 
