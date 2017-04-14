@@ -70,8 +70,7 @@ namespace MidSurfaceNameSpace.Solver
                 lines.Add(point.GetLine());
             }
             for (int i = 0; i < mspoints.Count(); i++)
-            {
-
+            {     
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
 
                 if (!accuracy.IsComplianced(mspoints[i], mspoints[j]))
@@ -95,8 +94,8 @@ namespace MidSurfaceNameSpace.Solver
                         var t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
                         var t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
 
-                        point1 = new CustomPoint(currentLine.GetPoint2().GetN(), t1,
-                            segments[currentLine.GetPoint2().GetN()].GetCurvePoint(t1));
+                        point1 = new CustomPoint(currentLine.GetPoint1().GetN(), t1,
+                            segments[currentLine.GetPoint1().GetN()].GetCurvePoint(t1));
                         point2 = new CustomPoint(nextLine.GetPoint1().GetN(), t2, 
                             segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2));
                     }
