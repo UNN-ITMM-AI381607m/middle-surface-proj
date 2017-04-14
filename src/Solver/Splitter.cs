@@ -18,16 +18,17 @@ namespace MidSurfaceNameSpace.Solver
         public List<ICustomLine> Split(IEnumerable<IContour> contours, double accuracy)
         {
             List<ICustomLine> customLines = new List<ICustomLine>();
+            int segmentNumber = 0;
             foreach (var contour in contours)
             {
                 List<ISegment> segments = contour.GetSegments().ToList();
-                for (int i = 0; i < segments.Count(); i++)
+                for (int i = 0; i < segments.Count(); i++, segmentNumber++)
                 {
                     double t = 0;
                     while (t <= 1 - accuracy)
                     {
-                        customLines.Add(new CustomLine(new CustomPoint(i, t, segments[i].GetCurvePoint(t)),
-                            new CustomPoint(i, t + accuracy, segments[i].GetCurvePoint(t + accuracy))));
+                        customLines.Add(new CustomLine(new CustomPoint(segmentNumber, t, segments[i].GetCurvePoint(t)),
+                            new CustomPoint(segmentNumber, t + accuracy, segments[i].GetCurvePoint(t + accuracy))));
 
                         t += accuracy;
                     }
@@ -37,7 +38,7 @@ namespace MidSurfaceNameSpace.Solver
                     }
                     if (customLines.Last().GetPoint2().GetT() != 1)
                         customLines.Add(new CustomLine(customLines.Last().GetPoint2(),
-                        new CustomPoint(i, 1, segments[i].GetCurvePoint(1))));
+                        new CustomPoint(segmentNumber, 1, segments[i].GetCurvePoint(1))));
                 }
             }
             return customLines;
