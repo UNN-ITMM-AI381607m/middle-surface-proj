@@ -32,9 +32,9 @@ namespace MidSurfaceNameSpace.Solver
 
             private double GetDistanceFromLines(IMSPoint mspoint1, IMSPoint mspoint2)
             {
-                 var point1 = mspoint1.GetLine().GetPoint1().GetPoint();
-                 var point2 = mspoint2.GetLine().GetPoint2().GetPoint();
-                 return (point1 - point2).Length;
+                var point1 = mspoint1.GetLine().GetPoint1().GetPoint();
+                var point2 = mspoint2.GetLine().GetPoint2().GetPoint();
+                return (point1 - point2).Length;
             }
         }
 
@@ -81,11 +81,13 @@ namespace MidSurfaceNameSpace.Solver
 
                     var vector1 = currentLine.GetPoint1().GetPoint() - currentLine.GetPoint2().GetPoint();
                     var vector2 = nextLine.GetPoint2().GetPoint() - nextLine.GetPoint1().GetPoint();
-                    if (Vector.AngleBetween(vector1, vector2) >= 0)
+                    if (Vector.AngleBetween(vector1, vector2) >= 0 &&
+                        currentLine.GetPoint1().GetN() != nextLine.GetPoint2().GetN())
                     {
                         continue;
                     }
-                    else if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
+
+                    if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
                         var t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
                         var t2 = (nextLine.GetPoint2().GetT() + nextLine.GetPoint1().GetT()) / 2;
