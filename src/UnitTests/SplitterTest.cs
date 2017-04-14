@@ -73,6 +73,18 @@ namespace MidSurfaceNameSpace.UnitTests
             Assert.AreEqual(0, joints.Count);
         }
 
+        [TestMethod]
+        public void TestBoundaryAccuracy()
+        {
+            List<ICustomLine> lines = splitter.Split(contours, 1);
+            int segmentsCount = 0;
+            foreach (var contour in contours)
+            {
+                segmentsCount += contour.GetSegments().Count();
+            }
+            Assert.AreEqual(segmentsCount, lines.Count);
+        }
+
         List<System.Windows.Point> GetJoints(IEnumerable<ISegment> segments)
         {
             List<System.Windows.Point> joints = new List<System.Windows.Point>();
