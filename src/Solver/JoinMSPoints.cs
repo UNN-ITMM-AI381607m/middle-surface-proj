@@ -12,47 +12,66 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class JoinMSPoints : IJoinMSPoints
     {
-        internal class Accuracy
+        internal class Clarification
         {
             private double accuracy;
 
-            public Accuracy(double accuracy)
+            public Clarification(double accuracy)
             {
                 this.accuracy = accuracy;
             }
 
-            public bool IsComplianced(IMSPoint point1, IMSPoint point2)
+            public bool Required(IMSPoint point1, IMSPoint point2)
             {
-                var isComplianced = 
-                    (point2.GetPoint() - point1.GetPoint()).Length <= accuracy ||
-                    GetDistanceFromLines(point1, point2) <= accuracy / 4;
+                var line1 = point1.GetLine();
+                var line2 = point2.GetLine();
 
-                return isComplianced;
-            }
+                // If mspoints belong to different contours
+                if (line1.GetPoint2().GetPoint() != line2.GetPoint1().GetPoint())
+                {
+                    return false;
+                }
 
-            private double GetDistanceFromLines(IMSPoint mspoint1, IMSPoint mspoint2)
-            {
-                var point1 = mspoint1.GetLine().GetPoint1().GetPoint();
-                var point2 = mspoint2.GetLine().GetPoint2().GetPoint();
-                return (point1 - point2).Length;
+                // If mspoints are suitable for accuracy 
+                if ((point2.GetPoint() - point1.GetPoint()).Length <= accuracy)
+                {
+                    return false;
+                }
+
+                //If the difference between the lengths of their lines is less accuracy/4
+                if ((line1.GetPoint1().GetPoint() - line2.GetPoint2().GetPoint()).Length <= accuracy/4)
+                {
+                    return false;
+                }
+
+                var vector1 = line1.GetPoint1().GetPoint() - line1.GetPoint2().GetPoint();
+                var vector2 = line2.GetPoint2().GetPoint() - line2.GetPoint1().GetPoint();
+
+                // If mspoints  segments are difference and form angle < 180
+                if (Vector.AngleBetween(vector1, vector2) >= 0 &&
+                    line1.GetPoint1().GetN() != line2.GetPoint2().GetN())
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
         private List<ISegment> segments;
         private IMSPointFinder msPointFinder;
-        private Accuracy accuracy;
+        private Clarification clarification;
 
         public JoinMSPoints(IMSPointFinder finder, List<ISegment> segments, double accuracy)
         {
             this.segments = segments;
-            this.accuracy = new Accuracy(accuracy);
+            this.clarification = new Clarification(accuracy);
             this.msPointFinder = finder;
         }
 
         public IMidSurface Join()
         {
             IMidSurface midsurface = new MidSurface();
-            var mspoints = Qualify(msPointFinder.FindMSPoints());
+            var mspoints = Qlarify(msPointFinder.FindMSPoints());
             for (int i = 0; i < mspoints.Count(); i++)
             {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
@@ -61,7 +80,7 @@ namespace MidSurfaceNameSpace.Solver
             return midsurface;
         }
 
-        List<IMSPoint> Qualify(List<IMSPoint> mspoints)
+        List<IMSPoint> Qlarify(List<IMSPoint> mspoints)
         {
             var lines = new List<ICustomLine>();
 
@@ -70,25 +89,16 @@ namespace MidSurfaceNameSpace.Solver
                 lines.Add(point.GetLine());
             }
             for (int i = 0; i < mspoints.Count(); i++)
-            {     
+            {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
 
-                if (!accuracy.IsComplianced(mspoints[i], mspoints[j]))
+                if (clarification.Required(mspoints[i], mspoints[j]))
                 {
                     var currentLine = mspoints[i].GetLine();
                     var nextLine = mspoints[j].GetLine();
-                    if (currentLine.GetPoint2().GetPoint() != nextLine.GetPoint1().GetPoint())
-                        continue;
 
                     ICustomPoint point1 = null, point2 = null;
 
-                    var vector1 = currentLine.GetPoint1().GetPoint() - currentLine.GetPoint2().GetPoint();
-                    var vector2 = nextLine.GetPoint2().GetPoint() - nextLine.GetPoint1().GetPoint();
-                    if (Vector.AngleBetween(vector1, vector2) >= 0 &&
-                        currentLine.GetPoint1().GetN() != nextLine.GetPoint2().GetN())
-                    {
-                        continue;
-                    }
                     if (currentLine.GetPoint1().GetN() == nextLine.GetPoint2().GetN())
                     {
                         var t1 = (currentLine.GetPoint2().GetT() + currentLine.GetPoint1().GetT()) / 2;
@@ -96,7 +106,7 @@ namespace MidSurfaceNameSpace.Solver
 
                         point1 = new CustomPoint(currentLine.GetPoint1().GetN(), t1,
                             segments[currentLine.GetPoint1().GetN()].GetCurvePoint(t1));
-                        point2 = new CustomPoint(nextLine.GetPoint1().GetN(), t2, 
+                        point2 = new CustomPoint(nextLine.GetPoint1().GetN(), t2,
                             segments[nextLine.GetPoint1().GetN()].GetCurvePoint(t2));
                     }
                     else
@@ -127,7 +137,7 @@ namespace MidSurfaceNameSpace.Solver
                         }
                         else
                         {
-                            lines.AddRange( new List<ICustomLine> (){ line1, line2, line3});
+                            lines.AddRange(new List<ICustomLine>() { line1, line2, line3 });
                         }
                     }
                     msPointFinder.SetLines(lines);
