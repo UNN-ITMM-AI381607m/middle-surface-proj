@@ -17,7 +17,7 @@ namespace MidSurfaceNameSpace.Solver
         public MSPointFinder(List<ISegment> segments)
         {
             this.segments = segments;
-            Rmax = getRmax();
+            Rmax = GetRmax();
         }
 
         public void SetLines(List<ICustomLine> lines)
@@ -189,7 +189,7 @@ namespace MidSurfaceNameSpace.Solver
         }
 
 
-        double getRmax()
+        double GetRmax()
         {
             double R, Xmax = 0, Xmin = double.MaxValue, Ymax = 0, Ymin = double.MaxValue;
             for (int i = 0; i < segments.Count; i++)
