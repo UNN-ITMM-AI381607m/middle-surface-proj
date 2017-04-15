@@ -21,7 +21,7 @@ namespace MidSurfaceNameSpace.Solver
                 segments.AddRange(contour.GetSegments());
             }
 
-            ISplitter splitter = new Splitter(10);
+            ISplitter splitter = new Splitter();
             IMSPointFinder mspointfinder = new MSPointFinder(segments);
 
             mspointfinder.SetLines(splitter.Split(solverdata.GetContours(), 0.1));

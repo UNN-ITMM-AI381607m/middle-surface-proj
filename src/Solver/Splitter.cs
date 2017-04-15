@@ -9,10 +9,8 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class Splitter : ISplitter
     {
-        double m_lastPointInaccuracy;
-        public Splitter(double lastPointInaccuracy = 0.5)
+        public Splitter()
         {
-            m_lastPointInaccuracy = lastPointInaccuracy;
         }
 
         public List<ICustomLine> Split(IEnumerable<IContour> contours, double accuracy)
@@ -25,20 +23,17 @@ namespace MidSurfaceNameSpace.Solver
                 for (int i = 0; i < segments.Count(); i++, segmentNumber++)
                 {
                     double t = 0;
-                    while (t <= 1 - accuracy)
+                    while (t < 1)
                     {
+                        double nextT = t + accuracy;
+                        if (nextT > 1 || Math.Abs(1 - t - accuracy) <= 0.001)
+                        {
+                            nextT = 1;
+                        }
                         customLines.Add(new CustomLine(new CustomPoint(segmentNumber, t, segments[i].GetCurvePoint(t)),
-                            new CustomPoint(segmentNumber, t + accuracy, segments[i].GetCurvePoint(t + accuracy))));
-
-                        t += accuracy;
+                            new CustomPoint(segmentNumber, nextT, segments[i].GetCurvePoint(nextT))));
+                        t = nextT;
                     }
-                    if (1 - t + accuracy <= m_lastPointInaccuracy * accuracy)
-                    {
-                        customLines.RemoveAt(customLines.Count() - 1);
-                    }
-                    if (customLines.Last().GetPoint2().GetT() != 1)
-                        customLines.Add(new CustomLine(customLines.Last().GetPoint2(),
-                        new CustomPoint(segmentNumber, 1, segments[i].GetCurvePoint(1))));
                 }
             }
             return customLines;

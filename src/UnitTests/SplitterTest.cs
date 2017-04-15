@@ -13,38 +13,74 @@ namespace MidSurfaceNameSpace.UnitTests
     {
         List<IContour> contours;
         Splitter splitter;
+        int numOfSegments;
 
         public SplitterTest()
         {
             contours = new List<IContour>();
-            Primitive.Contour contour = new Primitive.Contour();
-            
-            List<ISegment> segments = new List<ISegment>
+            Primitive.Contour contour1 = new Primitive.Contour();
+            Primitive.Contour contour2 = new Primitive.Contour();
+
+            List<ISegment> segments1 = new List<ISegment>
+            {
+                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                {
+                    new System.Windows.Point(-2, -2),
+                    new System.Windows.Point(-2, 2)
+                }),
+                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                {
+                    new System.Windows.Point(-2, 2),
+                    new System.Windows.Point(2, 2)
+                }),
+                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                {
+                    new System.Windows.Point(2, 2),
+                    new System.Windows.Point(2, -2)
+                }),
+                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                {
+                    new System.Windows.Point(2, -2),
+                    new System.Windows.Point(-2, -2)
+                })
+            };
+
+            List<ISegment> segments2 = new List<ISegment>
             {
                 new Segment(new BezierCurve(), new List<System.Windows.Point>
                 {
                     new System.Windows.Point(0, 0),
-                    new System.Windows.Point(0, 1)
-                }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
-                {
-                    new System.Windows.Point(0, 1),
                     new System.Windows.Point(1, 0)
                 }),
                 new Segment(new BezierCurve(), new List<System.Windows.Point>
                 {
                     new System.Windows.Point(1, 0),
+                    new System.Windows.Point(0, 1)
+                }),
+                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                {
+                    new System.Windows.Point(0, 1),
                     new System.Windows.Point(0, 0)
                 })
             };
 
-            foreach (var segment in segments)
+            foreach (var segment in segments1)
             {
-                contour.Add(segment);
+                contour1.Add(segment);
             }
-            contours.Add(contour);
+            foreach (var segment in segments2)
+            {
+                contour2.Add(segment);
+            }
+            contours.Add(contour1);
+            contours.Add(contour2);
             
             splitter = new Splitter();
+            numOfSegments = 0;
+            foreach (var contour in contours)
+            {
+                numOfSegments += contour.GetSegments().Count();
+            }
         }
 
         [TestMethod]
@@ -83,6 +119,19 @@ namespace MidSurfaceNameSpace.UnitTests
                 segmentsCount += contour.GetSegments().Count();
             }
             Assert.AreEqual(segmentsCount, lines.Count);
+        }
+
+        [TestMethod]
+        public void TestAllSegmentsHaveUniqueNumber()
+        {
+            List<ICustomLine> lines = splitter.Split(contours, 0.5);
+            List<int> numbers = new List<int>();
+            foreach (var line in lines)
+            {
+                numbers.Add(line.GetPoint1().GetN());
+                numbers.Add(line.GetPoint2().GetN());
+            }
+            Assert.AreEqual(numbers.Distinct().Count(), numOfSegments);
         }
 
         List<System.Windows.Point> GetJoints(IEnumerable<ISegment> segments)
