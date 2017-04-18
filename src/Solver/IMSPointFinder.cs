@@ -12,6 +12,6 @@ namespace MidSurfaceNameSpace.Solver
     {
         void SetLines(List<ICustomLine> lines);
         List<IMSPoint> FindMSPoints();
-        IMSPoint FindMSPointForLine(ICustomLine line);
+        IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = new Vector());
     }
 }

@@ -212,11 +212,12 @@ namespace MidSurfaceNameSpace.Solver
             return R;
         }
 
-        public IMSPoint FindMSPointForLine(ICustomLine line)
+        public IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = new Vector())
         {
             Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
                 (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
-            return CalculateMSPoint(line.GetRightNormal(), middlePoint, line);
+            Vector guiding = guidingVector.Length == 0 ? line.GetRightNormal() : guidingVector;
+            return CalculateMSPoint(guiding, middlePoint, line);
         }
     }
 }
