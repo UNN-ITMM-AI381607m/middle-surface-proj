@@ -80,8 +80,13 @@ namespace MidSurfaceNameSpace.IO
         {
             try
             {
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                var resourceName = "Parser.ShapeSchema.xsd";
+
+                Stream stream = assembly.GetManifestResourceStream(resourceName);
                 XmlReaderSettings settings = new XmlReaderSettings();
-                settings.Schemas.Add("", "ShapeSchema.xsd");
+                
+                settings.Schemas.Add("", XmlReader.Create(stream));
                 settings.ValidationType = ValidationType.Schema;
 
                 XmlReader reader = XmlReader.Create(filePath, settings);
