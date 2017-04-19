@@ -21,12 +21,12 @@ namespace MidSurfaceNameSpace.Solver
                 segments.AddRange(contour.GetSegments());
             }
 
-            ISplitter splitter = new Splitter();
             IMSPointFinder mspointfinder = new MSPointFinder(segments);
+            mspointfinder.SetLines(new Splitter().Split(solverdata.GetContours(), 0.1));
 
-            mspointfinder.SetLines(splitter.Split(solverdata.GetContours(), 0.1));
+            IDetailizer detailizer = new Detailizer(mspointfinder, 5);
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(mspointfinder, segments, 20);
+            IJoinMSPoints jointpoints = new JoinMSPoints(detailizer.Detalize());
             return jointpoints.Join();
         }
     }

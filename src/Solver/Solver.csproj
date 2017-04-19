@@ -45,9 +45,11 @@
     <Compile Include="Algorithm.cs" />
     <Compile Include="CustomLine.cs" />
     <Compile Include="CustomPoint.cs" />
+    <Compile Include="Detailizer.cs" />
     <Compile Include="IAlgorithm.cs" />
     <Compile Include="ICustomLine.cs" />
     <Compile Include="ICustomPoint.cs" />
+    <Compile Include="IDetailizer.cs" />
     <Compile Include="IJoinMSPoints.cs" />
     <Compile Include="IMSPointFinder.cs" />
     <Compile Include="IMSPoint.cs" />

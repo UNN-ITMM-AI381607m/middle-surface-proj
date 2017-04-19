@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplitterTest.cs" />
     <Compile Include="JoinMsPointsTest.cs" />
+    <Compile Include="DetailizerTest.cs" />
     <Compile Include="ViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,10 +83,6 @@
     <ProjectReference Include="..\Parser\Parser.csproj">
       <Project>{a7be69c1-1b36-45f0-8b69-1e027d1c89a2}</Project>
       <Name>Parser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Solver\Solver.csproj">
-      <Project>{eb8eefb4-f72a-47c4-a31b-43a9392d62c1}</Project>
-      <Name>Solver</Name>
     </ProjectReference>
     <ProjectReference Include="..\View\View.csproj">
       <Project>{f84ff65d-6e32-4f28-a922-f95793788f5b}</Project>

@@ -95,6 +95,13 @@ namespace MidSurfaceNameSpace.Solver
             {
                 Point linePoint1 = simplifiedModel[i].GetPoint1().GetPoint();
                 Point linePoint2 = simplifiedModel[i].GetPoint2().GetPoint();
+
+                bool mspointFromBisector = currentLine.GetPoint1().GetPoint() == currentLine.GetPoint2().GetPoint();
+                if (mspointFromBisector &&
+                    (currentLine.GetPoint1().GetPoint() == linePoint1 ||
+                    currentLine.GetPoint1().GetPoint() == linePoint2))
+                    continue;
+
                 if (currentLine.GetPoint1().GetPoint() == linePoint1 &&
                     currentLine.GetPoint2().GetPoint() == linePoint2)
                     continue;
