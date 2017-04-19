@@ -79,9 +79,19 @@ namespace MidSurfaceNameSpace.Solver
                             insertIndex = i;
                             mspoints.Remove(mspoint1);
                         }
-                        for (int k = 0; k < newLines.Count; k++)
+                        if (insertIndex < mspoints.Count)
                         {
-                            mspoints.Insert(insertIndex + k, finder.FindMSPointForLine(newLines[k]));
+                            for (int k = 0; k < newLines.Count; k++)
+                            {
+                                mspoints.Insert(insertIndex + k, finder.FindMSPointForLine(newLines[k]));
+                            }
+                        }
+                        else
+                        {
+                            for (int k = 0; k < newLines.Count; k++)
+                            {
+                                mspoints.Add(finder.FindMSPointForLine(newLines[k]));
+                            }
                         }
                     }
                     i--;
