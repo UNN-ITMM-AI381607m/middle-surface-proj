@@ -22,9 +22,8 @@ namespace MidSurfaceNameSpace.Solver
             }
 
             IMSPointFinder mspointfinder = new MSPointFinder(segments);
-            mspointfinder.SetLines(new Splitter().Split(solverdata.GetContours(), 0.1));
-
-            IDetailizer detailizer = new Detailizer(mspointfinder, 5);
+            var lines = new Splitter().Split(solverdata.GetContours(), 0.1);
+            IDetailizer detailizer = new Detailizer(lines, mspointfinder, 5);
 
             IJoinMSPoints jointpoints = new JoinMSPoints(detailizer.Detalize());
             return jointpoints.Join();
