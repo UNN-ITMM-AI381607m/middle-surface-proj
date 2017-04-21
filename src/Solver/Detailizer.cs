@@ -45,6 +45,9 @@ namespace MidSurfaceNameSpace.Solver
                     var vector1 = lines[i].GetPoint1().GetPoint() - lines[i].GetPoint2().GetPoint();
                     var vector2 = lines[j].GetPoint2().GetPoint() - lines[j].GetPoint1().GetPoint();
 
+                    bool line1IsPoint4Bisector = lines[i].GetPoint1().GetPoint() == lines[i].GetPoint2().GetPoint();
+                    bool line2IsPoint4Bisector = lines[j].GetPoint1().GetPoint() == lines[j].GetPoint2().GetPoint();
+
                     // bisector case
                     if (Vector.AngleBetween(vector1, vector2) < 0 &&
                         lines[i].GetPoint1().GetN() != lines[j].GetPoint2().GetN())
@@ -60,9 +63,6 @@ namespace MidSurfaceNameSpace.Solver
                     }
                     else
                     {
-                        bool line1IsPoint4Bisector = lines[i].GetPoint1().GetPoint() == lines[i].GetPoint2().GetPoint();
-                        bool line2IsPoint4Bisector = lines[j].GetPoint1().GetPoint() == lines[j].GetPoint2().GetPoint();
-
                         var newLines = SplitOnLines(lines[i], lines[j]);
                         if (newLines == null)
                         {
