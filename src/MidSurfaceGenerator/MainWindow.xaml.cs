@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MidSurfaceNameSpace.Solver;
+using System.IO;
 
 namespace MidSurfaceNameSpace.MidSurfaceGenerator
 {
@@ -100,5 +101,32 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
         }
+
+        private void Go_all_tests(object sender, RoutedEventArgs e)
+        {
+            string[] allFoundFiles = Directory.GetFiles("E:/Интернет/UNN_ITMM_AI381607m-master/UNN_ITMM_AI381607m-master/doc/tests", "*.xml", SearchOption.AllDirectories);
+            foreach (string path in allFoundFiles)
+            {
+                MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
+                model_temp.Add(new Parser().ImportFile(path));
+                model = model_temp;
+                RedrawModel();
+                MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
+                mid_surface_model = alg.Run(new SolverData(model));
+                RedrawMisSurface();
+                var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
+                // needed otherwise the image output is black
+                mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
+                mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
+                rtb.Render(mainCanvas);
+
+                PngBitmapEncoder BufferSave = new PngBitmapEncoder();
+                BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
+                using (var fs = File.OpenWrite(path.Substring(0, path.Length - 4) + "res.png"))
+                {
+                    BufferSave.Save(fs);
+                }
+            }
+        }  
     }
 }

@@ -19,8 +19,9 @@
                 <MenuItem Header="Operator guide"/>
                 <MenuItem Header="About"/>
             </MenuItem>
+            <MenuItem Header="Прогнать все тесты" Click ="Go_all_tests"/>
         </Menu>
-        <ToolBar x:Name="toolBar" Margin="0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
+        <ToolBar x:Name="toolBar" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
             <Label x:Name="label1" Content="Accuracy" Height="26" VerticalAlignment="Top"/>
             <TextBox x:Name="textBox_Accuracy" Height="26" Margin="0" TextWrapping="Wrap" Text="0.001" VerticalAlignment="Center" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2" MaxWidth="100"/>
         </ToolBar>
@@ -28,6 +29,6 @@
             <Label x:Name="label" Content="Status " Padding="0" BorderBrush="Black" BorderThickness="0,0,1,0"/>
             <Label x:Name="currentStatus" Content="Ready for work" Padding="0" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Center"/>
         </StatusBar>
-        <Canvas x:Name="mainCanvas" Margin="0" Background="White" d:LayoutOverrides="TopPosition, BottomPosition" AutomationProperties.IsOffscreenBehavior="FromClip" DockPanel.Dock="Top"/>
+        <Canvas x:Name="mainCanvas" Background="White" d:LayoutOverrides="TopPosition, BottomPosition" AutomationProperties.IsOffscreenBehavior="FromClip" DockPanel.Dock="Top"/>
     </DockPanel>
 </Window>
