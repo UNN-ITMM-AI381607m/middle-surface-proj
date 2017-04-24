@@ -104,7 +104,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void Go_all_tests(object sender, RoutedEventArgs e)
         {
-            string[] allFoundFiles = Directory.GetFiles("E:/Интернет/UNN_ITMM_AI381607m-master/UNN_ITMM_AI381607m-master/doc/tests", "*.xml", SearchOption.AllDirectories);
+            string[] allFoundFiles = Directory.GetFiles(Environment.CurrentDirectory+"/tests", "*.xml", SearchOption.AllDirectories);
             foreach (string path in allFoundFiles)
             {
                 MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
