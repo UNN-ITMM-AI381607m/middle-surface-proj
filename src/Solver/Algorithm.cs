@@ -9,6 +9,15 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class Algorithm : IAlgorithm
     {
+        double splitterAccuracy;
+        double detalizerAccuracy;
+
+        public Algorithm(double splitterAccuracy, double detalizerAccuracy)
+        {
+            this.splitterAccuracy = splitterAccuracy;
+            this.detalizerAccuracy = detalizerAccuracy;
+        }
+
         public IMidSurface Run(ISolverData solverdata)
         {
             IMidSurface midsurface = new MidSurface();
@@ -22,8 +31,8 @@ namespace MidSurfaceNameSpace.Solver
             }
 
             IMSPointFinder mspointfinder = new MSPointFinder(segments);
-            var lines = new Splitter().Split(solverdata.GetContours(), 0.1);
-            IDetailizer detailizer = new Detailizer(lines, mspointfinder, 5);
+            var lines = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
+            IDetailizer detailizer = new Detailizer(lines, mspointfinder, detalizerAccuracy);
 
             IJoinMSPoints jointpoints = new JoinMSPoints(detailizer.Detalize());
             return jointpoints.Join();

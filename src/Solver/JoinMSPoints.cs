@@ -21,8 +21,8 @@ namespace MidSurfaceNameSpace.Solver
             for (int i = 0; i < mspoints.Count(); i++)
             {
                 int j = i == mspoints.Count() - 1 ? 0 : i + 1;
-                if (mspoints[i].GetLine().GetPoint2().GetPoint() != mspoints[j].GetLine().GetPoint1().GetPoint())
-                    continue;
+                //if (mspoints[i].GetLine().GetPoint2().GetPoint() != mspoints[j].GetLine().GetPoint1().GetPoint())
+                //    continue;
                 midsurface.Add(PointsToSegment(mspoints[i].GetPoint(), mspoints[j].GetPoint()));
             }
             return midsurface;

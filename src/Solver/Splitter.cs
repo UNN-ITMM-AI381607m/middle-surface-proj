@@ -26,7 +26,7 @@ namespace MidSurfaceNameSpace.Solver
                     while (t < 1)
                     {
                         double nextT = t + accuracy;
-                        if (nextT > 1 || Math.Abs(1 - t - accuracy) <= 0.001)
+                        if (nextT > 1 || 1 - nextT < accuracy)
                         {
                             nextT = 1;
                         }

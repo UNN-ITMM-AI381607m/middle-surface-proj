@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MidSurfaceNameSpace.Solver;
 using System.IO;
+using System.Globalization;
 
 namespace MidSurfaceNameSpace.MidSurfaceGenerator
 {
@@ -24,14 +25,14 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MidSurfaceNameSpace.Component.IModel model;
-        private MidSurfaceNameSpace.IMidSurface mid_surface_model;
-        private MidSurfaceNameSpace.Component.IView view;
+        private Component.IModel model;
+        private IMidSurface mid_surface_model;
+        private Component.IView view;
 
         public MainWindow()
         {
             InitializeComponent();
-            view = new MidSurfaceNameSpace.Component.View(mainCanvas);
+            view = new Component.View(mainCanvas);
  
         }
 
@@ -48,8 +49,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             if (importDlg.ShowDialog() != null)
             {
                 try
-                {                   
-                    MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
+                {
+                    Component.Model model_temp = new Component.Model();
                     model_temp.Add(new Parser().ImportFile(importDlg.FileName));
                     //TODO: Dinar: some trick, maybe not good solution
                     model = model_temp;
@@ -73,8 +74,23 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             //TODO: Dinar: prepare generating implementation
             if (model == null) return;
+            RedrawModel();
             currentStatus.Content = "Generating...";
-            MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
+
+            //TODO: Move to some input checking
+            double splitterAccuracy = 0;
+            double detalizerAccuracy = 0;
+            try
+            {
+                splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
+            }
+            catch(Exception)
+            {
+                return;
+            }
+
+            IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
             mid_surface_model = alg.Run(new SolverData(model));
             RedrawMisSurface();
             currentStatus.Content = "Ready for work";
@@ -85,9 +101,11 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             if (model == null) return;
             //TODO: Dinar: continue connecting parameters
             mainCanvas.Children.Clear();
-            View.VisibleDataSettings settings= new View.VisibleDataSettings();
-            settings.Brush = Brushes.Black;
-            settings.Thikness = 2;
+            View.VisibleDataSettings settings = new View.VisibleDataSettings()
+            {
+                Brush = Brushes.Black,
+                Thikness = 2
+            };
             View.VisibleData visible_data = new View.VisibleData(model,settings);
             view.Paint(visible_data);
         }
@@ -107,11 +125,25 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             string[] allFoundFiles = Directory.GetFiles(Environment.CurrentDirectory+"/tests", "*.xml", SearchOption.AllDirectories);
             foreach (string path in allFoundFiles)
             {
-                MidSurfaceNameSpace.Component.Model model_temp = new MidSurfaceNameSpace.Component.Model();
+                Component.Model model_temp = new Component.Model();
                 model_temp.Add(new Parser().ImportFile(path));
                 model = model_temp;
                 RedrawModel();
-                MidSurfaceNameSpace.Solver.IAlgorithm alg = new MidSurfaceNameSpace.Solver.Algorithm();
+
+                //TODO: Move to some input checking
+                double splitterAccuracy = 0;
+                double detalizerAccuracy = 0;
+                try
+                {
+                    splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                    detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+
+                IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
                 mid_surface_model = alg.Run(new SolverData(model));
                 RedrawMisSurface();
                 var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
