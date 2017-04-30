@@ -7,55 +7,27 @@
         <Y>144</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>364</X>
-        <Y>144</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>364</X>
-        <Y>82</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>438</X>
-        <Y>82</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>438</X>
-        <Y>144</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>496</X>
-        <Y>144</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>513</X>
-        <Y>84</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>532</X>
-        <Y>144</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>550</X>
-        <Y>144</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>638</X>
-        <Y>164</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>556</X>
-        <Y>178</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>607</X>
-        <Y>204</Y>
-      </JunctionPoint>
-      <JunctionPoint>
-        <X>553</X>
+        <X>106</X>
         <Y>212</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>538</X>
+        <X>365</X>
+        <Y>212</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>365</X>
+        <Y>270</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>437</X>
+        <Y>270</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>437</X>
+        <Y>212</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>491</X>
         <Y>212</Y>
       </JunctionPoint>
       <JunctionPoint>
@@ -63,55 +35,82 @@
         <Y>265</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>491</X>
+        <X>538</X>
         <Y>212</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>437</X>
+        <X>553</X>
         <Y>212</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>437</X>
-        <Y>270</Y>
+        <X>607</X>
+        <Y>204</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>365</X>
-        <Y>270</Y>
+        <X>556</X>
+        <Y>178</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>365</X>
-        <Y>212</Y>
+        <X>638</X>
+        <Y>164</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>106</X>
-        <Y>212</Y>
+        <X>550</X>
+        <Y>144</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>532</X>
+        <Y>144</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>513</X>
+        <Y>84</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>496</X>
+        <Y>144</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>438</X>
+        <Y>144</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>438</X>
+        <Y>82</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>364</X>
+        <Y>82</Y>
+      </JunctionPoint>
+      <JunctionPoint>
+        <X>364</X>
+        <Y>144</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
-
   <Contour>
     <JointsOfSegments>
       <JunctionPoint>
@@ -119,23 +118,23 @@
         <Y>102</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>387</X>
-        <Y>123</Y>
+        <X>414</X>
+        <Y>102</Y>
       </JunctionPoint>
       <JunctionPoint>
         <X>415</X>
         <Y>123</Y>
       </JunctionPoint>
       <JunctionPoint>
-        <X>414</X>
-        <Y>102</Y>
+        <X>387</X>
+        <Y>123</Y>
       </JunctionPoint>
     </JointsOfSegments>
     <Segments>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
-      <BezierCurve/>
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
+      <BezierCurve />
     </Segments>
   </Contour>
 </Shape2D>
