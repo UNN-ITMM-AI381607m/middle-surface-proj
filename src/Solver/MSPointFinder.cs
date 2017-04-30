@@ -30,7 +30,9 @@ namespace MidSurfaceNameSpace.Solver
 
             foreach (var line in simplifiedModel)
             {
-                mspoints.Add(FindMSPointForLine(line));
+                Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
+                (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
+                mspoints.Add(FindMSPoint(middlePoint, line.GetRightNormal()));
             }
             return mspoints;
         }
@@ -54,7 +56,7 @@ namespace MidSurfaceNameSpace.Solver
             double Rmin = 0;
             double R = Rmax;
             Point center = new Point(point.X + vector.X * R, point.Y + vector.Y * R);
-            int crossStatus = ValidateCircleDueModel(center, R, line);
+            int crossStatus = ValidateCircleDueModel(center, R, point);
 
             while (!EqualDoubles(Rmax, Rmin, 0.001))
             {
@@ -63,7 +65,7 @@ namespace MidSurfaceNameSpace.Solver
                 center.X = point.X + vector.X * R;
                 center.Y = point.Y + vector.Y * R;
 
-                crossStatus = ValidateCircleDueModel(center, R, line);
+                crossStatus = ValidateCircleDueModel(center, R, point);
                 if (crossStatus == 1)
                 {
                     Rmin = R;
@@ -86,7 +88,14 @@ namespace MidSurfaceNameSpace.Solver
             return segments;
         }
 
-        int ValidateCircleDueModel(Point center, double R, ICustomLine currentLine)
+        bool ClosePoints(Point a, Point b, double accuracy)
+        {
+            if ((a - b).Length <= accuracy)
+                return true;
+            return false;
+        }
+
+        int ValidateCircleDueModel(Point center, double R, Point currentPoint)
         {
             bool foundGood = false;
             bool needToDecrease = false;
@@ -100,15 +109,15 @@ namespace MidSurfaceNameSpace.Solver
                 if (linePoint1 == linePoint2) continue;
 
                 //if mspoint from bisector
-                bool mspointFromBisector = currentLine.GetPoint1().GetPoint() == currentLine.GetPoint2().GetPoint();
-                if (mspointFromBisector &&
-                    (currentLine.GetPoint1().GetPoint() == linePoint1 ||
-                    currentLine.GetPoint1().GetPoint() == linePoint2))
-                    continue;
+                //bool mspointFromBisector = currentLine.GetPoint1().GetPoint() == currentLine.GetPoint2().GetPoint();
+                //if (mspointFromBisector &&
+                //    (currentLine.GetPoint1().GetPoint() == linePoint1 ||
+                //    currentLine.GetPoint1().GetPoint() == linePoint2))
+                //    continue;
 
-                if (currentLine.GetPoint1().GetPoint() == linePoint1 &&
-                    currentLine.GetPoint2().GetPoint() == linePoint2)
-                    continue;
+                //if (currentLine.GetPoint1().GetPoint() == linePoint1 &&
+                //    currentLine.GetPoint2().GetPoint() == linePoint2)
+                //    continue;
 
                 Point resultPoint1 = new Point();
                 Point resultPoint2 = new Point();
@@ -122,6 +131,8 @@ namespace MidSurfaceNameSpace.Solver
                     && resultPoint1.X >= xmin && resultPoint1.X <= xmax
                     && resultPoint1.Y >= ymin && resultPoint1.Y <= ymax)
                 {
+                    if (ClosePoints(currentPoint, resultPoint1, 0.1))
+                        continue;
                         intersecCounter++;
                 }
                 if (lineIntersecsFound == 2
@@ -223,7 +234,12 @@ namespace MidSurfaceNameSpace.Solver
             return R;
         }
 
-        public IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = new Vector())
+        public IMSPoint FindMSPoint(Point contourPoint, Vector guidingVector)
+        {
+            return CalculateMSPoint(guidingVector, contourPoint, null);
+        }
+
+        public IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = default(Vector))
         {
             Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
                 (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
