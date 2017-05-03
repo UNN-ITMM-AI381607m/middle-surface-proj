@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GraphTest.cs" />
     <Compile Include="ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplitterTest.cs" />
@@ -85,9 +86,9 @@
       <Name>Parser</Name>
     </ProjectReference>
     <ProjectReference Include="..\Solver\Solver.csproj">
-       <Project>{eb8eefb4-f72a-47c4-a31b-43a9392d62c1}</Project>
-       <Name>Solver</Name>
-     </ProjectReference>
+      <Project>{eb8eefb4-f72a-47c4-a31b-43a9392d62c1}</Project>
+      <Name>Solver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\View\View.csproj">
       <Project>{f84ff65d-6e32-4f28-a922-f95793788f5b}</Project>
       <Name>View</Name>

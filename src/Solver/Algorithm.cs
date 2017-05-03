@@ -30,12 +30,18 @@ namespace MidSurfaceNameSpace.Solver
                 segments.AddRange(contour.GetSegments());
             }
 
-            IMSPointFinder mspointfinder = new MSPointFinder(segments);
+            IMSPointFinder mspointfinder = new MSPointFinder();
             var lines = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
             IDetailizer detailizer = new Detailizer(lines, mspointfinder, detalizerAccuracy);
-            mspointfinder.SetLines(lines);
-            IJoinMSPoints jointpoints = new JoinMSPoints(mspointfinder.FindMSPoints());//detailizer.Detalize());
+
+            IJoinMSPoints jointpoints = new JoinMSPoints(detailizer.Detalize(), lines);
             return jointpoints.Join();
         }
+
+        public static bool EqualDoubles(double n1, double n2, double precision_)
+        {
+            return (Math.Abs(n1 - n2) <= precision_);
+        }
+
     }
 }
