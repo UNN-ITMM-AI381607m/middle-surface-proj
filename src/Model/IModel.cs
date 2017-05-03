@@ -9,6 +9,7 @@ namespace MidSurfaceNameSpace.Component
 {
     public interface IModel
     {
+        void Add(IFigure figure);
         IEnumerable<IFigure> GetData();
         IEnumerable<ISegment> GetCanvasData();
         Size GetSize();

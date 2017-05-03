@@ -52,6 +52,7 @@
     <Compile Include="IModel.cs" />
     <Compile Include="ISegment.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="MSModel.cs" />
     <Compile Include="Normal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segment.cs" />

@@ -8,6 +8,7 @@ namespace MidSurfaceNameSpace.Primitive
 {
     public interface IContour: IEnumerable<ISegment>
     {
+        void Add(ISegment segment);
         IEnumerable<ISegment> GetSegments();
     }
 }

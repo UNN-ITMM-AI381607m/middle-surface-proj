@@ -8,6 +8,7 @@ namespace MidSurfaceNameSpace.Primitive
 {
     public interface IFigure: IEnumerable<IContour>
     {
+        void Add(IContour contour);
         IEnumerable<IContour> GetContours();
     }
 }
