@@ -32,7 +32,7 @@ namespace MidSurfaceNameSpace.Solver
             {
                 Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
                 (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
-                mspoints.Add(FindMSPoint(middlePoint, line.GetRightNormal()));
+                mspoints.Add(FindMSPoint(middlePoint, line.GetRightNormal())); //line.GetPoint1().GetPoint()
             }
             return mspoints;
         }

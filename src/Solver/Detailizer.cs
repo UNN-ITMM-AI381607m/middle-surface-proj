@@ -11,9 +11,10 @@ namespace MidSurfaceNameSpace.Solver
         private List<ICustomLine> lines;
         private IMSPointFinder finder;
         private double accuracy;
+        private List<ISegment> segments;
 
         public Detailizer(List<ICustomLine> lines,
-            IMSPointFinder finder, double accuracy)
+            IMSPointFinder finder, List<ISegment> segments, double accuracy)
         {
             this.lines = lines;
             this.finder = finder;
@@ -26,16 +27,18 @@ namespace MidSurfaceNameSpace.Solver
             IMSPoint mspoint1 = null, mspoint2 = null;
             bool previousPointAdded = false;
 
+            finder.SetLines(lines);
+
             for (int i = 0; i < lines.Count(); ++i)
             {
                 int j = i == lines.Count() - 1 ? 0 : i + 1;
-  
-                finder.SetLines(lines);
-
                 mspoint1 = previousPointAdded ? mspoint2 : GetMSPoint(i);
                 mspoint2 = GetMSPoint(j);
 
-                if (!DetailRequired(mspoint1, mspoint2))
+                // different contours
+                if (lines[i].GetPoint2().GetPoint() != lines[j].GetPoint1().GetPoint() ||
+                // suitable for accuracy
+                    !DetailRequired(mspoint1, mspoint2))
                 {
                     mspoints.Add(mspoint1);
                     previousPointAdded = true;
@@ -69,7 +72,7 @@ namespace MidSurfaceNameSpace.Solver
                             mspoints.Add(mspoint1);
                             continue;
                         }
-                   
+
                         int index = line1IsPoint4Bisector ? i + 1 : i;
                         var line = lines[j];
 
@@ -93,21 +96,15 @@ namespace MidSurfaceNameSpace.Solver
 
         public bool DetailRequired(IMSPoint point1, IMSPoint point2)
         {
-            var line1 = point1.GetLine();
-            var line2 = point2.GetLine();
-
-            // If mspoints belong to different contours
-            if (line1.GetPoint2().GetPoint() != line2.GetPoint1().GetPoint()) return false;
-
             var midpointsDistance = (point2.GetPoint() - point1.GetPoint()).Length;
             // If mspoints are suitable for accuracy 
             if (midpointsDistance <= accuracy) return false;
 
-            var line1middlePoint = new Point((line1.GetPoint1().GetPoint().X + line1.GetPoint2().GetPoint().X) / 2,
-                  (line1.GetPoint1().GetPoint().Y + line1.GetPoint2().GetPoint().Y) / 2);
+         //   var line1middlePoint = new Point((line1.GetPoint1().GetPoint().X + line1.GetPoint2().GetPoint().X) / 2,
+          //        (line1.GetPoint1().GetPoint().Y + line1.GetPoint2().GetPoint().Y) / 2);
 
             // If distance to midpoint is more than  midpoints distance
-            if ((line1middlePoint - point1.GetPoint()).Length - midpointsDistance > 0) return false;
+          //  if ((line1middlePoint - point1.GetPoint()).Length - midpointsDistance > 0) return false;
             return true;
         }
 
@@ -159,6 +156,38 @@ namespace MidSurfaceNameSpace.Solver
                 return finder.FindMSPointForLine(line, bisector);
             }
             return finder.FindMSPointForLine(line);
+        }
+
+        // TO DO: implement new method
+        public List<IMSPoint> DetalizeFromSegments()
+        {
+            finder.SetLines(lines);
+            List<IMSPoint> mspoints = new List<IMSPoint>();
+
+            IMSPoint mspoint1 = null, mspoint2 = null;
+            bool previousPointAdded = false;
+
+            for(int i = 0; i < lines.Count; i++)
+            {
+                int j = i == lines.Count() - 1 ? 0 : i + 1;
+                mspoint1 = previousPointAdded ? mspoint2 : GetMSPoint(i);
+                mspoint2 = GetMSPoint(j);
+
+                // different contours
+                if (lines[i].GetPoint2().GetPoint() != lines[j].GetPoint1().GetPoint() ||
+                // suitable for accuracy
+                    !DetailRequired(mspoint1, mspoint2))
+                {
+                    mspoints.Add(mspoint1);
+                    previousPointAdded = true;
+                }
+                else
+                {
+                  //  var newnormal1 = segments[mspoint1.GetLine().GetPoint1().GetN()].GetNormal(0);
+                  //  var newnormal2 = segments[mspoint1.GetLine().GetPoint1().GetN()].GetNormal(1);
+                }
+            }
+            return null;
         }
     }
 }

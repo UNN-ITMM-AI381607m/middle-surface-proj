@@ -12,8 +12,9 @@ namespace MidSurfaceNameSpace.Solver
     {
         ICustomLine line;
         Point mspoint;
-
-        public MSPoint(Point mspoint, ICustomLine line)
+        Vector normal;
+                                                        
+        public MSPoint(Point mspoint, ICustomLine line = null)
         {
             this.mspoint = mspoint;
             this.line = line;

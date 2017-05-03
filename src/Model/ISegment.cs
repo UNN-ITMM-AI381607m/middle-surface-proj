@@ -10,6 +10,7 @@ namespace MidSurfaceNameSpace.Primitive
     public interface ISegment
     {
         Point GetCurvePoint(double t);
-        IEnumerable<Point> GetPillar();
+        List<Point> GetPillar();
+        Normal GetNormal(double t);
     }
 }
