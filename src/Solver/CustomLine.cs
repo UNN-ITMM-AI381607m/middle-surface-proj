@@ -97,12 +97,12 @@ namespace MidSurfaceNameSpace.Solver
             int lineIntersecsFound = LineCircleIntersection(center, R, lineSegmentPoint1, lineSegmentPoint2, ref intersecPoint1, ref intersecPoint2);
 
             if (lineIntersecsFound >= 1
-                && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint1, 0.01))
+                && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint1, 0.1))
             {
                 intersecCounter++;
             }
             if (lineIntersecsFound == 2
-                && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint2, 0.01))
+                && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint2, 0.1))
             {
                 intersecCounter++;
                 if (intersecCounter == 1)

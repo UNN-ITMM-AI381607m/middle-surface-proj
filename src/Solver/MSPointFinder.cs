@@ -13,10 +13,13 @@ namespace MidSurfaceNameSpace.Solver
         List<ICustomLine> simplifiedModel;
         List<ISegment> segments;
         double Rmax;
+        const double radiusAccuracy = 0.00001;
+        int MSPointCounter;
 
         public MSPointFinder(List<ISegment> segments)
         {
             this.segments = segments;
+            MSPointCounter = 0;
         }
 
         public void SetLines(List<ICustomLine> lines)
@@ -39,7 +42,25 @@ namespace MidSurfaceNameSpace.Solver
             return mspoints;
         }
 
-
+        void SetMarks(Point center, double R, int id)
+        {
+            for (int i = 0; i < simplifiedModel.Count; i++)
+            {
+                Point intersecPoint1 = new Point();
+                Point intersecPoint2 = new Point();
+                int intersecCount = CustomLine.LineSegmentIntersectionCircle(center, R, simplifiedModel[i].GetPoint1().GetPoint(),
+                    simplifiedModel[i].GetPoint2().GetPoint(), ref intersecPoint1, ref intersecPoint2);
+                if (intersecCount == 1)
+                {
+                    simplifiedModel[i].AddMark(id, intersecPoint1);
+                }
+                else if (intersecCount == 2)
+                {
+                    Point contactPoint = Vector.Add((intersecPoint2 - intersecPoint1) / 2, intersecPoint1);
+                    simplifiedModel[i].AddMark(id, contactPoint);
+                }
+            }
+        }
 
         IMSPoint CalculateMSPoint(Point point, Normal normal)
         {
@@ -51,8 +72,8 @@ namespace MidSurfaceNameSpace.Solver
             double R = Rmax;
             Point center = new Point(point.X + vector.X * R, point.Y + vector.Y * R);
             int crossStatus = ValidateCircleDueModel(center, R, point);
-
-            while (!Algorithm.EqualDoubles(Rmax, Rmin, 0.0001))
+            double RMaxPrevious = Rmax;
+            while (!Algorithm.EqualDoubles(Rmax, Rmin, radiusAccuracy))
             {
                 R = (Rmax + Rmin) / 2;
 
@@ -66,6 +87,7 @@ namespace MidSurfaceNameSpace.Solver
                 }
                 else if (crossStatus == -1)
                 {
+                    RMaxPrevious = Rmax;
                     Rmax = R;
                 }
                 else if (crossStatus == 0)
@@ -73,9 +95,8 @@ namespace MidSurfaceNameSpace.Solver
                     break;
                 }
             }
-            //Hack
-            center.X = point.X + vector.X * Rmax;
-            center.Y = point.Y + vector.Y * Rmax;
+            SetMarks(center, RMaxPrevious, MSPointCounter);
+            MSPointCounter++;
             return new MSPoint(center, segment);
         }
 

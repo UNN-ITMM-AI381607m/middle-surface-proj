@@ -20,6 +20,17 @@ namespace MidSurfaceNameSpace.Solver
 
         private class BaseAlgorithm
         {
+            List<ICustomLine> simplifiedModel;
+            public BaseAlgorithm()
+            {
+                simplifiedModel = new List<ICustomLine>();
+            }
+
+            public IEnumerable<ICustomLine> GetSimplifiedModel()
+            {
+                return simplifiedModel;
+            }
+
             public List<IMSPoint> Run(ISolverData solverdata, double splitterAccuracy, double detalizerAccuracy)
             {
                 List<IContour> contours = solverdata.GetContours();
@@ -31,9 +42,9 @@ namespace MidSurfaceNameSpace.Solver
                 }
 
                 IMSPointFinder mspointfinder = new MSPointFinder(segments);
-                var lines = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
-                IDetailizer detailizer = new Detailizer(lines, mspointfinder, segments, detalizerAccuracy);
-                mspointfinder.SetLines(lines);
+                simplifiedModel = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
+                IDetailizer detailizer = new Detailizer(simplifiedModel, mspointfinder, segments, detalizerAccuracy);
+                mspointfinder.SetLines(simplifiedModel);
                 return mspointfinder.FindMSPoints();
             }
         }
@@ -45,14 +56,35 @@ namespace MidSurfaceNameSpace.Solver
             BaseAlgorithm balg = new BaseAlgorithm();
             List<IMSPoint> MSPoints = balg.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(MSPoints);//detailizer.Detalize());
+            Graph msGraph = ConstructGraph(MSPoints, balg.GetSimplifiedModel());
 
-            //Graph functions HERE
-
-
-
-
+            IJoinMSPoints jointpoints = new JoinMSPoints(MSPoints, msGraph);//detailizer.Detalize());
+            
             return jointpoints.Join();
+        }
+
+        Graph ConstructGraph(IEnumerable<IMSPoint> msPoints, IEnumerable<ICustomLine> simplifiedModel)
+        {
+            Graph graph = new Graph();
+
+            List<int> connectionOrder = new List<int>();
+            foreach (var line in simplifiedModel)
+            {
+                var marksOnLine = line.GetMarks();
+                foreach (var mark in marksOnLine)
+                {
+                    if (connectionOrder.Count == 0 || mark.MSPointIndex != connectionOrder.Last())
+                        connectionOrder.Add(mark.MSPointIndex);
+                }
+            }
+
+            for (int i = 0; i < connectionOrder.Count - 1; i++)
+            {
+                int j = i + 1 == connectionOrder.Count ? 0 : i + 1;
+                graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[j]).GetPoint());
+            }
+
+            return graph;
         }
 
         public static bool EqualDoubles(double n1, double n2, double precision_)
