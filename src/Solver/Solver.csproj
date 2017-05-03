@@ -46,6 +46,7 @@
     <Compile Include="CustomLine.cs" />
     <Compile Include="CustomPoint.cs" />
     <Compile Include="Detailizer.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="IAlgorithm.cs" />
     <Compile Include="ICustomLine.cs" />
     <Compile Include="ICustomPoint.cs" />

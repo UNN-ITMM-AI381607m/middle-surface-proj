@@ -12,5 +12,8 @@ namespace MidSurfaceNameSpace.Solver
         ICustomPoint GetPoint1();
         ICustomPoint GetPoint2();
         Vector GetRightNormal();
+        
+        void AddMark(int id, Point contactPoint);
+        IEnumerable<Mark> GetMarks();
     }
 }

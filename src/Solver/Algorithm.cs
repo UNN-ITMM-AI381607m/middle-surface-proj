@@ -37,5 +37,11 @@ namespace MidSurfaceNameSpace.Solver
             IJoinMSPoints jointpoints = new JoinMSPoints(mspointfinder.FindMSPoints());//detailizer.Detalize());
             return jointpoints.Join();
         }
+
+        public static bool EqualDoubles(double n1, double n2, double precision_)
+        {
+            return (Math.Abs(n1 - n2) <= precision_);
+        }
+
     }
 }
