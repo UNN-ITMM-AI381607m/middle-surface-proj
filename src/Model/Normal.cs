@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Primitive
 {
     public class Normal
     {
-        public double dx { get; set; }
-        public double dy { get; set; }
-        public ISegment segment { get; set; }
-        public double t { get; set; }
-
-
+        private double dx;
+        private double dy;
+        private ISegment segment;
+        private double t;
 
         public Normal(ISegment segment, double t, double dx, double dy)
         {
@@ -23,10 +22,30 @@ namespace MidSurfaceNameSpace.Primitive
             this.dy = dy;
         }
 
-        public Normal Combine(Normal other, double alpha)
+        public ISegment Segment()
         {
-            double dx = this.dx * (1 - alpha) + other.dx * alpha;
-            double dy = this.dy * (1 - alpha) + other.dy * alpha;
+            return segment;
+        }
+
+        public double T()
+        {
+            return t;
+        }
+
+        public double Dx()
+        {
+            return dx;
+        }
+
+        public double Dy()
+        {
+            return dy;
+        }
+
+        public Normal Combine(Normal other)
+        {
+            double dx = this.dx * 0.5 + other.dx * 0.5;
+            double dy = this.dy * 0.5 + other.dy * 0.5;
             double length = Math.Sqrt(dx * dx + dy * dy);
             dx /= length;
             dy /= length;
@@ -36,7 +55,7 @@ namespace MidSurfaceNameSpace.Primitive
                 {
                     return new Normal(this.segment, this.t, dx, dy);
                 }
-                var t = this.t * (1 - alpha) + other.t * alpha;
+                var t = this.t * 0.5 + other.t * 0.5;
                 return other.segment.GetNormal(t);
             }
             if (this.segment.GetPillar().First() == other.segment.GetPillar().Last())

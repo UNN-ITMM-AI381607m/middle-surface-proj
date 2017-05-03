@@ -7,10 +7,15 @@ using System.Windows;
 
 namespace MidSurfaceNameSpace.Primitive
 {
-    public class Segment: ISegment
+    public class Segment : ISegment
     {
         ICurve curve;
         List<Point> pillar;
+
+        public double T_OFFSET
+        {
+            get { return 0.0001; }
+        }
 
         public Segment(ICurve curve, List<Point> pillar)
         {
@@ -30,12 +35,12 @@ namespace MidSurfaceNameSpace.Primitive
 
         public Normal GetNormal(double t)
         {
-            var point1 = pillar.First();
-            var point2 = pillar.Last();
+            var point1 = curve.GetCurvePoint(pillar, t);
+            var point2 = curve.GetCurvePoint(pillar, t + T_OFFSET);
             var dx = point1.X - point2.X;
             var dy = point2.Y - point1.Y;
             double length = Math.Sqrt(dx * dx + dy * dy);
-            return new Normal(this, t, dx/length, dy/length);
+            return new Normal(this, t, dy / length, dx / length);
         }
     }
 }

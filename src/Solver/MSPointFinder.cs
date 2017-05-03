@@ -30,10 +30,10 @@ namespace MidSurfaceNameSpace.Solver
 
             foreach (var line in simplifiedModel)
             {
-                //Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
-                // (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
-                var normal = segments[line.GetPoint1().GetN()].GetNormal(line.GetPoint1().GetT());                       
-                mspoints.Add(FindMSPoint(normal.segment.GetCurvePoint(normal.t), normal));
+                Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
+                 (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
+                var normal = segments[line.GetPoint1().GetN()].GetNormal((line.GetPoint1().GetT() + line.GetPoint2().GetT())/2);                       
+                mspoints.Add(FindMSPoint(middlePoint, normal));
             }
             return mspoints;
         }
@@ -51,8 +51,11 @@ namespace MidSurfaceNameSpace.Solver
             return -1;
         }
 
-        IMSPoint CalculateMSPoint(Vector vector, Point point, ISegment segment/*ICustomLine line*/)
+        IMSPoint CalculateMSPoint(Point point, Normal normal)
         {
+            var vector = new Vector(normal.Dx(), normal.Dy());
+            var segment = normal.Segment();
+
             double Rmax = this.Rmax;
             double Rmin = 0;
             double R = Rmax;
@@ -235,22 +238,9 @@ namespace MidSurfaceNameSpace.Solver
             return R;
         }
 
-        //public IMSPoint FindMSPoint(Point contourPoint, Vector guidingVector)
-        //{
-        //    return CalculateMSPoint(guidingVector, contourPoint, null);
-        //}
-
         public IMSPoint FindMSPoint(Point contourPoint, Normal normal)
         {  
-            return CalculateMSPoint(new Vector(normal.dy, normal.dx), contourPoint, normal.segment);
+            return CalculateMSPoint(contourPoint, normal);
         }
-
-        //public IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = default(Vector))
-        //{
-        //    Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
-        //        (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
-        //    Vector guiding = guidingVector.Length == 0 ? line.GetRightNormal() : guidingVector;
-        //    return CalculateMSPoint(guiding, middlePoint, line);
-        //}
     }
 }

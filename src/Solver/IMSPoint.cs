@@ -10,7 +10,7 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface IMSPoint
     {
-        ICustomLine GetLine();
         Point GetPoint();
+        ISegment GetSegment();
     }
 }
