@@ -10,10 +10,6 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface IMSPointFinder
     {
-        void SetLines(List<ICustomLine> lines);
-        List<IMSPoint> FindMSPoints();
-        //  IMSPoint FindMSPointForLine(ICustomLine line, Vector guidingVector = new Vector());
-        //   IMSPoint FindMSPoint(Point contourPoint, Vector guidingVector);
         IMSPoint FindMSPoint(Point contourPoint, Normal normal);
     }
 }

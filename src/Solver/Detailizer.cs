@@ -150,7 +150,6 @@ namespace MidSurfaceNameSpace.Solver
         // TO DO: implement new method and make it main method
         public List<IMSPoint> Detalize()
         {
-            finder.SetLines(lines);
             List<IMSPoint> mspoints = new List<IMSPoint>();
 
             IMSPoint mspoint1 = null, mspoint2 = null;

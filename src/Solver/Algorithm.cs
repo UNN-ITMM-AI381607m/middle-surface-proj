@@ -18,24 +18,73 @@ namespace MidSurfaceNameSpace.Solver
             this.detalizerAccuracy = detalizerAccuracy;
         }
 
+        private class BaseAlgorithm
+        {
+            List<ICustomLine> simplifiedModel;
+            public BaseAlgorithm()
+            {
+                simplifiedModel = new List<ICustomLine>();
+            }
+
+            public IEnumerable<ICustomLine> GetSimplifiedModel()
+            {
+                return simplifiedModel;
+            }
+
+            public List<IMSPoint> Run(ISolverData solverdata, double splitterAccuracy, double detalizerAccuracy)
+            {
+                List<IContour> contours = solverdata.GetContours();
+
+                List<ISegment> segments = new List<ISegment>();
+                foreach (var contour in contours)
+                {
+                    segments.AddRange(contour.GetSegments());
+                }
+
+                simplifiedModel = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
+                IMSPointFinder mspointfinder = new MSPointFinder(simplifiedModel);
+
+                IDetailizer detailizer = new Detailizer(mspointfinder, simplifiedModel, segments, detalizerAccuracy);
+                return detailizer.Detalize();
+            }
+        }
+
         public IMidSurface Run(ISolverData solverdata)
         {
             IMidSurface midsurface = new MidSurface();
 
-            List<IContour> contours = solverdata.GetContours();
+            BaseAlgorithm balg = new BaseAlgorithm();
+            List<IMSPoint> MSPoints = balg.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
-            List<ISegment> segments = new List<ISegment>();
-            foreach (var contour in contours)
+            Graph msGraph = ConstructGraph(MSPoints, balg.GetSimplifiedModel());
+
+            IJoinMSPoints jointpoints = new JoinMSPoints(MSPoints, msGraph);
+            
+            return jointpoints.Join();
+        }
+
+        Graph ConstructGraph(IEnumerable<IMSPoint> msPoints, IEnumerable<ICustomLine> simplifiedModel)
+        {
+            Graph graph = new Graph();
+
+            List<int> connectionOrder = new List<int>();
+            foreach (var line in simplifiedModel)
             {
-                segments.AddRange(contour.GetSegments());
+                var marksOnLine = line.GetMarks();
+                foreach (var mark in marksOnLine)
+                {
+                    if (connectionOrder.Count == 0 || mark.MSPointIndex != connectionOrder.Last())
+                        connectionOrder.Add(mark.MSPointIndex);
+                }
             }
 
-            IMSPointFinder mspointfinder = new MSPointFinder(segments);
-            var lines = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
-            IDetailizer detailizer = new Detailizer(mspointfinder, lines, segments, detalizerAccuracy);
-            mspointfinder.SetLines(lines);
-            IJoinMSPoints jointpoints = new JoinMSPoints(detailizer.Detalize());
-            return jointpoints.Join();
+            for (int i = 0; i < connectionOrder.Count - 1; i++)
+            {
+                int j = i + 1 == connectionOrder.Count ? 0 : i + 1;
+                graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[j]).GetPoint());
+            }
+
+            return graph;
         }
 
         public static bool EqualDoubles(double n1, double n2, double precision_)

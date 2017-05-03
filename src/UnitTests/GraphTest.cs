@@ -57,5 +57,28 @@ namespace UnitTests
             Assert.AreEqual(0, vertices[1].neighbours.Count);
             Assert.AreEqual(0, vertices[2].neighbours.Count);
         }
+
+        [TestMethod]
+        public void TestGetPath()
+        {
+            graph.AddEdge(new System.Windows.Point(0, 0), new System.Windows.Point(1, 1));
+            graph.AddEdge(new System.Windows.Point(1, 1), new System.Windows.Point(2, 2));
+            graph.AddEdge(new System.Windows.Point(2, 2), new System.Windows.Point(1, 3));
+            graph.AddEdge(new System.Windows.Point(2, 2), new System.Windows.Point(3, 2));
+            
+            graph.AddEdge(new System.Windows.Point(3, 2), new System.Windows.Point(4, 3));
+            graph.AddEdge(new System.Windows.Point(4, 3), new System.Windows.Point(5, 4));
+            graph.AddEdge(new System.Windows.Point(3, 2), new System.Windows.Point(4, 1));
+
+            //List<System.Windows.Point> list = new List<System.Windows.Point>(  );
+            //list.Add(new System.Windows.Point(0, 0));
+            //list.Add(new System.Windows.Point(1, 1));
+            //list.Add(new System.Windows.Point(2, 2));
+            //list.Add(new System.Windows.Point(3, 2));
+            //list.Add(new System.Windows.Point(4, 3));
+            //list.Add(new System.Windows.Point(5, 4));
+            //List<System.Windows.Point> path = graph.GetPath();
+            Assert.AreEqual(6, graph.GetPath().Count);
+        }
     }
 }

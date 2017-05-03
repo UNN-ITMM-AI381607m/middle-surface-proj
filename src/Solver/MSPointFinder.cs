@@ -11,32 +11,35 @@ namespace MidSurfaceNameSpace.Solver
     public partial class MSPointFinder : IMSPointFinder
     {
         List<ICustomLine> simplifiedModel;
-        List<ISegment> segments;
         double Rmax;
+        const double radiusAccuracy = 0.00001;
+        int MSPointCounter;
 
-        public MSPointFinder(List<ISegment> segments)
+        public MSPointFinder(List<ICustomLine> lines)
         {
-            this.segments = segments;
-        }
-
-        public void SetLines(List<ICustomLine> lines)
-        {
+            MSPointCounter = 0;
             simplifiedModel = lines;
             Rmax = CalculateMaxRadius();
         }
 
-        public List<IMSPoint> FindMSPoints()
+        void SetMarks(Point center, double R, int id)
         {
-            List<IMSPoint> mspoints = new List<IMSPoint>();
-
-            foreach (var line in simplifiedModel)
+            for (int i = 0; i < simplifiedModel.Count; i++)
             {
-                Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
-                 (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
-                var normal = segments[line.GetPoint1().GetN()].GetNormal((line.GetPoint1().GetT() + line.GetPoint2().GetT()) / 2); //
-                mspoints.Add(FindMSPoint(middlePoint, normal));
+                Point intersecPoint1 = new Point();
+                Point intersecPoint2 = new Point();
+                int intersecCount = CustomLine.LineSegmentIntersectionCircle(center, R, simplifiedModel[i].GetPoint1().GetPoint(),
+                    simplifiedModel[i].GetPoint2().GetPoint(), ref intersecPoint1, ref intersecPoint2);
+                if (intersecCount == 1)
+                {
+                    simplifiedModel[i].AddMark(id, intersecPoint1);
+                }
+                else if (intersecCount == 2)
+                {
+                    Point contactPoint = Vector.Add((intersecPoint2 - intersecPoint1) / 2, intersecPoint1);
+                    simplifiedModel[i].AddMark(id, contactPoint);
+                }
             }
-            return mspoints;
         }
 
         IMSPoint CalculateMSPoint(Point point, Normal normal)
@@ -49,8 +52,8 @@ namespace MidSurfaceNameSpace.Solver
             double R = Rmax;
             Point center = new Point(point.X + vector.X * R, point.Y + vector.Y * R);
             int crossStatus = ValidateCircleDueModel(center, R, point);
-
-            while (!Algorithm.EqualDoubles(Rmax, Rmin, 0.0001))
+            double RMaxPrevious = Rmax;
+            while (!Algorithm.EqualDoubles(Rmax, Rmin, radiusAccuracy))
             {
                 R = (Rmax + Rmin) / 2;
 
@@ -64,6 +67,7 @@ namespace MidSurfaceNameSpace.Solver
                 }
                 else if (crossStatus == -1)
                 {
+                    RMaxPrevious = Rmax;
                     Rmax = R;
                 }
                 else if (crossStatus == 0)
@@ -71,9 +75,8 @@ namespace MidSurfaceNameSpace.Solver
                     break;
                 }
             }
-            //Hack
-            center.X = point.X + vector.X * Rmax;
-            center.Y = point.Y + vector.Y * Rmax;
+            SetMarks(center, RMaxPrevious, MSPointCounter);
+            MSPointCounter++;
             return new MSPoint(center, segment);
         }
 

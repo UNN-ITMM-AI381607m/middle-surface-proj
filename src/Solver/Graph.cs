@@ -14,17 +14,19 @@ namespace MidSurfaceNameSpace.Solver
         {
             public Point point;
             public List<Vertex> neighbours;
+            public int degree;
             public Vertex(Point p)
             {
                 point = p;
                 neighbours = new List<Vertex>();
+                degree = 0;
             }
 
-            public Vertex(Point p, List<Vertex> a/*, double w*/)
+            public Vertex(Point p, List<Vertex> a)
             {
                 point = p;
                 neighbours = a;
-                //weight = w;
+                degree = 0;
             }
 
             public override bool Equals(System.Object obj)
@@ -336,16 +338,71 @@ namespace MidSurfaceNameSpace.Solver
             //    }
             //}
             //path.Add(nodes[indexStart].point);
-            int i = 0;
-            for (; i < vertices.Count; i++)
+            
+            int maxLevel = 0;
+            int nowLevel = 1;
+            int currentIndex = 0;
+            while(nowLevel > maxLevel)
             {
-                if (vertices[i].neighbours.Count == 1)
+                maxLevel = nowLevel;
+                nowLevel = 1;
+                for (int i = 0; i < vertices.Count; i++)
                 {
-                    path.Add(vertices[i].point);
-                    path.Add(vertices[i].neighbours[0].point);
-                    break;
+                    vertices[i].degree = 0;
+                }
+                vertices[currentIndex].degree = 1;
+                bool flag = true;
+                while (flag)
+                {
+                    for (int i = 0; i < vertices.Count; i++)
+                    {
+                        if (vertices[i].degree == nowLevel)
+                            for (int j = 0; j < vertices[i].neighbours.Count; j++)
+                            {
+                                if (vertices[i].neighbours[j].degree == 0)
+                                {
+                                    vertices[i].neighbours[j].degree = vertices[i].degree + 1;
+                                    
+                                }
+                            }
+                    }
+                    nowLevel++;
+                    flag = false;
+                    for (int i = 0; i < vertices.Count; i++)
+                    {
+                        if (vertices[i].degree == 0)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+                for (int i = 0; i < vertices.Count; i++)
+                {
+                    if (vertices[i].degree == nowLevel)
+                    {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+
+            }
+            path.Add(vertices[currentIndex].point);
+            Vertex v = vertices[currentIndex];
+
+            for (nowLevel--;nowLevel > 0; nowLevel--)
+            {
+                for(int j = v.neighbours.Count - 1; j >= 0; j--)
+                {
+                    if(v.neighbours[j].degree == nowLevel)
+                    {
+                        path.Add(v.neighbours[j].point);
+                        v = vertices.Find(x => x.point == v.neighbours[j].point);
+                        break;
+                    }
                 }
             }
+            
 
             return path;
         }
