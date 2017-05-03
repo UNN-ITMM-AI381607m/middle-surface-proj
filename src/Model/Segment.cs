@@ -35,9 +35,7 @@ namespace MidSurfaceNameSpace.Primitive
             var dx = point1.X - point2.X;
             var dy = point2.Y - point1.Y;
             double length = Math.Sqrt(dx * dx + dy * dy);
-            dx /= length;
-            dy /= length;
-            return new Normal(this, t, dx, dy);
+            return new Normal(this, t, dx/length, dy/length);
         }
     }
 }

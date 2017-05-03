@@ -12,12 +12,12 @@ namespace MidSurfaceNameSpace.Solver
     {
         ICustomLine line;
         Point mspoint;
-        Vector normal;
-                                                        
-        public MSPoint(Point mspoint, ICustomLine line = null)
+        ISegment segment;
+
+        public MSPoint(Point mspoint, ISegment segment = null)
         {
             this.mspoint = mspoint;
-            this.line = line;
+            this.segment = segment;
         }
 
         public Point GetPoint()
@@ -28,6 +28,11 @@ namespace MidSurfaceNameSpace.Solver
         public ICustomLine GetLine()
         {
             return line;
+        }
+
+        public ISegment GetSegmnt()
+        {
+            return segment;
         }
     }
 }

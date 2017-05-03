@@ -14,6 +14,7 @@ namespace MidSurfaceNameSpace.Primitive
         public double t { get; set; }
 
 
+
         public Normal(ISegment segment, double t, double dx, double dy)
         {
             this.segment = segment;
