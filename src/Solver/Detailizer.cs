@@ -13,11 +13,11 @@ namespace MidSurfaceNameSpace.Solver
         private double accuracy;
         private List<ISegment> segments;
 
-        public Detailizer(List<ICustomLine> lines,
-            IMSPointFinder finder, List<ISegment> segments, double accuracy)
+        public Detailizer(IMSPointFinder finder, List<ICustomLine> lines, List<ISegment> segments, double accuracy)
         {
             this.lines = lines;
             this.finder = finder;
+            this.segments = segments;
             this.accuracy = accuracy;
         }
 
@@ -94,19 +94,14 @@ namespace MidSurfaceNameSpace.Solver
         //    return mspoints;
         //}
 
-        public bool DetailRequired(IMSPoint point1, IMSPoint point2)
-        {
-            var midpointsDistance = (point2.GetPoint() - point1.GetPoint()).Length;
-            // If mspoints are suitable for accuracy 
-            if (midpointsDistance <= accuracy) return false;
+        //public bool DetailRequired(IMSPoint point1, IMSPoint point2)
+        //{
+        //    var midpointsDistance = (point2.GetPoint() - point1.GetPoint()).Length;
+        //    // If mspoints are suitable for accuracy 
+        //    if (midpointsDistance <= accuracy) return false;
 
-         //   var line1middlePoint = new Point((line1.GetPoint1().GetPoint().X + line1.GetPoint2().GetPoint().X) / 2,
-          //        (line1.GetPoint1().GetPoint().Y + line1.GetPoint2().GetPoint().Y) / 2);
-
-            // If distance to midpoint is more than  midpoints distance
-          //  if ((line1middlePoint - point1.GetPoint()).Length - midpointsDistance > 0) return false;
-            return true;
-        }
+        //    return true;
+        //}
 
         //private List<ICustomLine> SplitOnLines(ICustomLine line1, ICustomLine line2)
         //{
@@ -143,19 +138,13 @@ namespace MidSurfaceNameSpace.Solver
         //    return list;
         //}
 
-        private IMSPoint GetMSPoint(int lineIndex)
+        private IMSPoint GetMSPoint(ICustomLine line, ref Normal normal)
         {
-            var line = lines[lineIndex];
-            //int prevIndex = lineIndex == 0 ? lines.Count() - 1 : lineIndex - 1;
-            //int nextIndex = lineIndex == lines.Count() - 1 ? 0 : lineIndex + 1;
+              Point middlePoint = new Point((line.GetPoint1().GetPoint().X + line.GetPoint2().GetPoint().X) / 2,
+                  (line.GetPoint1().GetPoint().Y + line.GetPoint2().GetPoint().Y) / 2);
+            normal = segments[line.GetPoint1().GetN()].GetNormal((line.GetPoint1().GetT() + line.GetPoint2().GetT()) / 2);
 
-            //if (line.GetPoint1().GetPoint() == line.GetPoint2().GetPoint())
-            //{
-            //    var bisector = lines[prevIndex].GetRightNormal() + lines[nextIndex].GetRightNormal();
-            //    bisector.Normalize();
-            //    return finder.FindMSPointForLine(line, bisector);
-            //}
-            return finder.FindMSPoint(new Point(0,0), null);
+            return finder.FindMSPoint(middlePoint, normal);
         }
 
         // TO DO: implement new method and make it main method
@@ -165,27 +154,55 @@ namespace MidSurfaceNameSpace.Solver
             List<IMSPoint> mspoints = new List<IMSPoint>();
 
             IMSPoint mspoint1 = null, mspoint2 = null;
-            bool previousPointAdded = false;
+            bool firstAdded = false;
+            Normal n1 = null, n2 = null;
 
-            for(int i = 0; i < lines.Count; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 int j = i == lines.Count() - 1 ? 0 : i + 1;
-                mspoint1 = previousPointAdded ? mspoint2 : GetMSPoint(i);
-                mspoint2 = GetMSPoint(j);
+                if (firstAdded)
+                {
+                    mspoint1 = mspoint2;
+                    n1 = n2;
+                }
+                else mspoint1 = GetMSPoint(lines[i], ref n1);
+                mspoint2 = GetMSPoint(lines[j], ref n2);
+
+                mspoints.Add(mspoint1);
+                firstAdded = true;
+
+                var line1middlePoint = new Point((lines[i].GetPoint1().GetPoint().X + lines[j].GetPoint2().GetPoint().X) / 2,
+                       (lines[i].GetPoint1().GetPoint().Y + lines[j].GetPoint2().GetPoint().Y) / 2);
 
                 // different contours
                 if (lines[i].GetPoint2().GetPoint() != lines[j].GetPoint1().GetPoint() ||
                 // suitable for accuracy
-                    !DetailRequired(mspoint1, mspoint2))
+                 (mspoint2.GetPoint() - mspoint1.GetPoint()).Length <= accuracy ||
+                 // If distance to midpoint is more than  midpoints distance
+                 (line1middlePoint - mspoint1.GetPoint()).Length <= (mspoint2.GetPoint() - mspoint1.GetPoint()).Length)
                 {
-                    mspoints.Add(mspoint1);
-                    previousPointAdded = true;
+                    continue;
                 }
                 else
                 {
+                    DetalizeChunk(ref mspoints, mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2);
                 }
             }
-            return null;
+            return mspoints;
+        }
+
+        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2)
+        {
+            if ((point2 - point1).Length <= accuracy) return;
+
+            var seg1N = segments.IndexOf(n1.Segment());
+            var seg2N = segments.IndexOf(n2.Segment());
+            var n = n1.Combine(n2);
+
+            var mspoint = finder.FindMSPoint(n1.Segment().GetCurvePoint((n1.T() + n2.T()) / 2), n);
+            if ((mspoint.GetPoint() - point1).Length <= accuracy) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n);
+            if ((point2 - mspoint.GetPoint()).Length <= accuracy) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2);
+            points.Add(mspoint);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace MidSurfaceNameSpace.Primitive
                 var t = this.t * 0.5 + other.t * 0.5;
                 return other.segment.GetNormal(t);
             }
-            if (this.segment.GetPillar().First() == other.segment.GetPillar().Last())
+            if (this.segment.GetPillar().Last() == other.segment.GetPillar().First())
             {
                 if (this.t == 1 && other.t == 0)
                 {
@@ -70,7 +70,7 @@ namespace MidSurfaceNameSpace.Primitive
                 }
                 return other.segment.GetNormal(0);
             }
-            if (this.segment.GetPillar().Last() == other.segment.GetPillar().First())
+            if (this.segment.GetPillar().First() == other.segment.GetPillar().Last())
             {
                 if (this.t == 0 && other.t == 1)
                 {
