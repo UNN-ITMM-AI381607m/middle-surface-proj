@@ -57,7 +57,7 @@ namespace MidSurfaceNameSpace.Solver
             List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
             Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
-            msGraph.RemoveCycles();
+            //msGraph.RemoveCycles();
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
             
