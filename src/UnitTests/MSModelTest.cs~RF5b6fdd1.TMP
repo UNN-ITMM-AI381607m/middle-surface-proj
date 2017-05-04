@@ -178,7 +178,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void TestDataWithOutContour()
+        public void TestDataWithOutSegment()
         {
             IFigure figure = new Figure();
             IContour contour = new MidSurfaceNameSpace.Primitive.Contour();
@@ -250,83 +250,6 @@ namespace UnitTests
             Assert.AreEqual(counter, 1);
             Assert.AreEqual(ccc1[0].GetPillar()[0], new System.Windows.Point(3, 3));
             Assert.AreEqual(ccc1[0].GetPillar()[1], new System.Windows.Point(4, 4));
-        }
-
-        [TestMethod]
-        public void TestDataWithOutSegments()
-        {
-            IFigure figure = new Figure();
-            IContour contour = new MidSurfaceNameSpace.Primitive.Contour();
-            List<System.Windows.Point> pillar = new List<System.Windows.Point>();
-            System.Windows.Point p1 = new System.Windows.Point();
-            p1.X = 1;
-            p1.Y = 1;
-            System.Windows.Point p2 = new System.Windows.Point();
-            p2.X = 2;
-            p2.Y = 2;
-            pillar.Add(p1);
-            pillar.Add(p2);
-            ISegment segment = new Segment(new BezierCurve(), pillar);
-            contour.Add(segment);
-            pillar = new List<System.Windows.Point>();
-            p1 = new System.Windows.Point();
-            p1.X = 3;
-            p1.Y = 3;
-            p2 = new System.Windows.Point();
-            p2.X = 4;
-            p2.Y = 4;
-            pillar.Add(p1);
-            pillar.Add(p2);
-            segment = new Segment(new BezierCurve(), pillar);
-            contour.Add(segment);
-            figure.Add(contour);
-
-            contour = new MidSurfaceNameSpace.Primitive.Contour();
-            pillar = new List<System.Windows.Point>();
-            p1 = new System.Windows.Point();
-            p1.X = 5;
-            p1.Y = 5;
-            p2 = new System.Windows.Point();
-            p2.X = 6;
-            p2.Y = 6;
-            pillar.Add(p1);
-            pillar.Add(p2);
-            segment = new Segment(new BezierCurve(), pillar);
-            contour.Add(segment);
-            pillar = new List<System.Windows.Point>();
-            p1 = new System.Windows.Point();
-            p1.X = 7;
-            p1.Y = 7;
-            p2 = new System.Windows.Point();
-            p2.X = 8;
-            p2.Y = 8;
-            pillar.Add(p1);
-            pillar.Add(p2);
-            segment = new Segment(new BezierCurve(), pillar);
-            contour.Add(segment);
-
-            figure.Add(contour);
-            IModel model = new Model();
-            model.Add(figure);
-            IEnumerable<ISegment> ccc = model.GetCanvasData();
-            MSModel msmodel = new MSModel(model);
-            List<bool> removed = new List<bool>() { true, false, false, true };
-            msmodel.Removed = removed;
-            List<IFigure> fig = msmodel.GetData().ToList();
-            List<ISegment> ccc1 = new List<ISegment>();
-            foreach (var f in fig)
-            {
-                foreach (var c in f.GetContours())
-                {
-                    ccc1.AddRange(c.GetSegments());
-                }
-            }
-            int counter = msmodel.GetCanvasData().Count();
-            Assert.AreEqual(counter, 2);
-            Assert.AreEqual(ccc1[0].GetPillar()[0], new System.Windows.Point(3, 3));
-            Assert.AreEqual(ccc1[0].GetPillar()[1], new System.Windows.Point(4, 4));
-            Assert.AreEqual(ccc1[1].GetPillar()[0], new System.Windows.Point(5, 5));
-            Assert.AreEqual(ccc1[1].GetPillar()[1], new System.Windows.Point(6, 6));
         }
     }
 }

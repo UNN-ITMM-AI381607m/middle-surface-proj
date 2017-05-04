@@ -59,7 +59,7 @@ namespace MidSurfaceNameSpace.Component
         {
             List<ISegment> AllSegments = new List<ISegment>();
 
-            foreach (IFigure figure in GetData())
+            foreach (IFigure figure in model.GetData())
                 foreach (IContour contour in figure.GetContours())
                     AllSegments.AddRange(contour.GetSegments());
 
