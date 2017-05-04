@@ -441,27 +441,29 @@ namespace MidSurfaceNameSpace.Solver
             }
         }
 
+        bool[] painted;
+
         private void SearchCycle()
         {
             foundCycle = new List<int>();
-            int[] color = new int[vertices.Count];
+            painted = new bool[vertices.Count];
             for (int i = 0; i < vertices.Count; i++)
             {
                 for (int k = 0; k < vertices.Count; k++)
-                    color[k] = 1;
+                    painted[k] = false;
                 List<int> cycle = new List<int>
                 {
                     i
                 };
-                if (DFScycle(i, i, edges, color, -1, cycle))
+                if (DFScycle(i, i, -1, cycle))
                     return;
             }
         }
 
-        private bool DFScycle(int u, int endV, List<Edge> edges, int[] color, int unavailableEdge, List<int> cycle)
+        private bool DFScycle(int u, int endV, int unavailableEdge, List<int> cycle)
         {
             if (u != endV)
-                color[u] = 2;
+                painted[u] = true;
             else if (cycle.Count > 2)
             {
                 cycle.Reverse();
@@ -472,25 +474,27 @@ namespace MidSurfaceNameSpace.Solver
             {
                 if (w == unavailableEdge)
                     continue;
-                if (color[vertices.IndexOf(edges[w].vertex2)] == 1 && vertices.IndexOf(edges[w].vertex1) == u)
+                int vertex2Index = vertices.IndexOf(edges[w].vertex2);
+                int vertex1Index = vertices.IndexOf(edges[w].vertex1);
+                if (!painted[vertex2Index] && vertex1Index == u)
                 {
                     List<int> cycleCopy = new List<int>(cycle)
                     {
-                        vertices.IndexOf(edges[w].vertex2)
+                        vertex2Index
                     };
-                    if (DFScycle(vertices.IndexOf(edges[w].vertex2), endV, edges, color, w, cycleCopy))
+                    if (DFScycle(vertex2Index, endV, w, cycleCopy))
                         return true;
-                    color[vertices.IndexOf(edges[w].vertex2)] = 1;
+                    painted[vertex2Index] = false;
                 }
-                else if (color[vertices.IndexOf(edges[w].vertex1)] == 1 && vertices.IndexOf(edges[w].vertex2) == u)
+                else if (!painted[vertex1Index] && vertex2Index == u)
                 {
                     List<int> cycleCopy = new List<int>(cycle)
                     {
-                        vertices.IndexOf(edges[w].vertex1)
+                        vertex1Index
                     };
-                    if (DFScycle(vertices.IndexOf(edges[w].vertex1), endV, edges, color, w, cycleCopy))
+                    if (DFScycle(vertex1Index, endV, w, cycleCopy))
                         return true;
-                    color[vertices.IndexOf(edges[w].vertex1)] = 1;
+                    painted[vertex1Index] = false;
                 }
             }
             return false;

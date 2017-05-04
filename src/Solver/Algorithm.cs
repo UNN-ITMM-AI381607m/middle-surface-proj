@@ -53,10 +53,11 @@ namespace MidSurfaceNameSpace.Solver
         {
             IMidSurface midsurface = new MidSurface();
 
-            BaseAlgorithm balg = new BaseAlgorithm();
-            List<IMSPoint> MSPoints = balg.Run(solverdata, splitterAccuracy, detalizerAccuracy);
+            BaseAlgorithm baseAlgorithm = new BaseAlgorithm();
+            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
-            Graph msGraph = ConstructGraph(MSPoints, balg.GetSimplifiedModel());
+            Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
+            msGraph.RemoveCycles();
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
             
@@ -78,11 +79,17 @@ namespace MidSurfaceNameSpace.Solver
                 }
             }
 
-            for (int i = 0; i < connectionOrder.Count - 1; i++)
+            for (int i = 0; i < connectionOrder.Count; i++)
             {
                 int j = i + 1 == connectionOrder.Count ? 0 : i + 1;
                 graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[j]).GetPoint());
             }
+
+            //for (int i = 0; i < msPoints.Count(); i++)
+            //{
+            //    int j = i + 1 == msPoints.Count() ? 0 : i + 1;
+            //    graph.AddEdge(msPoints.ElementAt(i).GetPoint(), msPoints.ElementAt(j).GetPoint());
+            //}
 
             return graph;
         }
