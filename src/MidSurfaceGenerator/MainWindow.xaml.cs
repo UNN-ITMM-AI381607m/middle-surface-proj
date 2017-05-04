@@ -122,41 +122,45 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void Go_all_tests(object sender, RoutedEventArgs e)
         {
-            string[] allFoundFiles = Directory.GetFiles(Environment.CurrentDirectory+"/tests", "*.xml", SearchOption.AllDirectories);
-            foreach (string path in allFoundFiles)
+            System.Windows.Forms.FolderBrowserDialog FBD = new System.Windows.Forms.FolderBrowserDialog();
+            if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Component.Model model_temp = new Component.Model();
-                model_temp.Add(new Parser().ImportFile(path));
-                model = model_temp;
-                RedrawModel();
-
-                //TODO: Move to some input checking
-                double splitterAccuracy = 0;
-                double detalizerAccuracy = 0;
-                try
+                string[] allFoundFiles = Directory.GetFiles(FBD.SelectedPath, "*.xml", SearchOption.AllDirectories);
+                foreach (string path in allFoundFiles)
                 {
-                    splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
-                    detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
-                }
-                catch (Exception)
-                {
-                    return;
-                }
+                    Component.Model model_temp = new Component.Model();
+                    model_temp.Add(new Parser().ImportFile(path));
+                    model = model_temp;
+                    RedrawModel();
 
-                IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
-                mid_surface_model = alg.Run(new SolverData(model));
-                RedrawMisSurface();
-                var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
-                // needed otherwise the image output is black
-                mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
-                mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
-                rtb.Render(mainCanvas);
+                    //TODO: Move to some input checking
+                    double splitterAccuracy = 0;
+                    double detalizerAccuracy = 0;
+                    try
+                    {
+                        splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                        detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
 
-                PngBitmapEncoder BufferSave = new PngBitmapEncoder();
-                BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
-                using (var fs = File.OpenWrite(path.Substring(0, path.Length - 4) + "res.png"))
-                {
-                    BufferSave.Save(fs);
+                    IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+                    mid_surface_model = alg.Run(new SolverData(model));
+                    RedrawMisSurface();
+                    var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
+                    // needed otherwise the image output is black
+                    mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
+                    mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
+                    rtb.Render(mainCanvas);
+
+                    PngBitmapEncoder BufferSave = new PngBitmapEncoder();
+                    BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
+                    using (var fs = File.OpenWrite(path.Substring(0, path.Length - 4) + "res.png"))
+                    {
+                        BufferSave.Save(fs);
+                    }
                 }
             }
         }  
