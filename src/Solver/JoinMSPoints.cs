@@ -8,12 +8,10 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class JoinMSPoints : IJoinMSPoints
     {
-        private List<IMSPoint> msPoints;
         private Graph graph;
 
-        public JoinMSPoints(IEnumerable<IMSPoint> points, Graph graph)
+        public JoinMSPoints(Graph graph)
         {
-            msPoints = points.ToList();
             this.graph = graph;
         }
 

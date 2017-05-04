@@ -16,16 +16,16 @@ namespace MidSurfaceNameSpace.UnitTests
         [TestMethod]
         public void TestJoinMSPoints()
         {
-            List<IMSPoint> points = new List<IMSPoint>();
+            Graph msGraph = new Graph();
 
-            points.Add(new MSPoint(new System.Windows.Point(0, 0), null));
-            points.Add(new MSPoint(new System.Windows.Point(0, 2), null));
-            points.Add(new MSPoint(new System.Windows.Point(2, 2), null));
-            points.Add(new MSPoint(new System.Windows.Point(2, 0), null));
+            msGraph.AddEdge(new System.Windows.Point(0, 0), new System.Windows.Point(0, 2));
+            msGraph.AddEdge(new System.Windows.Point(0, 2), new System.Windows.Point(2, 2));
+            msGraph.AddEdge(new System.Windows.Point(2, 2), new System.Windows.Point(2, 0));
+            msGraph.AddEdge(new System.Windows.Point(2, 0), new System.Windows.Point(0, 0));
 
-            var midsurface = new JoinMSPoints(points).Join();
+            var midsurface = new JoinMSPoints(msGraph).Join();
 
-            // 4 points = 4 segments of contour
+            // 4 edges = 4 segments of contour
             Assert.AreEqual(4, midsurface.GetData().Count());
         }
     }

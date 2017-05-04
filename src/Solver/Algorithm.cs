@@ -58,7 +58,7 @@ namespace MidSurfaceNameSpace.Solver
 
             Graph msGraph = ConstructGraph(MSPoints, balg.GetSimplifiedModel());
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(MSPoints, msGraph);
+            IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
             
             return jointpoints.Join();
         }
