@@ -20,6 +20,8 @@
                 <MenuItem Header="About"/>
             </MenuItem>
             <MenuItem Header="Run all tests" Click ="Go_all_tests"/>
+            <MenuItem Header="Long Path" Click="MenuItem_Click"/>
+            <MenuItem Header="Screening" Click="MenuItem_Click_1"/>
         </Menu>
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
             <Label x:Name="label1" Content="Splitter Accuracy" Height="26" VerticalAlignment="Top"/>

@@ -28,12 +28,11 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private Component.IModel model;
         private IMidSurface mid_surface_model;
         private Component.IView view;
-
+        private Graph graph;
         public MainWindow()
         {
             InitializeComponent();
             view = new Component.View(mainCanvas);
- 
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -67,7 +66,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: prepare window with setting. Place for settings! 
-
         }
 
         private void Generate(object sender, RoutedEventArgs e)
@@ -90,8 +88,9 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 return;
             }
 
-            IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+            Algorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
             mid_surface_model = alg.Run(new SolverData(model));
+            graph = alg.msGraph;
             RedrawMisSurface();
             currentStatus.Content = "Ready for work";
         }
@@ -163,6 +162,27 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     }
                 }
             }
-        }  
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<System.Windows.Point> path_points = graph.GetPath();
+            IMidSurface m = new MidSurfaceNameSpace.MidSurface();
+            for (int i = 0; i < path_points.Count - 1; ++i)
+            {
+                m.Add(new Primitive.Segment(new Primitive.BezierCurve(), new List<System.Windows.Point> { path_points[i], path_points[i + 1] }));
+            }
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Brush = Brushes.Green;
+            settings.Thikness = 2;
+            View.VisibleData visible_data = new View.VisibleData(m, settings);
+            view.Paint(visible_data);
+            
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
