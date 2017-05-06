@@ -412,11 +412,11 @@ namespace MidSurfaceNameSpace.Solver
             return Math.Pow(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2), 0.5);
         }
 
-        public void RemoveCycles()
+        public void RemoveCycles(int maxCycle)
         {
             while (true)
             {
-                SearchCycle();
+                SearchCycle(maxCycle);
                 if (foundCycle.Count == 0)
                     return;
 
@@ -443,7 +443,7 @@ namespace MidSurfaceNameSpace.Solver
 
         bool[] painted;
 
-        private void SearchCycle()
+        private void SearchCycle(int maxCycle)
         {
             foundCycle = new List<int>();
             painted = new bool[vertices.Count];
@@ -455,13 +455,16 @@ namespace MidSurfaceNameSpace.Solver
                 {
                     i
                 };
-                if (DFScycle(i, i, -1, cycle))
+                if (DFScycle(i, i, -1, cycle, maxCycle))
                     return;
             }
         }
 
-        private bool DFScycle(int u, int endV, int unavailableEdge, List<int> cycle)
+        private bool DFScycle(int u, int endV, int unavailableVertex, List<int> cycle, int maxCountCycle)
         {
+            if (cycle.Count == maxCountCycle)
+                return false;
+
             if (u != endV)
                 painted[u] = true;
             else if (cycle.Count > 2)
@@ -470,31 +473,21 @@ namespace MidSurfaceNameSpace.Solver
                 foundCycle.AddRange(cycle.Take(cycle.Count - 1));
                 return true;
             }
-            for (int w = 0; w < edges.Count; w++)
+            foreach (var neighbour in vertices[u].neighbours)
             {
-                if (w == unavailableEdge)
+                int indexNeighbour = vertices.IndexOf(neighbour);
+                if (indexNeighbour == unavailableVertex)
                     continue;
-                int vertex2Index = vertices.IndexOf(edges[w].vertex2);
-                int vertex1Index = vertices.IndexOf(edges[w].vertex1);
-                if (!painted[vertex2Index] && vertex1Index == u)
+
+                if (!painted[indexNeighbour])
                 {
                     List<int> cycleCopy = new List<int>(cycle)
                     {
-                        vertex2Index
+                        indexNeighbour
                     };
-                    if (DFScycle(vertex2Index, endV, w, cycleCopy))
+                    if (DFScycle(indexNeighbour, endV, u, cycleCopy, maxCountCycle))
                         return true;
-                    painted[vertex2Index] = false;
-                }
-                else if (!painted[vertex1Index] && vertex2Index == u)
-                {
-                    List<int> cycleCopy = new List<int>(cycle)
-                    {
-                        vertex1Index
-                    };
-                    if (DFScycle(vertex1Index, endV, w, cycleCopy))
-                        return true;
-                    painted[vertex1Index] = false;
+                    painted[indexNeighbour] = false;
                 }
             }
             return false;

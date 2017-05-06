@@ -11,6 +11,7 @@ namespace MidSurfaceNameSpace.Solver
     {
         double splitterAccuracy;
         double detalizerAccuracy;
+        const int maxCycleSize = 20;
 
         public Algorithm(double splitterAccuracy, double detalizerAccuracy)
         {
@@ -57,7 +58,7 @@ namespace MidSurfaceNameSpace.Solver
             List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
             Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
-            //msGraph.RemoveCycles();
+            msGraph.RemoveCycles(maxCycleSize);
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
             
