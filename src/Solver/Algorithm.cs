@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
@@ -61,8 +62,24 @@ namespace MidSurfaceNameSpace.Solver
             msGraph.RemoveCycles(maxCycleSize);
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
-            
+
             return jointpoints.Join();
+        }
+
+        List<IMSPoint> ConvertPointToMSPoint(List<Point> points, List<IMSPoint> mspoints)
+        {
+            List<IMSPoint> new_mspoints = new List<IMSPoint>();
+
+            foreach (var point in points)
+            {
+                foreach (var mspoint in mspoints)
+                {
+                    if ((point.X == mspoint.GetPoint().X) && (point.Y == mspoint.GetPoint().Y))
+                        new_mspoints.Add(mspoint);
+                }
+            }
+
+            return new_mspoints;
         }
 
         Graph ConstructGraph(IEnumerable<IMSPoint> msPoints, IEnumerable<ICustomLine> simplifiedModel)
