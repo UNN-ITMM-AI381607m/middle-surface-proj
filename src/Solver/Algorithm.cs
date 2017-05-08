@@ -59,9 +59,77 @@ namespace MidSurfaceNameSpace.Solver
             List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
             Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
-            msGraph.RemoveCycles(maxCycleSize);
+            //msGraph.RemoveCycles(maxCycleSize);
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
+            List<bool> no_point = new List<bool>();
+            foreach (var mspoint in msPoints)
+            {
+                no_point.Add(false);
+            }
+            List<ICustomLine> lines = baseAlgorithm.GetSimplifiedModel().ToList();
+            foreach (var line in lines)
+            {
+                foreach(var mark in line.GetMarks())
+                {
+                    Vector vector1 = new Vector(mark.ContactPoint.X - msPoints[mark.MSPointIndex].GetPoint().X, mark.ContactPoint.Y - msPoints[mark.MSPointIndex].GetPoint().Y);
+                    Vector vector2 = new Vector(msPoints[mark.MSPointIndex].GetChild().X - msPoints[mark.MSPointIndex].GetPoint().X, msPoints[mark.MSPointIndex].GetChild().Y - msPoints[mark.MSPointIndex].GetPoint().Y);
+                    Double angleBetween;
+                    angleBetween = Vector.AngleBetween(vector1, vector2);
+                    if (Math.Abs(angleBetween) < 95)
+                    { }
+                    else { no_point[mark.MSPointIndex] = true; }
+                }
+            }
+            List<IMSPoint> new_new = new List<IMSPoint>();
+            for(int i=0;i<msPoints.Count();i++)
+            {
+                if (no_point[i])
+                    new_new.Add(msPoints[i]);
+            }
+           
+
+            
+
+            List<Point> points = msGraph.GetPath();
+            /*List<Point> points = new List<Point>();
+            foreach (var vert in msGraph.GetVertices())
+            {
+                points.Add(vert.point);
+            }*/
+            List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, new_new);
+
+
+
+            List<bool> removed = new List<bool>();
+            List<IContour> contours = solverdata.GetContours();
+
+            List<ISegment> segments = new List<ISegment>();
+            foreach (var contour in contours)
+            {
+                segments.AddRange(contour.GetSegments());
+            }
+            for (int i=0;i<segments.Count();i++)
+            {
+                removed.Add(true);
+            }
+
+            int counter = 0;
+            foreach (var segment in segments)
+            {
+                foreach (var mspoint in new_mspoints)
+                {
+                    if (mspoint.GetSegment().GetPillar().SequenceEqual(segment.GetPillar()))
+                        removed[counter] = false;
+                }
+                counter++;
+            }
+            ISolverData new_solverdata = new CustomSolverData(solverdata, removed);
+
+            List<IMSPoint> imsPoints = baseAlgorithm.Run(new_solverdata, splitterAccuracy, detalizerAccuracy);
+            Graph imsGraph = ConstructGraph(imsPoints, baseAlgorithm.GetSimplifiedModel());
+            imsGraph.RemoveCycles(maxCycleSize);
+
+            IJoinMSPoints jointpoints = new JoinMSPoints(imsGraph);
 
             return jointpoints.Join();
         }
