@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Html.cs" />
     <Compile Include="ISaver.cs" />
     <Compile Include="Saver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

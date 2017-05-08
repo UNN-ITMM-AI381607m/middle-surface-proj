@@ -29,6 +29,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private Component.IModel model;
         private IMidSurface mid_surface_model;
         private Component.IView view;
+        string filename;
 
         public MainWindow()
         {
@@ -53,6 +54,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 {
                     Component.Model model_temp = new Component.Model();
                     model_temp.Add(new Parser().ImportFile(importDlg.FileName));
+                    filename = importDlg.FileName;
                     //TODO: Dinar: some trick, maybe not good solution
                     model = model_temp;
                     RedrawModel();
@@ -126,28 +128,16 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             System.Windows.Forms.FolderBrowserDialog FBD = new System.Windows.Forms.FolderBrowserDialog();
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string[] allFoundFiles = Directory.GetFiles(FBD.SelectedPath, "*.xml", SearchOption.AllDirectories);
+                string[] allFoundFiles = Directory.GetFiles(FBD.SelectedPath, "*.xml", SearchOption.AllDirectories);               
+                double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);             
+                IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
                 foreach (string path in allFoundFiles)
                 {
                     Component.Model model_temp = new Component.Model();
                     model_temp.Add(new Parser().ImportFile(path));
                     model = model_temp;
-                    RedrawModel();
-
-                    //TODO: Move to some input checking
-                    double splitterAccuracy = 0;
-                    double detalizerAccuracy = 0;
-                    try
-                    {
-                        splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
-                        detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-
-                    IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+                    RedrawModel();                   
                     mid_surface_model = alg.Run(new SolverData(model));
                     RedrawMisSurface();
                     var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
@@ -168,27 +158,109 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void Do_Enumeration(object sender, RoutedEventArgs e)
         {
-            SolverData SD = new SolverData(model);
-            List<ISegment> segments = new List<ISegment>();
-            foreach (var contour in SD.GetContours())
+            System.Windows.Forms.FolderBrowserDialog FBD = new System.Windows.Forms.FolderBrowserDialog();
+            if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                segments.AddRange(contour.GetSegments());
+                SolverData SD = new SolverData(model);
+                List<ISegment> segments = new List<ISegment>();
+                foreach (var contour in SD.GetContours())
+                {
+                    segments.AddRange(contour.GetSegments());
+                }
+                bool[] is_used = new bool[segments.Count];
+                for (int i = 0; i < is_used.Length; i++) is_used[i] = false;
+                int k = 0, kolvo = 0, nom_file = 0;
+                double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
+                IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+                Html view = new Html(filename);
+                Primitive.Contour tmp_count;
+                Primitive.Figure tmp_fig;
+                Component.Model tmp_model;
+                RenderTargetBitmap rtb;
+                PngBitmapEncoder BufferSave;
+                while (kolvo != is_used.Length)
+                {
+                    //контролирующий список
+
+                    kolvo = 0;
+                    k = 0;
+                    while (is_used[k] == true) k++;
+                    is_used[k] = true;
+                    for (int i = 0; i < k; i++) is_used[i] = false;
+                    foreach (bool b in is_used)
+                        if (b) kolvo++;
+
+                    //выбор сегментов по контролирующему списку
+
+                    tmp_count = new Primitive.Contour();
+                    for (int i = 0; i < is_used.Length; i++)
+                        if (is_used[i]) tmp_count.Add(segments[i]);
+                    tmp_fig = new Primitive.Figure();
+                    tmp_fig.Add(tmp_count);
+                    tmp_model = new Component.Model();
+                    tmp_model.Add(tmp_fig);
+                    model = tmp_model;
+                    RedrawModel();
+
+                    //построение текущей поверхности
+
+                    mid_surface_model = alg.Run(new SolverData(model));
+                    RedrawMisSurface();
+
+                    // сохранение картинки
+
+                    rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
+                    mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
+                    mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
+                    rtb.Render(mainCanvas);
+                    BufferSave = new PngBitmapEncoder();
+                    BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
+                    using (var fs = File.OpenWrite(FBD.SelectedPath+"\\image"+nom_file+".png"))
+                    {
+                        BufferSave.Save(fs);
+                    }
+
+                    view.Add(FBD.SelectedPath + "\\image" + nom_file + ".png");
+                    nom_file++;
+                }
+                System.IO.File.WriteAllText(FBD.SelectedPath + "\\show.html", view.Save());
             }
-            bool[] is_used = new bool[segments.Count];
-            for (int i = 0; i < is_used.Length; i++) is_used[i] = false;
-            int k = 0,kolvo = 0;
-            while (kolvo!=is_used.Length-1)
-            {
-                //контролирующий список
-                while (is_used[k] == true) k++;
-                is_used[k] = true;
-                for (int i = 0; i < k; i++) is_used[i] = false;
-                foreach (bool b in is_used)
-                    if (b) kolvo++;
-                //выбор сегментов по контролирующему списку
-                //for (int i = 0; i < is_used.Length; i++)
-                //    if (is_used[i]) 
-            }
+        }
+    }
+    class Html
+    {
+        string text, ideal;
+
+        public Html(string pideal)
+        {
+            text = "<html>" +
+                "<head>" +
+                "<title>Результаты тестов</title>" +
+                "</head>" +
+                "<body>" +
+                "<table border = \"1\">" +
+                "<caption>Результаты тестов</caption>" +
+                "<tr>" +
+                "<th>Получилось</th>" +
+                "<th>Должно было получиться</th>" +
+                "</tr> ";
+            ideal = pideal.Substring(0,pideal.Length-4)+"ideal.png";
+        }
+
+        public void Add(string path)
+        {
+            text += "<tr><td><img src = \"" + path +
+                    "\" width = \"500\" height = \"200\"></td>" +
+                    "<td><img src = \"" + ideal +
+                    "\" width = \"500\" height = \"200\"></td>" +
+                    "</tr>";
+        }
+
+        public string Save()
+        {
+            text += "</table></body></html>";
+            return text;
         }
     }
 }
