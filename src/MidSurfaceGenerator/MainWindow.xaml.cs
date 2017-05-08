@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using MidSurfaceNameSpace.Solver;
 using System.IO;
 using System.Globalization;
+using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.MidSurfaceGenerator
 {
@@ -163,6 +164,31 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     }
                 }
             }
-        }  
+        }
+
+        private void Do_Enumeration(object sender, RoutedEventArgs e)
+        {
+            SolverData SD = new SolverData(model);
+            List<ISegment> segments = new List<ISegment>();
+            foreach (var contour in SD.GetContours())
+            {
+                segments.AddRange(contour.GetSegments());
+            }
+            bool[] is_used = new bool[segments.Count];
+            for (int i = 0; i < is_used.Length; i++) is_used[i] = false;
+            int k = 0,kolvo = 0;
+            while (kolvo!=is_used.Length-1)
+            {
+                //контролирующий список
+                while (is_used[k] == true) k++;
+                is_used[k] = true;
+                for (int i = 0; i < k; i++) is_used[i] = false;
+                foreach (bool b in is_used)
+                    if (b) kolvo++;
+                //выбор сегментов по контролирующему списку
+                //for (int i = 0; i < is_used.Length; i++)
+                //    if (is_used[i]) 
+            }
+        }
     }
 }
