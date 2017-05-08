@@ -102,7 +102,7 @@ namespace MidSurfaceNameSpace.Solver
                 int intersecCounter = CustomLine.LineSegmentIntersectionCircle(center, R, linePoint1, linePoint2, ref resultPoint1, ref resultPoint2);
 
                 //Hack
-                if (intersecCounter >= 1 && ClosePoints(resultPoint1, currentPoint, 1))
+                if (intersecCounter >= 1 && (ClosePoints(resultPoint1, currentPoint, 1) || ClosePoints(resultPoint2, currentPoint, 1)))
                     continue;
                 int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R);
                 if (intersecCounter == 1 && mutualArrangement == 0)
