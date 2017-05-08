@@ -177,7 +177,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 Primitive.Contour tmp_count;
                 Primitive.Figure tmp_fig;
                 Component.Model tmp_model;
-                RenderTargetBitmap rtb;
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 PngBitmapEncoder BufferSave;
                 while (kolvo != is_used.Length)
                 {
@@ -210,15 +210,15 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
                     // сохранение картинки
 
-                    rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                     mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
                     mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
                     rtb.Render(mainCanvas);
                     BufferSave = new PngBitmapEncoder();
                     BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
-                    using (var fs = File.OpenWrite(FBD.SelectedPath+"\\image"+nom_file+".png"))
+                    using (var fs = File.OpenWrite(FBD.SelectedPath + "\\image" + nom_file + ".png"))
                     {
                         BufferSave.Save(fs);
+                        fs.Close();
                     }
 
                     view.Add(FBD.SelectedPath + "\\image" + nom_file + ".png");
