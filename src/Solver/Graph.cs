@@ -530,10 +530,18 @@ namespace MidSurfaceNameSpace.Solver
                 yNew /= foundCycle.Count;
                 Vertex newVertex = new Vertex(new Point(xNew, yNew));
 
+                List<Vertex> unconnectedVertices = new List<Vertex>();
                 foreach (var index in foundCycle)
                 {
                     if (vertices[index].neighbours.Count != 0)
                         AddEdge(vertices[index], newVertex);
+                    else
+                        unconnectedVertices.Add(vertices[index]);
+                }
+
+                foreach (var v in unconnectedVertices)
+                {
+                    vertices.Remove(v);
                 }
             }
         }
