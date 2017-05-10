@@ -407,6 +407,103 @@ namespace MidSurfaceNameSpace.Solver
             return path;
         }
 
+        public List<List<Point>> GetAllPaths()
+        {
+            List<List<Point>> allPaths = new List<List<Point>>();
+            //Graph copyCraph = this;
+            for (int i = 0; i < vertices.Count; i++)
+                vertices[i].degree = 0;
+            int maxLevel = 0;
+            int currentLevel = 0;
+            while (currentLevel - maxLevel <= 1) 
+            {
+                List<Point> path = new List<Point>();
+                currentLevel = maxLevel;
+                maxLevel = 0;
+                int nowLevel = 1;
+                int currentIndex = 0;
+                for (int i = 0; i < vertices.Count; i++)
+                    if (vertices[i].degree != -1)
+                        currentIndex = i;
+
+                while (nowLevel > maxLevel)
+                {
+                    maxLevel = nowLevel;
+                    nowLevel = 1;
+                    for (int i = 0; i < vertices.Count; i++)
+                    {
+                        if (vertices[i].degree != -1)
+                        {
+                            vertices[i].degree = 0;
+                        }
+                    }
+                    //if (vertices[currentIndex].degree != -1)
+                    vertices[currentIndex].degree = 1;
+                    bool flag = true;
+                    while (flag)
+                    {
+                        for (int i = 0; i < vertices.Count; i++)
+                        {
+                            if (vertices[i].degree == nowLevel)
+                                for (int j = 0; j < vertices[i].neighbours.Count; j++)
+                                {
+                                    if (vertices[i].neighbours[j].degree == 0)
+                                    {
+                                        vertices[i].neighbours[j].degree = vertices[i].degree + 1;
+
+                                    }
+                                }
+                        }
+                        nowLevel++;
+                        flag = false;
+                        for (int i = 0; i < vertices.Count; i++)
+                        {
+                            if (vertices[i].degree == 0)
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                    for (int i = 0; i < vertices.Count; i++)
+                    {
+                        if (vertices[i].degree == nowLevel)
+                        {
+                            currentIndex = i;
+                            break;
+                        }
+                    }
+
+                }
+                path.Add(vertices[currentIndex].point);
+                vertices[currentIndex].degree = -1;
+                Vertex v = vertices[currentIndex];
+
+                for (nowLevel--; nowLevel > 0; nowLevel--)
+                {
+                    for (int j = v.neighbours.Count - 1; j >= 0; j--)
+                    {
+                        if (v.neighbours[j].degree == nowLevel)
+                        {
+                            path.Add(v.neighbours[j].point);
+                            if (nowLevel == 1)
+                                v.neighbours[j].degree = -1;
+                            v = vertices.Find(x => x.point == v.neighbours[j].point);
+                            break;
+                        }
+                    }
+                }
+                //vertices[currentIndex].degree = -1;
+
+                allPaths.Add(path);
+            }
+            //this.edges = copyCraph.edges;
+            //this.vertices = copyCraph.vertices;
+            //this.painted = copyCraph.painted;
+            allPaths.RemoveAt(allPaths.Count - 1);
+            return allPaths;
+        }
+
         public double GetWeight(Point p1, Point p2)
         {
             return Math.Pow(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2), 0.5);

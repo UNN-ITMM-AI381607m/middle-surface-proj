@@ -80,5 +80,34 @@ namespace UnitTests
             //List<System.Windows.Point> path = graph.GetPath();
             Assert.AreEqual(6, graph.GetPath().Count);
         }
-    }
+
+        [TestMethod]
+        public void TestGetAllPaths()
+        {
+            graph.AddEdge(new System.Windows.Point(1, 3), new System.Windows.Point(2, 4));
+            graph.AddEdge(new System.Windows.Point(2, 4), new System.Windows.Point(1, 5));
+            graph.AddEdge(new System.Windows.Point(2, 4), new System.Windows.Point(3, 4));
+            graph.AddEdge(new System.Windows.Point(3, 4), new System.Windows.Point(4, 4));
+            graph.AddEdge(new System.Windows.Point(4, 4), new System.Windows.Point(5, 4));
+            graph.AddEdge(new System.Windows.Point(5, 4), new System.Windows.Point(6, 4));
+
+            graph.AddEdge(new System.Windows.Point(6, 4), new System.Windows.Point(7, 3));
+            graph.AddEdge(new System.Windows.Point(6, 4), new System.Windows.Point(7, 5));
+
+            Assert.AreEqual(2, graph.GetAllPaths().Count);
+
+            //2
+            graph.AddEdge(new System.Windows.Point(3, 1), new System.Windows.Point(4, 2));
+            graph.AddEdge(new System.Windows.Point(4, 2), new System.Windows.Point(5, 1));
+            graph.AddEdge(new System.Windows.Point(4, 2), new System.Windows.Point(4, 3));
+            graph.AddEdge(new System.Windows.Point(4, 3), new System.Windows.Point(4, 4));
+            graph.AddEdge(new System.Windows.Point(4, 4), new System.Windows.Point(4, 5));
+            graph.AddEdge(new System.Windows.Point(4, 5), new System.Windows.Point(4, 6));
+
+            graph.AddEdge(new System.Windows.Point(4, 6), new System.Windows.Point(3, 7));
+            graph.AddEdge(new System.Windows.Point(4, 6), new System.Windows.Point(5, 7));
+
+            Assert.AreEqual(4, graph.GetAllPaths().Count);
+        }
+        }
 }
