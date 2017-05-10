@@ -14,6 +14,8 @@ namespace MidSurfaceNameSpace.Primitive
         private ISegment segment;
         private double t;
 
+        static public double T_OFFSET = 0.0001;
+
         public Normal(ISegment segment, double t, double dx, double dy)
         {
             this.segment = segment;
@@ -58,18 +60,6 @@ namespace MidSurfaceNameSpace.Primitive
                 var t = this.t * 0.5 + other.t * 0.5;
                 return other.segment.GetNormal(t);
             }
-            if (this.segment.GetPillar().Last() == other.segment.GetPillar().First())
-            {
-                if (this.t == 1 && other.t == 0)
-                {
-                    return new Normal(this.segment, this.t, dx, dy);
-                }
-                if (this.t < 1)
-                {
-                    return this.segment.GetNormal(1);
-                }
-                return other.segment.GetNormal(0);
-            }
             if (this.segment.GetPillar().First() == other.segment.GetPillar().Last())
             {
                 if (this.t == 0 && other.t == 1)
@@ -82,6 +72,19 @@ namespace MidSurfaceNameSpace.Primitive
                 }
                 return this.segment.GetNormal(0);
             }
+            //temporary comment due to case from 2 segments
+            //if (this.segment.GetPillar().Last() == other.segment.GetPillar().First())
+            //{
+            //    if (this.t == 1 && other.t == 0)
+            //    {
+            //        return new Normal(this.segment, this.t, dx, dy);
+            //    }
+            //    if (this.t < 1)
+            //    {
+            //        return this.segment.GetNormal(1);
+            //    }
+            //    return other.segment.GetNormal(0);
+            //}
             throw new Exception("Error: Invalid operation between unrelated segments.");
         }
     }

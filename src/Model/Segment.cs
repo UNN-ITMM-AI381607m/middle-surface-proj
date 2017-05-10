@@ -12,11 +12,6 @@ namespace MidSurfaceNameSpace.Primitive
         ICurve curve;
         List<Point> pillar;
 
-        public double T_OFFSET
-        {
-            get { return 0.0001; }
-        }
-
         public Segment(ICurve curve, List<Point> pillar)
         {
             this.curve = curve;
@@ -36,7 +31,7 @@ namespace MidSurfaceNameSpace.Primitive
         public Normal GetNormal(double t)
         {
             var point1 = curve.GetCurvePoint(pillar, t);
-            var point2 = curve.GetCurvePoint(pillar, t + T_OFFSET);
+            var point2 = curve.GetCurvePoint(pillar, t + Normal.T_OFFSET);
             var dx = point1.X - point2.X;
             var dy = point2.Y - point1.Y;
             double length = Math.Sqrt(dx * dx + dy * dy);
