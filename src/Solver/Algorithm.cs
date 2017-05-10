@@ -59,12 +59,13 @@ namespace MidSurfaceNameSpace.Solver
             List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
             Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
-            //msGraph.RemoveCycles(maxCycleSize);
+            msGraph.RemoveCycles(maxCycleSize);
 
-            List<Point> points = msGraph.GetPath();
+            //TODO: go to infinite loop, please check it with graph WITHOUT cycles
+            //List<Point> points = msGraph.GetPath();
 
             //Точки для работы
-            List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, msPoints);
+            //List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, msPoints);
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
 

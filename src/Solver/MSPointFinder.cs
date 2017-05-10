@@ -13,7 +13,7 @@ namespace MidSurfaceNameSpace.Solver
         List<ICustomLine> simplifiedModel;
         double Rmax;
         const double radiusAccuracy = 0.00001;
-        const double closePointsAccuracy = 0.01;
+        const double closePointsAccuracy = 5;
         int MSPointCounter;
 
 
@@ -103,20 +103,12 @@ namespace MidSurfaceNameSpace.Solver
                 Point resultPoint2 = new Point();
                 int intersecCounter = CustomLine.LineSegmentIntersectionCircle(center, R, linePoint1, linePoint2, ref resultPoint1, ref resultPoint2);
 
-                if (intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy))
-                    continue;
-                else if (intersecCounter == 2)
+                if ((intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy)) ||
+                    (intersecCounter == 2 && ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy)))
                 {
-                    if (ClosePoints(resultPoint1, currentPoint, closePointsAccuracy))
-                    {
-                        intersecCounter = 1;
-                        resultPoint1 = resultPoint2;
-                    }
-                    else if (ClosePoints(resultPoint2, currentPoint, closePointsAccuracy))
-                    {
-                        intersecCounter = 1;
-                    }
+                    continue;
                 }
+
                 int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001);
                 if (intersecCounter == 1 && mutualArrangement == 0)
                 {
