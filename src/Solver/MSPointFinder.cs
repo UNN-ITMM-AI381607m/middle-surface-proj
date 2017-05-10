@@ -13,7 +13,9 @@ namespace MidSurfaceNameSpace.Solver
         List<ICustomLine> simplifiedModel;
         double Rmax;
         const double radiusAccuracy = 0.00001;
+        const double closePointsAccuracy = 0.01;
         int MSPointCounter;
+
 
         public MSPointFinder(List<ICustomLine> lines)
         {
@@ -101,10 +103,21 @@ namespace MidSurfaceNameSpace.Solver
                 Point resultPoint2 = new Point();
                 int intersecCounter = CustomLine.LineSegmentIntersectionCircle(center, R, linePoint1, linePoint2, ref resultPoint1, ref resultPoint2);
 
-                //Hack
-                if (intersecCounter >= 1 && (ClosePoints(resultPoint1, currentPoint, 1) || ClosePoints(resultPoint2, currentPoint, 1)))
+                if (intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy))
                     continue;
-                int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R);
+                else if (intersecCounter == 2)
+                {
+                    if (ClosePoints(resultPoint1, currentPoint, closePointsAccuracy))
+                    {
+                        intersecCounter = 1;
+                        resultPoint1 = resultPoint2;
+                    }
+                    else if (ClosePoints(resultPoint2, currentPoint, closePointsAccuracy))
+                    {
+                        intersecCounter = 1;
+                    }
+                }
+                int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001);
                 if (intersecCounter == 1 && mutualArrangement == 0)
                 {
                     foundGood = true;

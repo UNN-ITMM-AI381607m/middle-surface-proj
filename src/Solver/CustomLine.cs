@@ -77,15 +77,17 @@ namespace MidSurfaceNameSpace.Solver
             rightNormalVector.Normalize();
         }
 
-        public static int CheckMutualArrangementLineCircle(Point line1, Point line2, Point center, double R)
+        public static int CheckMutualArrangementLineCircle(Point line1, Point line2, Point center, double R, double accuracy)
         {
+            double RMax = R + accuracy;
+            double RMin = R - accuracy;
             double d1 = new Vector(line1.X - center.X, line1.Y - center.Y).Length;
             double d2 = new Vector(line2.X - center.X, line2.Y - center.Y).Length;
-            if (d1 >= R && d2 >= R)
+            if (d1 >= RMin && d2 >= RMin)
                 return 0;
-            if ((d1 >= R && d2 <= R) || (d1 <= R && d2 >= R))
+            if ((d1 >= RMin && d2 <= RMax) || (d1 <= RMax && d2 >= RMin))
                 return 1;
-            if (d1 < R && d2 < R)
+            if (d1 < RMax && d2 < RMax)
                 return 2;
             return -1;
         }
