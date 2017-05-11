@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
-    public partial class MSPointFinder : IMSPointFinder
+    public class MSPointFinder : IMSPointFinder
     {
         List<ICustomLine> simplifiedModel;
         double Rmax;
