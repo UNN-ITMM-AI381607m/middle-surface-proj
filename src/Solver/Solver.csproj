@@ -43,12 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
+    <Compile Include="Averager.cs" />
     <Compile Include="CustomLine.cs" />
     <Compile Include="CustomPoint.cs" />
     <Compile Include="CustomSolverData.cs" />
     <Compile Include="Detailizer.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="IAlgorithm.cs" />
+    <Compile Include="IAverager.cs" />
     <Compile Include="ICustomLine.cs" />
     <Compile Include="ICustomPoint.cs" />
     <Compile Include="IDetailizer.cs" />
