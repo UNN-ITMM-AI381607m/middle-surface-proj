@@ -102,10 +102,9 @@ namespace MidSurfaceNameSpace.Solver
                 }
             }
 
-            for (int i = 0; i < connectionOrder.Count; i++)
+            for (int i = 0; i < connectionOrder.Count - 1; i++)
             {
-                int j = i + 1 == connectionOrder.Count ? 0 : i + 1;
-                graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[j]).GetPoint());
+                graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[i + 1]).GetPoint());
             }
 
             //for (int i = 0; i < msPoints.Count(); i++)

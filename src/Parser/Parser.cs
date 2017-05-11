@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.IO
 {
@@ -126,7 +127,7 @@ namespace MidSurfaceNameSpace.IO
             foreach (var contour in shape.Contour)
             {
                 Primitive.Contour convertContour = new Primitive.Contour();
-                List<Point> points = new List<Point>();
+                List<ParserPoint> points = new List<ParserPoint>();
 
                 for (int i = 0; i < contour.Segments.Count() - 1; i++)
                 {
@@ -158,12 +159,12 @@ namespace MidSurfaceNameSpace.IO
             return result;
         }
 
-        private List<System.Windows.Point> ConvertPoints(List<Point> points)
+        private List<Point> ConvertPoints(List<ParserPoint> points)
         {
-            List<System.Windows.Point> convertedPoints = new List<System.Windows.Point>();
+            List<Point> convertedPoints = new List<Point>();
             foreach (var point in points)
             {
-                convertedPoints.Add(new System.Windows.Point(point.X, point.Y));
+                convertedPoints.Add(new Point(point.X, point.Y));
             }
             return convertedPoints;
         }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="">
 
-  <xs:complexType name="Point">
+  <xs:complexType name="ParserPoint">
     <xs:sequence>
       <xs:element name="X" type="xs:double" />
       <xs:element name="Y" type="xs:double" />
@@ -10,7 +10,7 @@
 
   <xs:complexType name="BezierCurve">
     <xs:sequence>
-      <xs:element name="ControlPoint" type="Point" minOccurs="0" maxOccurs="2" />
+      <xs:element name="ControlPoint" type="ParserPoint" minOccurs="0" maxOccurs="2" />
     </xs:sequence>
   </xs:complexType>
 
@@ -27,7 +27,7 @@
       <xs:element name="JointsOfSegments">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="JunctionPoint" type="Point" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="JunctionPoint" type="ParserPoint" minOccurs="1" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>

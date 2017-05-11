@@ -1,12 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Linq;
-using System.Collections.Generic;
 using MidSurfaceNameSpace.Solver;
-using MidSurfaceNameSpace.Primitive;
 
 namespace MidSurfaceNameSpace.UnitTests
 {
@@ -18,10 +13,10 @@ namespace MidSurfaceNameSpace.UnitTests
         {
             Graph msGraph = new Graph();
 
-            msGraph.AddEdge(new System.Windows.Point(0, 0), new System.Windows.Point(0, 2));
-            msGraph.AddEdge(new System.Windows.Point(0, 2), new System.Windows.Point(2, 2));
-            msGraph.AddEdge(new System.Windows.Point(2, 2), new System.Windows.Point(2, 0));
-            msGraph.AddEdge(new System.Windows.Point(2, 0), new System.Windows.Point(0, 0));
+            msGraph.AddEdge(new Point(0, 0), new Point(0, 2));
+            msGraph.AddEdge(new Point(0, 2), new Point(2, 2));
+            msGraph.AddEdge(new Point(2, 2), new Point(2, 0));
+            msGraph.AddEdge(new Point(2, 0), new Point(0, 0));
 
             var midsurface = new JoinMSPoints(msGraph).Join();
 

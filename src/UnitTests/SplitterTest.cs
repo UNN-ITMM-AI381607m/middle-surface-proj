@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MidSurfaceNameSpace.Component;
 using MidSurfaceNameSpace.Primitive;
+using System.Windows;
 
 namespace MidSurfaceNameSpace.UnitTests
 {
@@ -23,44 +24,44 @@ namespace MidSurfaceNameSpace.UnitTests
 
             List<ISegment> segments1 = new List<ISegment>
             {
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(-2, -2),
-                    new System.Windows.Point(-2, 2)
+                    new Point(-2, -2),
+                    new Point(-2, 2)
                 }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(-2, 2),
-                    new System.Windows.Point(2, 2)
+                    new Point(-2, 2),
+                    new Point(2, 2)
                 }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(2, 2),
-                    new System.Windows.Point(2, -2)
+                    new Point(2, 2),
+                    new Point(2, -2)
                 }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(2, -2),
-                    new System.Windows.Point(-2, -2)
+                    new Point(2, -2),
+                    new Point(-2, -2)
                 })
             };
 
             List<ISegment> segments2 = new List<ISegment>
             {
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(0, 0),
-                    new System.Windows.Point(1, 0)
+                    new Point(0, 0),
+                    new Point(1, 0)
                 }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(1, 0),
-                    new System.Windows.Point(0, 1)
+                    new Point(1, 0),
+                    new Point(0, 1)
                 }),
-                new Segment(new BezierCurve(), new List<System.Windows.Point>
+                new Segment(new BezierCurve(), new List<Point>
                 {
-                    new System.Windows.Point(0, 1),
-                    new System.Windows.Point(0, 0)
+                    new Point(0, 1),
+                    new Point(0, 0)
                 })
             };
 
@@ -95,12 +96,12 @@ namespace MidSurfaceNameSpace.UnitTests
         public void TestSplitLinesContainJointsOfSegments()
         {
             List<ICustomLine> lines = splitter.Split(contours, 0.17);
-            List<System.Windows.Point> joints = new List<System.Windows.Point>();
+            List<Point> joints = new List<Point>();
             foreach (var contour in contours)
             {
                 joints.AddRange(GetJoints(contour.GetSegments()));
             }
-            List<System.Windows.Point> jointLines = GetJoints(lines);
+            List<Point> jointLines = GetJoints(lines);
             foreach (var point in jointLines)
             {
                 joints.Remove(point);
@@ -134,9 +135,9 @@ namespace MidSurfaceNameSpace.UnitTests
             Assert.AreEqual(numbers.Distinct().Count(), numOfSegments);
         }
 
-        List<System.Windows.Point> GetJoints(IEnumerable<ISegment> segments)
+        List<Point> GetJoints(IEnumerable<ISegment> segments)
         {
-            List<System.Windows.Point> joints = new List<System.Windows.Point>();
+            List<Point> joints = new List<Point>();
             foreach (var segment in segments)
             {
                 joints.AddRange(segment.GetPillar());
@@ -144,9 +145,9 @@ namespace MidSurfaceNameSpace.UnitTests
             return joints;
         }
 
-        List<System.Windows.Point> GetJoints(IEnumerable<ICustomLine> lines)
+        List<Point> GetJoints(IEnumerable<ICustomLine> lines)
         {
-            List<System.Windows.Point> joints = new List<System.Windows.Point>();
+            List<Point> joints = new List<Point>();
             foreach (var line in lines)
             {
                 joints.Add(line.GetPoint1().GetPoint());
