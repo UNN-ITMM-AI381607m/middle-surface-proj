@@ -94,31 +94,30 @@ namespace MidSurfaceNameSpace.Solver
             bool foundGood = false;
             bool needToDecrease = false;
             bool needToIncrease = false;
-            for (int i = 0; i < simplifiedModel.Count(); i++)
+            Parallel.ForEach(simplifiedModel, (line) =>
             {
-                Point linePoint1 = simplifiedModel[i].GetPoint1().GetPoint();
-                Point linePoint2 = simplifiedModel[i].GetPoint2().GetPoint();
+                Point linePoint1 = line.GetPoint1().GetPoint();
+                Point linePoint2 = line.GetPoint2().GetPoint();
 
                 Point resultPoint1 = new Point();
                 Point resultPoint2 = new Point();
                 int intersecCounter = CustomLine.LineSegmentIntersectionCircle(center, R, linePoint1, linePoint2, ref resultPoint1, ref resultPoint2);
 
-                if ((intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy)) ||
-                    (intersecCounter == 2 && ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy)))
+                if (!((intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy)) ||
+                    (intersecCounter == 2 && ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy))))
                 {
-                    continue;
-                }
 
-                int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001);
-                if (intersecCounter == 1 && mutualArrangement == 0)
-                {
-                    foundGood = true;
+                    int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001);
+                    if (intersecCounter == 1 && mutualArrangement == 0)
+                    {
+                        foundGood = true;
+                    }
+                    else if (intersecCounter == 0 && mutualArrangement == 0)
+                        needToIncrease = true;
+                    else
+                        needToDecrease = true;
                 }
-                else if (intersecCounter == 0 && mutualArrangement == 0)
-                    needToIncrease = true;
-                else
-                    needToDecrease = true;
-            }
+            });
             if (needToDecrease)
                 return -1;
             else if (needToIncrease)
