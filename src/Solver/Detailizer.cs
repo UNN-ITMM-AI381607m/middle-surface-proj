@@ -19,7 +19,7 @@ namespace MidSurfaceNameSpace.Solver
             this.lines = lines;
             this.finder = finder;
             this.segments = segments;
-            this.accuracy = accuracy;
+            this.accuracy = accuracy > 1 ? 100 : accuracy * 100;
         }
 
         private IMSPoint GetMSPoint(ICustomLine nextLine, ICustomLine prevLine, ref Normal normal)
