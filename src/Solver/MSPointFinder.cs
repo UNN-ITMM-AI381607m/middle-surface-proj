@@ -106,7 +106,6 @@ namespace MidSurfaceNameSpace.Solver
                 if (!((intersecCounter == 1 && ClosePoints(resultPoint1, currentPoint, closePointsAccuracy)) ||
                     (intersecCounter == 2 && ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy))))
                 {
-
                     int mutualArrangement = CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001);
                     if (intersecCounter == 1 && mutualArrangement == 0)
                     {

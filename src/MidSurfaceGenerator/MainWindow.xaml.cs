@@ -35,7 +35,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             InitializeComponent();
             view = new Component.View(mainCanvas);
- 
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -226,6 +225,54 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 }
                 System.IO.File.WriteAllText(FBD.SelectedPath + "\\show.html", view.Save());
             }
+        }
+
+        private void ShowNormal_Click(object sender, RoutedEventArgs e)
+        {
+            if (model == null)
+            {
+                MessageBox.Show("No model is imported");
+                return;
+            }
+
+            string[] debugParams = textBox_Debug.Text.Split(';');
+            int segmentNum = 0;
+            double t = 0;
+            double multiplier = 0;
+            try
+            {
+                segmentNum = int.Parse(debugParams[0]);
+                t = double.Parse(debugParams[1], CultureInfo.InvariantCulture);
+                multiplier = double.Parse(debugParams[2], CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                MessageBox.Show("Wrong format in debug parameters.\nFormat is:\n    <segment number>;<t value>;<multiplier value>");
+                return;
+            }
+
+            ISegment chosenSegment = model.GetCanvasData().ElementAt(segmentNum);
+            Point pointOnSegment = chosenSegment.GetCurvePoint(t);
+            Normal normalForSegment = chosenSegment.GetNormal(t);
+            ISegment normalSegment = new Segment(new BezierCurve(), new List<Point>()
+            {
+                pointOnSegment,
+                new Point(pointOnSegment.X + multiplier * normalForSegment.Dx(), pointOnSegment.Y + multiplier * normalForSegment.Dy())
+            });
+
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Brush = Brushes.Blue;
+            settings.Thikness = 1;
+            IMidSurface debugSurface = new MidSurface();
+            debugSurface.Add(normalSegment);
+            View.VisibleData visible_data = new View.VisibleData(debugSurface, settings);
+            view.Paint(visible_data);
+        }
+
+        private void ClearDebug_Click(object sender, RoutedEventArgs e)
+        {
+            RedrawModel();
+            RedrawMisSurface();
         }
     }
 }
