@@ -25,6 +25,8 @@
             </MenuItem>
             <MenuItem Header="Debug">
                 <MenuItem Header="Show Normal" Click="ShowNormal_Click"/>
+                <MenuItem Header="Show Only Points" Click="ShowOnlyPoints_Click"/>
+                <MenuItem Header="Show Indices" Click="ShowIndices_Click"/>
                 <Separator/>
                 <MenuItem Header="Clear" Click="ClearDebug_Click"/>
             </MenuItem>

@@ -64,6 +64,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     MessageBox.Show("Error: Could not read file from disk, cause is: " + ex.Message);
                 }
             }
+            mid_surface_model = null;
             currentStatus.Content = "Ready for work";
         }
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -254,6 +255,16 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             ISegment chosenSegment = model.GetCanvasData().ElementAt(segmentNum);
             Point pointOnSegment = chosenSegment.GetCurvePoint(t);
             Normal normalForSegment = chosenSegment.GetNormal(t);
+            if (t == 0)
+            {
+                int prevSegmentNum = segmentNum == 0 ? model.GetCanvasData().Count() - 1 : segmentNum - 1;
+                normalForSegment = normalForSegment.Combine(model.GetCanvasData().ElementAt(prevSegmentNum).GetNormal(1));
+            }
+            else if (t == 1)
+            {
+                int nextSegmentNum = segmentNum == model.GetCanvasData().Count() - 1 ? 0 : segmentNum + 1;
+                normalForSegment = model.GetCanvasData().ElementAt(nextSegmentNum).GetNormal(0).Combine(normalForSegment);
+            }
             ISegment normalSegment = new Segment(new BezierCurve(), new List<Point>()
             {
                 pointOnSegment,
@@ -271,6 +282,45 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void ClearDebug_Click(object sender, RoutedEventArgs e)
         {
+            view.SetAddIndices(false);
+            RedrawModel();
+            RedrawMisSurface();
+        }
+
+        private void ShowOnlyPoints_Click(object sender, RoutedEventArgs e)
+        {
+            if (mid_surface_model == null)
+                return;
+
+            var segments = mid_surface_model.GetData();
+            List<ISegment> only_points = new List<ISegment>();
+            foreach (var segment in segments)
+            {
+                ISegment point = new Segment(new BezierCurve(), new List<Point>()
+                {
+                    segment.GetPillar()[0],
+                    Vector.Add(new Vector(1, 0), segment.GetPillar()[0])
+                });
+                only_points.Add(point);
+            }
+
+            IMidSurface points_surface = new MidSurface();
+            foreach (var point in only_points)
+            {
+                points_surface.Add(point);
+            }
+            mainCanvas.Children.Clear();
+            RedrawModel();
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Brush = Brushes.Red;
+            settings.Thikness = 2;
+            View.VisibleData visible_data = new View.VisibleData(points_surface, settings);
+            view.Paint(visible_data);
+        }
+
+        private void ShowIndices_Click(object sender, RoutedEventArgs e)
+        {
+            view.SetAddIndices(true);
             RedrawModel();
             RedrawMisSurface();
         }

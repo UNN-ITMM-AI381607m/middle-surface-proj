@@ -25,9 +25,11 @@ namespace MidSurfaceNameSpace.Component
 
         private System.Windows.Controls.Canvas canvas;
         private TransformData transform_data;
+        bool addIndices;
         public View(System.Windows.Controls.Canvas canvas)
         {
             this.canvas = canvas;
+            addIndices = false;
         }
 
         public void Paint(IVisibleData data)
@@ -86,7 +88,8 @@ namespace MidSurfaceNameSpace.Component
                         newPos.X += 10;
                     }
                 }
-                AddIndex(newPos, index++);
+                if (addIndices)
+                    AddIndex(newPos, index++);
                 pos = posPoint;
                 canvas.Children.Add(pl);
             }
@@ -109,6 +112,11 @@ namespace MidSurfaceNameSpace.Component
             System.Windows.Controls.Canvas.SetLeft(textBlock, posP.X);
             System.Windows.Controls.Canvas.SetTop(textBlock, posP.Y);
             canvas.Children.Add(textBlock);
+        }
+
+        public void SetAddIndices(bool enabled)
+        {
+            addIndices = enabled;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace MidSurfaceNameSpace.Component
 {
     public interface IView
     {
+        //addIndex for debug only
         void Paint(IVisibleData data);
+        void SetAddIndices(bool enabled);
     }
 }
