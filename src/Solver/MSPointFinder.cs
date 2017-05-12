@@ -79,7 +79,7 @@ namespace MidSurfaceNameSpace.Solver
             }
             SetMarks(center, RMaxPrevious, MSPointCounter);
             MSPointCounter++;
-            return new MSPoint(center, segment, normal, point);
+            return new MSPoint(center, segment);
         }
 
         bool ClosePoints(Point a, Point b, double accuracy)

@@ -12,8 +12,5 @@ namespace MidSurfaceNameSpace.Solver
     {
         Point GetPoint();
         ISegment GetSegment();
-        //TO DO: required Sergey I. approval
-        Normal GetNormal();
-        Point GetParentPoint();
     }
 }
