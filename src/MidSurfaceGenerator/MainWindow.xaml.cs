@@ -132,6 +132,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
                 double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);             
                 IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 foreach (string path in allFoundFiles)
                 {
                     Component.Model model_temp = new Component.Model();
@@ -140,7 +141,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     RedrawModel();                   
                     mid_surface_model = alg.Run(new SolverData(model));
                     RedrawMisSurface();
-                    var rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                     // needed otherwise the image output is black
                     mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
                     mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
@@ -226,41 +226,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 }
                 System.IO.File.WriteAllText(FBD.SelectedPath + "\\show.html", view.Save());
             }
-        }
-    }
-    class Html
-    {
-        string text, ideal;
-
-        public Html(string pideal)
-        {
-            text = "<html>" +
-                "<head>" +
-                "<title>Результаты тестов</title>" +
-                "</head>" +
-                "<body>" +
-                "<table border = \"1\">" +
-                "<caption>Результаты тестов</caption>" +
-                "<tr>" +
-                "<th>Получилось</th>" +
-                "<th>Должно было получиться</th>" +
-                "</tr> ";
-            ideal = pideal.Substring(0,pideal.Length-4)+"ideal.png";
-        }
-
-        public void Add(string path)
-        {
-            text += "<tr><td><img src = \"" + path +
-                    "\" width = \"500\" height = \"200\"></td>" +
-                    "<td><img src = \"" + ideal +
-                    "\" width = \"500\" height = \"200\"></td>" +
-                    "</tr>";
-        }
-
-        public string Save()
-        {
-            text += "</table></body></html>";
-            return text;
         }
     }
 }
