@@ -6,37 +6,38 @@ using System.Threading.Tasks;
 
 namespace MidSurfaceNameSpace.IO
 {
-    class Html
+   public class Html
     {
-        string text;
+        string text, ideal;
 
-        public Html()
+        public Html(string pideal)
         {
             text = "<html>" +
-                "< head >" +
-                "< title > Результаты тестов </ title >" +
-                "</ head >" +
-                "< body >" +
-                "< table border = \"1\" >" +
-                "< caption > Результаты тестов </ caption >" +
-                "< tr >" +
-                "< th > Получилось </ th >" +
-                "< th > Должно было получиться</ th >" +
-                "</ tr > ";
+                "<head>" +
+                "<title>Результаты тестов</title>" +
+                "</head>" +
+                "<body>" +
+                "<table border = \"1\">" +
+                "<caption>Результаты тестов</caption>" +
+                "<tr>" +
+                "<th>Получилось</th>" +
+                "<th>Должно было получиться</th>" +
+                "</tr> ";
+            ideal = pideal.Substring(0, pideal.Length - 4) + "ideal.png";
         }
 
-        public void Add(string path,string folder)
+        public void Add(string path)
         {
-            text += "< tr >< td >< img src = " + path +
-                    " width = \"500\" height = \"200\" ></ td >" +
-                    "< td >< img src = " + folder + "\\ideal.png" +
-                    "width = \"500\" height = \"200\" ></ td >" +
-                    "</ tr >";
+            text += "<tr><td><img src = \"" + path +
+                    "\" width = \"500\" height = \"200\"></td>" +
+                    "<td><img src = \"" + ideal +
+                    "\" width = \"500\" height = \"200\"></td>" +
+                    "</tr>";
         }
 
         public string Save()
         {
-            text += "</ table ></ body ></ html >";
+            text += "</table></body></html>";
             return text;
         }
     }

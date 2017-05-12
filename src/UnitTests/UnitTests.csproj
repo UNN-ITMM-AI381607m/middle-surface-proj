@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AveragerTest.cs" />
     <Compile Include="GraphTest.cs" />
     <Compile Include="MSModelTest.cs" />
     <Compile Include="ParserTest.cs" />
