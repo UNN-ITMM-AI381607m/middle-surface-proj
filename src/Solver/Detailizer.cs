@@ -12,7 +12,6 @@ namespace MidSurfaceNameSpace.Solver
         private IMSPointFinder finder;
         private double accuracy;
         private List<ISegment> segments;
-        // private List<IMSPoint> normals = new List<IMSPoint>();
 
         public Detailizer(IMSPointFinder finder, List<ICustomLine> lines, List<ISegment> segments, double accuracy)
         {
@@ -61,7 +60,6 @@ namespace MidSurfaceNameSpace.Solver
                 mspoint2 = GetMSPoint(lines[j], lines[i], ref n2);
 
                 mspoints.Add(mspoint1);
-                // normals.Add(new MSPoint(new Point(lines[i].GetPoint1().GetPoint().X + n1.Dx() * 3, lines[i].GetPoint1().GetPoint().Y + n1.Dy() * 3), null));
                 firstAdded = true;
 
                 if (lines[i].GetPoint2().GetPoint() == lines[j].GetPoint1().GetPoint() &&
@@ -107,7 +105,6 @@ namespace MidSurfaceNameSpace.Solver
 
             if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n);
             points.Add(mspoint);
-            // normals.Add(new MSPoint(new Point(middlePoint.X + n.Dx() * 3, middlePoint.Y + n.Dy() * 3), null));
             if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2);
         }
     }

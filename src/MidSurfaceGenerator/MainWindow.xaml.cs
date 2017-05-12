@@ -282,7 +282,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void ClearDebug_Click(object sender, RoutedEventArgs e)
         {
-            view.SetAddIndices(false);
+            view.EnableIndices(false);
             RedrawModel();
             RedrawMisSurface();
         }
@@ -320,8 +320,18 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void ShowIndices_Click(object sender, RoutedEventArgs e)
         {
-            view.SetAddIndices(true);
+            view.EnableIndices(true);
+            view.SetIndexFontSize(14);
             RedrawModel();
+            view.SetIndexFontSize(10);
+            RedrawMisSurface();
+        }
+        private void ShowOnlyModelIndices_Click(object sender, RoutedEventArgs e)
+        {
+            view.EnableIndices(true);
+            view.SetIndexFontSize(14);
+            RedrawModel();
+            view.EnableIndices(false);
             RedrawMisSurface();
         }
     }

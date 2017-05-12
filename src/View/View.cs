@@ -26,10 +26,12 @@ namespace MidSurfaceNameSpace.Component
         private System.Windows.Controls.Canvas canvas;
         private TransformData transform_data;
         bool addIndices;
+        int indexFontSize;
         public View(System.Windows.Controls.Canvas canvas)
         {
             this.canvas = canvas;
             addIndices = false;
+            indexFontSize = 10;
         }
 
         public void Paint(IVisibleData data)
@@ -61,8 +63,8 @@ namespace MidSurfaceNameSpace.Component
                 //The last point shoud be added
                 point = segment.GetCurvePoint(1d);
 
-               var posPoint = TransfromFill(point);
-               pl.Points.Add(posPoint);
+               var posPoint = TransfromFill(segment.GetCurvePoint(0.0d));
+               pl.Points.Add(TransfromFill(point));
 
                 Point newPos = posPoint;
                 if (pos.X == -1 && pos.Y == -1)
@@ -73,19 +75,19 @@ namespace MidSurfaceNameSpace.Component
                 {
                     if (pos.X < posPoint.X)
                     {
-                        newPos.Y -= 10;
+                        newPos.Y -= indexFontSize;
                     }
                     else if (pos.Y < posPoint.Y)
                     {
-                        newPos.X -= 10;
+                        newPos.X -= indexFontSize;
                     }
                     else if (pos.X > posPoint.X)
                     {
-                        newPos.Y += 10;
+                        newPos.Y += indexFontSize;
                     }
                     else if (pos.Y > posPoint.Y)
                     {
-                        newPos.X += 10;
+                        newPos.X += indexFontSize;
                     }
                 }
                 if (addIndices)
@@ -106,17 +108,23 @@ namespace MidSurfaceNameSpace.Component
             System.Windows.Controls.TextBlock textBlock = new System.Windows.Controls.TextBlock();
             textBlock.Text = index.ToString();
             textBlock.Background = Brushes.White;
-            textBlock.Foreground = Brushes.Black;
-            textBlock.FontSize = 10;
+            textBlock.Foreground = Brushes.DarkGreen;
+            textBlock.FontSize = indexFontSize;
 
             System.Windows.Controls.Canvas.SetLeft(textBlock, posP.X);
             System.Windows.Controls.Canvas.SetTop(textBlock, posP.Y);
             canvas.Children.Add(textBlock);
         }
 
-        public void SetAddIndices(bool enabled)
+        public void EnableIndices(bool enabled)
         {
             addIndices = enabled;
+
         }
+        public void SetIndexFontSize(int size)
+        {
+            indexFontSize = size;
+        }
+
     }
 }
