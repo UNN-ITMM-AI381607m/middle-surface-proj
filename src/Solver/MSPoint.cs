@@ -12,11 +12,23 @@ namespace MidSurfaceNameSpace.Solver
     {
         Point mspoint;
         ISegment segment;
+        Normal normal;
+        Point parent;
 
         public MSPoint(Point mspoint, ISegment segment)
         {
             this.mspoint = mspoint;
             this.segment = segment;
+            this.normal = null;
+            this.parent = new Point(-1, -1);
+        }
+
+        public MSPoint(Point mspoint, ISegment segment, Normal normal, Point parent)
+        {
+            this.mspoint = mspoint;
+            this.segment = segment;
+            this.normal = normal;
+            this.parent = parent;
         }
 
         public Point GetPoint()
@@ -27,6 +39,16 @@ namespace MidSurfaceNameSpace.Solver
         public ISegment GetSegment()
         {
             return segment;
+        }
+
+        public Normal GetNormal()
+        {
+            return normal;
+        }
+
+        public Point GetParentPoint()
+        {
+            return parent;
         }
     }
 }

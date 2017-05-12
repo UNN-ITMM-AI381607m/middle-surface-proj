@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+
 namespace MidSurfaceNameSpace.Component
 {
     public class View: IView
@@ -38,6 +39,9 @@ namespace MidSurfaceNameSpace.Component
             // scale will be mult to 0.98 in purpose of creating borders
             transform_data.scale = 0.98d * ( Math.Min(canvas.ActualWidth, canvas.ActualHeight) / Math.Max(Math.Abs(data.GetSize().Xmax-data.GetSize().Xmin), Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin)));
             double step = 1d / (1 + Math.Round(transform_data.scale) * 100d);
+            int index = 0;
+            Point pos = new Point(-1, -1);
+
             foreach (ISegment segment in data.GetSegments())
             {           
                 Point point = new Point();
@@ -54,14 +58,57 @@ namespace MidSurfaceNameSpace.Component
 
                 //The last point shoud be added
                 point = segment.GetCurvePoint(1d);
-                pl.Points.Add(TransfromFill(point));
+
+               var posPoint = TransfromFill(point);
+               pl.Points.Add(posPoint);
+
+                Point newPos = posPoint;
+                if (pos.X == -1 && pos.Y == -1)
+                {
+                    pos = posPoint;
+                }
+                else
+                {
+                    if (pos.X < posPoint.X)
+                    {
+                        newPos.Y -= 10;
+                    }
+                    else if (pos.Y < posPoint.Y)
+                    {
+                        newPos.X -= 10;
+                    }
+                    else if (pos.X > posPoint.X)
+                    {
+                        newPos.Y += 10;
+                    }
+                    else if (pos.Y > posPoint.Y)
+                    {
+                        newPos.X += 10;
+                    }
+                }
+                AddIndex(newPos, index++);
+                pos = posPoint;
                 canvas.Children.Add(pl);
             }
+
         }
 
         private Point TransfromFill(Point p)
         {
             return new Point(transform_data.scale*(p.X - transform_data.model_center_X) +transform_data.center_X, transform_data.center_Y - transform_data.scale * (p.Y - transform_data.model_center_Y));
+        }
+
+        private void AddIndex(Point posP, int index)
+        {
+            System.Windows.Controls.TextBlock textBlock = new System.Windows.Controls.TextBlock();
+            textBlock.Text = index.ToString();
+            textBlock.Background = Brushes.White;
+            textBlock.Foreground = Brushes.Black;
+            textBlock.FontSize = 10;
+
+            System.Windows.Controls.Canvas.SetLeft(textBlock, posP.X);
+            System.Windows.Controls.Canvas.SetTop(textBlock, posP.Y);
+            canvas.Children.Add(textBlock);
         }
     }
 }

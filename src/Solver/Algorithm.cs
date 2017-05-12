@@ -68,7 +68,7 @@ namespace MidSurfaceNameSpace.Solver
 
             IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
 
-            return jointpoints.Join();
+            return jointpoints.Join(msPoints);
         }
 
         List<IMSPoint> ConvertPointToMSPoint(List<Point> points, List<IMSPoint> mspoints)
