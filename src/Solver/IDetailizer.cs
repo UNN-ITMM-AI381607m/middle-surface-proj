@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
-    interface IDetailizer
+    public interface IDetailizer
     {
         List<IMSPoint> Detalize();
     }
