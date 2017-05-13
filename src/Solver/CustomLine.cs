@@ -7,16 +7,6 @@ using System.Windows;
 
 namespace MidSurfaceNameSpace.Solver
 {
-    public struct Mark
-    {
-        public int MSPointIndex { get; private set; }
-        public Point ContactPoint { get; private set; }
-        public Mark(int index, Point point)
-        {
-            MSPointIndex = index;
-            ContactPoint = point;
-        }
-    }
 	
     public class CustomLine: ICustomLine
     {
@@ -24,34 +14,11 @@ namespace MidSurfaceNameSpace.Solver
         ICustomPoint point2;
         Vector rightNormalVector;
 
-        const double markAccuracy = 1;
-
-        List<Mark> marks;
-
         public CustomLine(ICustomPoint firstPoint, ICustomPoint secondPoint)
         {
             point1 = firstPoint;
             point2 = secondPoint;
             CalculateNormalVector();
-            marks = new List<Mark>();
-        }
-
-        public IEnumerable<Mark> GetMarks()
-        {
-            return marks;
-        }
-
-        public void AddMark(int id, Point contactPoint)
-        {
-            if (marks.Any(x => (x.ContactPoint - contactPoint).Length <= markAccuracy))
-                return;
-
-            Mark newMark = new Mark(id, contactPoint);
-            int index = marks.FindIndex(x => (x.ContactPoint - point1.GetPoint()).Length > (contactPoint - point1.GetPoint()).Length);
-            if (index == -1)
-                marks.Add(newMark);
-            else
-                marks.Insert(index, newMark);
         }
 
         public ICustomPoint GetPoint1()
@@ -83,11 +50,11 @@ namespace MidSurfaceNameSpace.Solver
             double RMin = R - accuracy;
             double d1 = new Vector(line1.X - center.X, line1.Y - center.Y).Length;
             double d2 = new Vector(line2.X - center.X, line2.Y - center.Y).Length;
-            if (d1 >= RMin && d2 >= RMin)
+            if (d1 > RMin && d2 > RMin)
                 return 0;
             if ((d1 >= RMin && d2 <= RMax) || (d1 <= RMax && d2 >= RMin))
                 return 1;
-            if (d1 < RMax && d2 < RMax)
+            if (d1 <= RMax && d2 <= RMax)
                 return 2;
             return -1;
         }

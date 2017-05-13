@@ -18,6 +18,7 @@ using MidSurfaceNameSpace.Solver;
 using System.IO;
 using System.Globalization;
 using MidSurfaceNameSpace.Primitive;
+using System.Diagnostics;
 
 namespace MidSurfaceNameSpace.MidSurfaceGenerator
 {
@@ -67,6 +68,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             mid_surface_model = null;
             currentStatus.Content = "Ready for work";
         }
+
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: prepare window with setting. Place for settings! 
@@ -88,15 +90,18 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
                 detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return;
             }
 
             IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             mid_surface_model = alg.Run(new SolverData(model));
+            sw.Stop();
             RedrawMisSurface();
-            currentStatus.Content = "Ready for work";
+            currentStatus.Content = "Elapsed: " + sw.Elapsed;
         }
 
         private void RedrawModel()
@@ -109,7 +114,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 Brush = Brushes.Black,
                 Thikness = 2
             };
-            View.VisibleData visible_data = new View.VisibleData(model,settings);
+            View.VisibleData visible_data = new View.VisibleData(model, settings);
             view.Paint(visible_data);
         }
         private void RedrawMisSurface()
@@ -128,9 +133,9 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             System.Windows.Forms.FolderBrowserDialog FBD = new System.Windows.Forms.FolderBrowserDialog();
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string[] allFoundFiles = Directory.GetFiles(FBD.SelectedPath, "*.xml", SearchOption.AllDirectories);               
+                string[] allFoundFiles = Directory.GetFiles(FBD.SelectedPath, "*.xml", SearchOption.AllDirectories);
                 double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
-                double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);             
+                double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
                 IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
                 RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 foreach (string path in allFoundFiles)
@@ -138,7 +143,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     Component.Model model_temp = new Component.Model();
                     model_temp.Add(new Parser().ImportFile(path));
                     model = model_temp;
-                    RedrawModel();                   
+                    RedrawModel();
                     mid_surface_model = alg.Run(new SolverData(model));
                     RedrawMisSurface();
                     // needed otherwise the image output is black
@@ -326,6 +331,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             view.SetIndexFontSize(10);
             RedrawMisSurface();
         }
+
         private void ShowOnlyModelIndices_Click(object sender, RoutedEventArgs e)
         {
             view.EnableIndices(true);
@@ -333,6 +339,49 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             RedrawModel();
             view.EnableIndices(false);
             RedrawMisSurface();
+        }
+
+        private void ShowSimplified_Click(object sender, RoutedEventArgs e)
+        {
+            if (model == null)
+                return;
+            mainCanvas.Children.Clear();
+            View.VisibleDataSettings settings = new View.VisibleDataSettings()
+            {
+                Brush = Brushes.Black,
+                Thikness = 2
+            };
+            View.VisibleData visible_data = new View.VisibleData(SimplifyModel(model), settings);
+            view.Paint(visible_data);
+            RedrawMisSurface();
+        }
+
+        Component.Model SimplifyModel(Component.IModel model)
+        {
+            Component.Model simplified = new Component.Model();
+            Primitive.Figure figure = new Primitive.Figure();
+            Splitter splitter = new Splitter();
+
+            var figures = model.GetData();
+            foreach (var f in figures)
+            {
+                var contours = f.GetContours();
+                var lines = splitter.Split(contours, double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture));
+                var new_segments = new List<ISegment>();
+                foreach (var line in lines)
+                {
+                    new_segments.Add(JoinMSPoints.PointsToSegment(line.GetPoint1().GetPoint(),
+                        line.GetPoint2().GetPoint()));
+                }
+                var contour = new Primitive.Contour();
+                foreach (var new_s in new_segments)
+                {
+                    contour.Add(new_s);
+                }
+                figure.Add(contour);
+            }
+            simplified.Add(figure);
+            return simplified;
         }
     }
 }

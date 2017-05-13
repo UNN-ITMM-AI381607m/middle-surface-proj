@@ -58,15 +58,15 @@ namespace MidSurfaceNameSpace.Solver
             BaseAlgorithm baseAlgorithm = new BaseAlgorithm();
             List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
 
-            Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
-            msGraph.RemoveCycles(maxCycleSize);
+            //Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
+            //msGraph.RemoveCycles(maxCycleSize);
 
-            List<Point> points = msGraph.GetPath();
+            //List<Point> points = msGraph.GetPath();
 
-            //Точки для работы
-            List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, msPoints);
+            ////Точки для работы
+            //List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, msPoints);
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(msGraph);
+            IJoinMSPoints jointpoints = new JoinMSPoints(null);
 
             return jointpoints.Join(msPoints);
         }
@@ -92,14 +92,10 @@ namespace MidSurfaceNameSpace.Solver
             Graph graph = new Graph();
 
             List<int> connectionOrder = new List<int>();
-            foreach (var line in simplifiedModel)
+            var marks = SetMarks(msPoints, simplifiedModel);
+            foreach (var mark in marks)
             {
-                var marksOnLine = line.GetMarks();
-                foreach (var mark in marksOnLine)
-                {
-                    if (connectionOrder.Count == 0 || mark.MSPointIndex != connectionOrder.Last())
-                        connectionOrder.Add(mark.MSPointIndex);
-                }
+                connectionOrder.Add(mark.MSPointIndex);
             }
 
             for (int i = 0; i < connectionOrder.Count - 1; i++)
@@ -114,6 +110,59 @@ namespace MidSurfaceNameSpace.Solver
             //}
 
             return graph;
+        }
+
+        //Temporary
+        List<Mark> SetMarks(IEnumerable<IMSPoint> mspoints, IEnumerable<ICustomLine> simplifiedModel)
+        {
+            List<Mark> marks = new List<Mark>();
+            int idCounter = 0;
+            foreach (var mspoint in mspoints)
+            {
+                foreach (var line in simplifiedModel)
+                {
+                    Point intersecPoint1 = new Point();
+                    Point intersecPoint2 = new Point();
+                    int intersecCount = CustomLine.LineSegmentIntersectionCircle(mspoint.GetPoint(), mspoint.GetRadius(),
+                        line.GetPoint1().GetPoint(),
+                        line.GetPoint2().GetPoint(), ref intersecPoint1, ref intersecPoint2);
+                    if (intersecCount == 1)
+                    {
+                        AddMark(idCounter, intersecPoint1, line.GetPoint1(), ref marks);
+                    }
+                    else if (intersecCount == 2)
+                    {
+                        Point contactPoint = Vector.Add((intersecPoint2 - intersecPoint1) / 2, intersecPoint1);
+                        AddMark(idCounter, contactPoint, line.GetPoint1(), ref marks);
+                    }
+                }
+                idCounter++;
+            }
+            return marks;
+        }
+
+        public struct Mark
+        {
+            public int MSPointIndex { get; private set; }
+            public Point ContactPoint { get; private set; }
+            public Mark(int index, Point point)
+            {
+                MSPointIndex = index;
+                ContactPoint = point;
+            }
+        }
+
+        public void AddMark(int id, Point contactPoint, ICustomPoint point1, ref List<Mark> marks)
+        {
+            if (marks.Any(x => (x.ContactPoint - contactPoint).Length <= 0.1))
+                return;
+
+            Mark newMark = new Mark(id, contactPoint);
+            int index = marks.FindIndex(x => (x.ContactPoint - point1.GetPoint()).Length > (contactPoint - point1.GetPoint()).Length);
+            if (index == -1)
+                marks.Add(newMark);
+            else
+                marks.Insert(index, newMark);
         }
 
         public static bool EqualDoubles(double n1, double n2, double precision_)

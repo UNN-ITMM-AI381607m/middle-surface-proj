@@ -12,5 +12,6 @@ namespace MidSurfaceNameSpace.Solver
     {
         Point GetPoint();
         ISegment GetSegment();
+        double GetRadius();
     }
 }

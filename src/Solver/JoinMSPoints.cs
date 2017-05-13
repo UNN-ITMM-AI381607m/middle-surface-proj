@@ -27,7 +27,7 @@ namespace MidSurfaceNameSpace.Solver
             return midsurface;
         }
 
-        private ISegment PointsToSegment(Point begin, Point end)
+        public static ISegment PointsToSegment(Point begin, Point end)
         {
             return new Segment(new BezierCurve(), new List<Point> { begin, end });
         }

@@ -28,6 +28,7 @@
                 <MenuItem Header="Show Only Points" Click="ShowOnlyPoints_Click"/>
                 <MenuItem Header="Show Indices" Click="ShowIndices_Click"/>
                 <MenuItem Header="Show Only Model Indices" Click="ShowOnlyModelIndices_Click"/>
+                <MenuItem Header="Show Simplified Model" Click="ShowSimplified_Click"/>
                 <Separator/>
                 <MenuItem Header="Clear" Click="ClearDebug_Click"/>
             </MenuItem>
