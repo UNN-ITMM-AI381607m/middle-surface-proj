@@ -352,6 +352,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 Thikness = 2
             };
             View.VisibleData visible_data = new View.VisibleData(SimplifyModel(model), settings);
+            view.EnableIndices(true);
             view.Paint(visible_data);
             RedrawMisSurface();
         }

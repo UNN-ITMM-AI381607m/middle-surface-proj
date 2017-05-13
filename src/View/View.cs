@@ -95,7 +95,6 @@ namespace MidSurfaceNameSpace.Component
                 pos = posPoint;
                 canvas.Children.Add(pl);
             }
-
         }
 
         private Point TransfromFill(Point p)
