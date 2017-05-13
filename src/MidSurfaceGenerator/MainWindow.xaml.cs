@@ -100,7 +100,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             sw.Start();
             mid_surface_model = alg.Run(new SolverData(model));
             sw.Stop();
-            RedrawMisSurface();
+            RedrawMidSurface();
             currentStatus.Content = "Elapsed: " + sw.Elapsed;
         }
 
@@ -117,7 +117,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             View.VisibleData visible_data = new View.VisibleData(model, settings);
             view.Paint(visible_data);
         }
-        private void RedrawMisSurface()
+        private void RedrawMidSurface()
         {
             if (mid_surface_model == null) return;
             //TODO: Dinar: continue connecting parameters
@@ -145,7 +145,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     model = model_temp;
                     RedrawModel();
                     mid_surface_model = alg.Run(new SolverData(model));
-                    RedrawMisSurface();
+                    RedrawMidSurface();
                     // needed otherwise the image output is black
                     mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
                     mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
@@ -211,7 +211,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     //построение текущей поверхности
 
                     mid_surface_model = alg.Run(new SolverData(model));
-                    RedrawMisSurface();
+                    RedrawMidSurface();
 
                     // сохранение картинки
 
@@ -289,7 +289,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             view.EnableIndices(false);
             RedrawModel();
-            RedrawMisSurface();
+            RedrawMidSurface();
         }
 
         private void ShowOnlyPoints_Click(object sender, RoutedEventArgs e)
@@ -329,7 +329,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             view.SetIndexFontSize(14);
             RedrawModel();
             view.SetIndexFontSize(10);
-            RedrawMisSurface();
+            RedrawMidSurface();
         }
 
         private void ShowOnlyModelIndices_Click(object sender, RoutedEventArgs e)
@@ -338,7 +338,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             view.SetIndexFontSize(14);
             RedrawModel();
             view.EnableIndices(false);
-            RedrawMisSurface();
+            RedrawMidSurface();
         }
 
         private void ShowSimplified_Click(object sender, RoutedEventArgs e)
@@ -354,7 +354,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             View.VisibleData visible_data = new View.VisibleData(SimplifyModel(model), settings);
             view.EnableIndices(true);
             view.Paint(visible_data);
-            RedrawMisSurface();
+            RedrawMidSurface();
         }
 
         Component.Model SimplifyModel(Component.IModel model)
@@ -383,6 +383,35 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             }
             simplified.Add(figure);
             return simplified;
+        }
+
+        private void ShowDetalizerNormals_Click(object sender, RoutedEventArgs e)
+        {
+            if(mid_surface_model == null) return;
+
+            var segments = mid_surface_model.GetData();
+            foreach (var seg in segments)
+            {
+                var msseg = seg as MSSegment;
+                if (msseg == null) return;
+
+                var normal = msseg.GetMSPillar()[0].GetNormal();
+                var parent = msseg.GetMSPillar()[0].GetParent();
+
+                ISegment normalSegment = new Segment(new BezierCurve(), new List<Point>()
+                {
+                    parent,
+                    new Point(parent.X + 3 * normal.Dx(), parent.Y + 3 * normal.Dy())
+                });
+
+                View.VisibleDataSettings settings = new View.VisibleDataSettings();
+                settings.Brush = Brushes.Blue;
+                settings.Thikness = 1;
+                IMidSurface debugSurface = new MidSurface();
+                debugSurface.Add(normalSegment);
+                View.VisibleData visible_data = new View.VisibleData(debugSurface, settings);
+                view.Paint(visible_data);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@
                 <MenuItem Header="Show Indices" Click="ShowIndices_Click"/>
                 <MenuItem Header="Show Only Model Indices" Click="ShowOnlyModelIndices_Click"/>
                 <MenuItem Header="Show Simplified Model" Click="ShowSimplified_Click"/>
+                <MenuItem Header="Show Detalizer Normals" Click="ShowDetalizerNormals_Click"/>
                 <Separator/>
                 <MenuItem Header="Clear" Click="ClearDebug_Click"/>
             </MenuItem>

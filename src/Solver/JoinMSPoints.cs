@@ -32,6 +32,11 @@ namespace MidSurfaceNameSpace.Solver
             return new Segment(new BezierCurve(), new List<Point> { begin, end });
         }
 
+        public static ISegment PointsToMSSegment(IMSPoint begin, IMSPoint end)
+        {
+            return new MSSegment(new BezierCurve(), new List<IMSPoint> { begin, end });
+        }
+
         //for debug
         public IMidSurface Join(List<IMSPoint> points)
         {
@@ -39,14 +44,15 @@ namespace MidSurfaceNameSpace.Solver
             for (int i = 0; i < points.Count; i++)
             {
                 int j = i == points.Count - 1 ? 0 : i + 1;
-                midsurface.Add(PointsToSegment(points[i].GetPoint(), points[j].GetPoint()));
+                midsurface.Add(PointsToMSSegment(points[i], points[j]));
             }
             return midsurface;
         }
+
         public IMidSurface Join(List<Point> points)
         {
             IMidSurface midsurface = new MidSurface();
-            for (int i = 0; i < points.Count-1; i++)
+            for (int i = 0; i < points.Count; i++)
             {
                 int j = i == points.Count - 1 ? 0 : i + 1;
                 midsurface.Add(PointsToSegment(points[i], points[j]));
