@@ -11,9 +11,9 @@ namespace MidSurfaceNameSpace.Solver
     public interface IMSPoint
     {
         Point GetPoint();
+        Point GetParent();
         ISegment GetSegment();
         double GetRadius();
         Normal GetNormal();
-        Point GetParent();
     }
 }

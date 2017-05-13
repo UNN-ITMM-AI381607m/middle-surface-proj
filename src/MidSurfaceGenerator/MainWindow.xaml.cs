@@ -401,7 +401,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 ISegment normalSegment = new Segment(new BezierCurve(), new List<Point>()
                 {
                     parent,
-                    new Point(parent.X + 3 * normal.Dx(), parent.Y + 3 * normal.Dy())
+                    new Point(parent.X + 10 * normal.Dx(), parent.Y + 10 * normal.Dy())
                 });
 
                 View.VisibleDataSettings settings = new View.VisibleDataSettings();

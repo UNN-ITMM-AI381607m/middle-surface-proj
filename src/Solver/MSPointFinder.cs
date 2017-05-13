@@ -129,7 +129,7 @@ namespace MidSurfaceNameSpace.Solver
                     break;
                 }
             }
-            return new MSPoint(center, segment, RMaxPrevious, contourPoint, normal);
+            return new MSPoint(center, contourPoint, segment, RMaxPrevious, normal);
         }
     }
 }
