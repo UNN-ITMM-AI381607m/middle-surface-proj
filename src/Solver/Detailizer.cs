@@ -12,6 +12,8 @@ namespace MidSurfaceNameSpace.Solver
         private IMSPointFinder finder;
         private double accuracy;
         private List<ISegment> segments;
+        static int stackCounter;
+        const int stackSize = 2000;
 
         public Detailizer(IMSPointFinder finder, List<ICustomLine> lines, List<ISegment> segments, double accuracy)
         {
@@ -19,6 +21,7 @@ namespace MidSurfaceNameSpace.Solver
             this.finder = finder;
             this.segments = segments;
             this.accuracy = accuracy > 1 ? 100 : accuracy * 100;
+            stackCounter = 0;
         }
 
         private IMSPoint GetMSPoint(ICustomLine nextLine, ICustomLine prevLine, ref Normal normal)
@@ -83,8 +86,14 @@ namespace MidSurfaceNameSpace.Solver
             return true;
         }
 
-        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2)
+        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2, Point prevPoint = new Point())
         {
+            //Workaround to prevent StackOverflowed exception
+            if (stackCounter > stackSize)
+                return;
+
+            stackCounter++;
+
             if (segments.IndexOf(n1.Segment()) != segments.IndexOf(n2.Segment()))
             {
                 n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy()); 
@@ -98,6 +107,8 @@ namespace MidSurfaceNameSpace.Solver
             if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n);
             points.Add(mspoint);
             if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2);
+
+            stackCounter--;
         }
     }
 }
