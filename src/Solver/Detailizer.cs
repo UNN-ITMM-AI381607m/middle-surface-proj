@@ -26,12 +26,15 @@ namespace MidSurfaceNameSpace.Solver
 
         private IMSPoint GetMSPoint(ICustomLine nextLine, ICustomLine prevLine, ref Normal normal)
         {
-            if (nextLine.GetPoint1().GetN() != prevLine.GetPoint1().GetN())
+            if (prevLine.GetPoint2().GetPoint() == nextLine.GetPoint1().GetPoint())
             {
-                if (segments[nextLine.GetPoint1().GetN()].GetPillar().First() == segments[prevLine.GetPoint2().GetN()].GetPillar().Last())
+                if (nextLine.GetPoint1().GetN() != prevLine.GetPoint1().GetN())
                 {
-                    normal = segments[nextLine.GetPoint1().GetN()].GetNormal(0).Combine(segments[prevLine.GetPoint2().GetN()].GetNormal(1));
-                    return finder.FindMSPoint(nextLine.GetPoint1().GetPoint(), normal);
+                    if (segments[nextLine.GetPoint1().GetN()].GetPillar().First() == segments[prevLine.GetPoint2().GetN()].GetPillar().Last())
+                    {
+                        normal = segments[nextLine.GetPoint1().GetN()].GetNormal(0).Combine(segments[prevLine.GetPoint2().GetN()].GetNormal(1));
+                        return finder.FindMSPoint(nextLine.GetPoint1().GetPoint(), normal);
+                    }
                 }
             }
 
