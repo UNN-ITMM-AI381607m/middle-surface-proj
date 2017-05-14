@@ -127,6 +127,26 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
         }
+        private void RedrawModel(Brush brush)
+        {
+            if (model == null) return;
+            View.VisibleDataSettings settings = new View.VisibleDataSettings()
+            {
+                Brush = brush,
+                Thikness = 10
+            };
+            View.VisibleData visible_data = new View.VisibleData(model, settings);
+            view.Paint(visible_data);
+        }
+        private void RedrawMidSurface(Brush brush)
+        {
+            if (mid_surface_model == null) return;
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Brush = brush;
+            settings.Thikness = 5;
+            View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
+            view.Paint(visible_data);
+        }
 
         private void Go_all_tests(object sender, RoutedEventArgs e)
         {
@@ -166,26 +186,36 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             System.Windows.Forms.FolderBrowserDialog FBD = new System.Windows.Forms.FolderBrowserDialog();
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                Component.IModel current_model = model;
                 SolverData SD = new SolverData(model);
                 List<ISegment> segments = new List<ISegment>();
                 foreach (var contour in SD.GetContours())
-                {
                     segments.AddRange(contour.GetSegments());
-                }
+
                 bool[] is_used = new bool[segments.Count];
                 for (int i = 0; i < is_used.Length; i++) is_used[i] = false;
+
                 int k = 0, kolvo = 0, nom_file = 0;
+
                 double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
                 double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
                 IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
+
                 Html view = new Html(filename);
+
                 Primitive.Contour tmp_count;
                 Primitive.Figure tmp_fig;
                 Component.Model tmp_model;
+
                 RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 PngBitmapEncoder BufferSave;
+
                 while (kolvo != is_used.Length)
                 {
+                    model = current_model;
+                    RedrawModel();
+                    mid_surface_model = alg.Run(new SolverData(model));
+                    RedrawMidSurface();
                     //контролирующий список
 
                     kolvo = 0;
@@ -206,12 +236,12 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                     tmp_model = new Component.Model();
                     tmp_model.Add(tmp_fig);
                     model = tmp_model;
-                    RedrawModel();
+                    RedrawModel(Brushes.Purple);
 
                     //построение текущей поверхности
 
                     mid_surface_model = alg.Run(new SolverData(model));
-                    RedrawMidSurface();
+                    RedrawMidSurface(Brushes.Blue);
 
                     // сохранение картинки
 
@@ -225,7 +255,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                         BufferSave.Save(fs);
                         fs.Close();
                     }
-
                     view.Add(FBD.SelectedPath + "\\image" + nom_file + ".png");
                     nom_file++;
                 }
