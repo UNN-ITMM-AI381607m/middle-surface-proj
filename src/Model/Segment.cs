@@ -37,5 +37,15 @@ namespace MidSurfaceNameSpace.Primitive
             double length = Math.Sqrt(dx * dx + dy * dy);
             return new Normal(this, t, dy / length, dx / length);
         }
+
+        public void Add(ISegment segment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int num)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

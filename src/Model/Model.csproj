@@ -43,6 +43,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeSegment.cs" />
     <Compile Include="Contour.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="Figure.cs" />

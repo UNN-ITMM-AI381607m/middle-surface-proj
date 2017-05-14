@@ -90,5 +90,15 @@ namespace MidSurfaceNameSpace.Solver
         {
             return segment.GetNormal(t);
         }
+
+        public void Add(ISegment segment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int num)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
