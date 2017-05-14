@@ -86,7 +86,7 @@ namespace MidSurfaceNameSpace.Solver
             return true;
         }
 
-        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2, Point prevPoint = new Point())
+        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2)
         {
             //Workaround to prevent StackOverflowed exception
             if (stackCounter > stackSize)
