@@ -14,6 +14,10 @@ namespace MidSurfaceNameSpace.View
     {
         public double Thikness { get; set; }
         public Brush Brush { get; set; }
+#if DEBUG
+        public double Zoom { get; set; }
+        public System.Windows.Point Center { get; set; }
+#endif
     }
 
     public interface IVisibleData

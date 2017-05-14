@@ -31,11 +31,21 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private IMidSurface mid_surface_model;
         private Component.IView view;
         string filename;
-
+#if DEBUG
+        private System.Windows.Point canvas_center;
+        private System.Windows.Point diff_canvas_center;
+        private double zoom_step = 2;
+#endif
         public MainWindow()
         {
             InitializeComponent();
             view = new Component.View(mainCanvas);
+#if DEBUG
+            mainCanvas.MouseLeftButtonDown += CanvasDragBegin;
+            mainCanvas.MouseLeftButtonUp += CanvasDragEnd;
+            mainCanvas.MouseWheel += mainCanvas_MouseWheel;
+            mainCanvas.SizeChanged += mainCanvas_SizeChanged;
+#endif
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -413,5 +423,35 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 view.Paint(visible_data);
             }
         }
+#if DEBUG
+        private void CanvasDragBegin(object sender, MouseButtonEventArgs e)
+        {
+            Control c = sender as Control;
+            Mouse.Capture(c);
+            diff_canvas_center = e.GetPosition(null);
+        }
+        private void CanvasDragEnd(object sender, MouseButtonEventArgs e)
+        {
+           
+            canvas_center.X += (e.GetPosition(null).X - diff_canvas_center.X);
+            canvas_center.Y += (e.GetPosition(null).Y - diff_canvas_center.Y);
+            view.ChangeCenter(new Point(canvas_center.X, canvas_center.Y));
+            RedrawModel();
+            RedrawMidSurface();         
+            diff_canvas_center = new Point(0,0);
+        }
+
+        private void mainCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           canvas_center = new Point(mainCanvas.ActualWidth/2, mainCanvas.ActualHeight/2 );
+        }
+        private void mainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0) view.ChangeZoom(zoom_step);
+            else  view.ChangeZoom(-zoom_step);
+            RedrawModel();
+            RedrawMidSurface();           
+        }
+#endif
     }
 }

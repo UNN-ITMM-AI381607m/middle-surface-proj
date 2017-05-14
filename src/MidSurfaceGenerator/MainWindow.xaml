@@ -48,6 +48,6 @@
             <Label x:Name="label" Content="Status " Padding="0" BorderBrush="Black" BorderThickness="0,0,1,0"/>
             <Label x:Name="currentStatus" Content="Ready for work" Padding="0" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Center"/>
         </StatusBar>
-        <Canvas x:Name="mainCanvas" Background="White" d:LayoutOverrides="TopPosition, BottomPosition" AutomationProperties.IsOffscreenBehavior="FromClip" DockPanel.Dock="Top"/>
+        <Canvas x:Name="mainCanvas" Background="White" d:LayoutOverrides="TopPosition, BottomPosition" AutomationProperties.IsOffscreenBehavior="FromClip" DockPanel.Dock="Top" UseLayoutRounding="False" ClipToBounds="True" ScrollViewer.CanContentScroll="True"/>
     </DockPanel>
 </Window>

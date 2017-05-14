@@ -11,8 +11,12 @@ namespace MidSurfaceNameSpace.Component
     {
         void Paint(IVisibleData data);
 
-        //For debug only
+
         void EnableIndices(bool enabled);
         void SetIndexFontSize(int size);
+#if DEBUG
+        void ChangeZoom(double zoom);
+        void ChangeCenter(System.Windows.Point p );
+#endif
     }
 }

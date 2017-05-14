@@ -23,15 +23,28 @@ namespace MidSurfaceNameSpace.Component
             public double scale;
         }
 
+#if DEBUG
+        double zoom;
+        System.Windows.Point center;
+        public void ChangeZoom(double zoom)
+        {
+            this.zoom += zoom;
+        }
+        public void ChangeCenter(System.Windows.Point  center)
+        {
+            this.center = center;
+        }
+#endif
         private System.Windows.Controls.Canvas canvas;
         private TransformData transform_data;
         bool addIndices;
         int indexFontSize;
+
         public View(System.Windows.Controls.Canvas canvas)
         {
             this.canvas = canvas;
             addIndices = false;
-            indexFontSize = 10;
+            indexFontSize = 10;            
         }
 
         public void Paint(IVisibleData data)
@@ -41,11 +54,16 @@ namespace MidSurfaceNameSpace.Component
             transform_data.center_X = canvas.ActualWidth / 2;
             transform_data.center_Y = canvas.ActualHeight/ 2;
             // scale will be mult to 0.98 in purpose of creating borders
-            transform_data.scale = 0.98d * ( Math.Min(canvas.ActualWidth, canvas.ActualHeight) / Math.Max(Math.Abs(data.GetSize().Xmax-data.GetSize().Xmin), Math.Abs(data.GetSize().Ymax- data.GetSize().Ymin)));
+            transform_data.scale = 0.98d * ( Math.Min(canvas.ActualWidth/ Math.Abs(data.GetSize().Xmax - data.GetSize().Xmin), canvas.ActualHeight/ Math.Abs(data.GetSize().Ymax - data.GetSize().Ymin)));
+#if DEBUG
+            if (zoom > transform_data.scale) transform_data.scale = this.zoom;
+            else zoom = transform_data.scale;
+            transform_data.center_X = center.X;
+            transform_data.center_Y = center.Y;
+            
+#endif
             double step = 1d / (1 + Math.Round(transform_data.scale) * 100d);
             int index = 0;
-            Point pos = new Point(-1, -1);
-
             foreach (ISegment segment in data.GetSegments())
             {           
                 Point point = new Point();
@@ -65,34 +83,10 @@ namespace MidSurfaceNameSpace.Component
 
                var posPoint = TransfromFill(segment.GetCurvePoint(0.0d));
                pl.Points.Add(TransfromFill(point));
-
-                Point newPos = posPoint;
-                if (pos.X == -1 && pos.Y == -1)
-                {
-                    pos = posPoint;
-                }
-                else
-                {
-                    if (pos.X < posPoint.X)
-                    {
-                        newPos.Y -= indexFontSize;
-                    }
-                    else if (pos.Y < posPoint.Y)
-                    {
-                        newPos.X -= indexFontSize;
-                    }
-                    else if (pos.X > posPoint.X)
-                    {
-                        newPos.Y += indexFontSize;
-                    }
-                    else if (pos.Y > posPoint.Y)
-                    {
-                        newPos.X += indexFontSize;
-                    }
-                }
+       
                 if (addIndices)
-                    AddIndex(newPos, index++);
-                pos = posPoint;
+                    AddIndex(TransfromFill(point), index++);
+                
                 canvas.Children.Add(pl);
             }
         }
@@ -106,12 +100,12 @@ namespace MidSurfaceNameSpace.Component
         {
             System.Windows.Controls.TextBlock textBlock = new System.Windows.Controls.TextBlock();
             textBlock.Text = index.ToString();
-            textBlock.Background = Brushes.White;
+            
             textBlock.Foreground = Brushes.DarkGreen;
             textBlock.FontSize = indexFontSize;
-
-            System.Windows.Controls.Canvas.SetLeft(textBlock, posP.X);
-            System.Windows.Controls.Canvas.SetTop(textBlock, posP.Y);
+            
+            textBlock.SetValue(System.Windows.Controls.Canvas.LeftProperty, posP.X);
+            textBlock.SetValue(System.Windows.Controls.Canvas.TopProperty, posP.Y);
             canvas.Children.Add(textBlock);
         }
 
