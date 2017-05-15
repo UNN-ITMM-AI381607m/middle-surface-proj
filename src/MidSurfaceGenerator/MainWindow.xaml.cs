@@ -426,31 +426,54 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void ShowDetalizerNormals_Click(object sender, RoutedEventArgs e)
         {
-            if(mid_surface_model == null) return;
+            if (mid_surface_model == null) return;
+
+            int step = 0;
+
+            try
+            {
+                step = int.Parse(textBox_Debug.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Wrong format in debug parameters.\nFormat is:\n < step between points > ");
+                return;
+            }
+
+            if (step <= 0)
+            {
+                MessageBox.Show("Enter positive number");
+                return;
+            }
 
             var segments = mid_surface_model.GetData();
-            foreach (var seg in segments)
+            IMidSurface debugSurface = new MidSurface();
+            for (int i = 0; i < segments.Count(); i++)
             {
-                var msseg = seg as MSSegment;
+                if (i % step != 0)
+                    continue;
+
+                var msseg = segments.ElementAt(i) as MSSegment;
                 if (msseg == null) return;
 
                 var normal = msseg.GetMSPillar()[0].GetNormal();
                 var parent = msseg.GetMSPillar()[0].GetParent();
+                var R = msseg.GetMSPillar()[0].GetRadius();
 
                 ISegment normalSegment = new Segment(new BezierCurve(), new List<Point>()
                 {
                     parent,
-                    new Point(parent.X + 10 * normal.Dx(), parent.Y + 10 * normal.Dy())
+                    new Point(parent.X + R * normal.Dx(), parent.Y + R * normal.Dy())
                 });
 
-                View.VisibleDataSettings settings = new View.VisibleDataSettings();
-                settings.Brush = Brushes.Blue;
-                settings.Thikness = 1;
-                IMidSurface debugSurface = new MidSurface();
                 debugSurface.Add(normalSegment);
-                View.VisibleData visible_data = new View.VisibleData(debugSurface, settings);
-                view.Paint(visible_data);
             }
+
+            View.VisibleDataSettings settings = new View.VisibleDataSettings();
+            settings.Brush = Brushes.Blue;
+            settings.Thikness = 1;
+            View.VisibleData visible_data = new View.VisibleData(debugSurface, settings);
+            view.Paint(visible_data);
         }
 #if DEBUG
         private void CanvasDragBegin(object sender, MouseButtonEventArgs e)
@@ -461,25 +484,25 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         }
         private void CanvasDragEnd(object sender, MouseButtonEventArgs e)
         {
-           
+
             canvas_center.X += (e.GetPosition(null).X - diff_canvas_center.X);
             canvas_center.Y += (e.GetPosition(null).Y - diff_canvas_center.Y);
             view.ChangeCenter(new Point(canvas_center.X, canvas_center.Y));
             RedrawModel();
-            RedrawMidSurface();         
-            diff_canvas_center = new Point(0,0);
+            RedrawMidSurface();
+            diff_canvas_center = new Point(0, 0);
         }
 
         private void mainCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-           canvas_center = new Point(mainCanvas.ActualWidth/2, mainCanvas.ActualHeight/2 );
+            canvas_center = new Point(mainCanvas.ActualWidth / 2, mainCanvas.ActualHeight / 2);
         }
         private void mainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0) view.ChangeZoom(zoom_step);
-            else  view.ChangeZoom(-zoom_step);
+            else view.ChangeZoom(-zoom_step);
             RedrawModel();
-            RedrawMidSurface();           
+            RedrawMidSurface();
         }
 #endif
     }
