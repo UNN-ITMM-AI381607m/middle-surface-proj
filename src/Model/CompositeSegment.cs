@@ -33,6 +33,8 @@ namespace MidSurfaceNameSpace.Primitive
         {
             if (t <= 0.5)
                 return segments[0].GetNormal(t * 2);
+            else if (t == 0.5)
+                return segments[1].GetNormal(0).Combine(segments[0].GetNormal(1));
             else
                 return segments[1].GetNormal((t - 0.5) * 2);
         }
