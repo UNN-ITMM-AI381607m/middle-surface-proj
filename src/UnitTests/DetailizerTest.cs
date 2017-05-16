@@ -48,10 +48,9 @@ namespace MidSurfaceNameSpace.UnitTests
             var msPoints = detailizer.Detalize();
             Assert.AreEqual(lines.Count, msPoints.Count);
 
-            detailizer = new Detailizer(new FakeMSPointFinder(), lines, segments, 1);
+            detailizer = new Detailizer(new FakeMSPointFinder(), lines, segments, 0.01);
             msPoints = detailizer.Detalize();
-            var count = msPoints.Count;
-            Assert.AreEqual(866, msPoints.Count);
+            Assert.AreEqual(752, msPoints.Count);
         }
     }
 }

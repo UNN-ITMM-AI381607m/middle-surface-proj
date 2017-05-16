@@ -12,5 +12,7 @@ namespace MidSurfaceNameSpace.Primitive
         Point GetCurvePoint(double t);
         List<Point> GetPillar();
         Normal GetNormal(double t);
+        void Add(ISegment segment);
+        void Remove(int num);
     }
 }

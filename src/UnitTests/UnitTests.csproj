@@ -65,6 +65,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AveragerTest.cs" />
+    <Compile Include="CompositeSegmentTest.cs" />
     <Compile Include="GraphTest.cs" />
     <Compile Include="MSModelTest.cs" />
     <Compile Include="ParserTest.cs" />
