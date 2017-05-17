@@ -67,11 +67,18 @@ namespace MidSurfaceNameSpace.Solver
 
                 mspoints.Add(mspoint1);
                 firstAdded = true;
+                var vectorK = lines[k].GetPoint1().GetPoint() - lines[k].GetPoint2().GetPoint();
+                var vectorI = lines[i].GetPoint1().GetPoint() - lines[i].GetPoint2().GetPoint();
+                var vectorJ = lines[j].GetPoint2().GetPoint() - lines[j].GetPoint1().GetPoint();
+
+                var angle = lines[k].GetPoint1().GetN() != lines[i].GetPoint1().GetN() ?
+                    Vector.AngleBetween(vectorI, vectorK) : Vector.AngleBetween(vectorI, vectorJ);
 
                 if (lines[i].GetPoint2().GetPoint() == lines[j].GetPoint1().GetPoint() &&
-                    DetailRequired(mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2))
+                  DetailRequired(mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2))
                 {
-                    DetalizeChunk(ref mspoints, mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2);
+                    DetalizeChunk(ref mspoints, mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2,
+                        angle);
                 }
             }
 
@@ -89,7 +96,8 @@ namespace MidSurfaceNameSpace.Solver
             return true;
         }
 
-        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2)
+        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2,
+            Normal n1, Normal n2, double angle)
         {
             //Workaround to prevent StackOverflowed exception
             if (stackCounter > stackSize)
@@ -97,19 +105,39 @@ namespace MidSurfaceNameSpace.Solver
 
             stackCounter++;
 
-            if (segments.IndexOf(n1.Segment()) != segments.IndexOf(n2.Segment()))
+            bool firstCall = stackCounter == 1;
+            Normal n = null;
+
+            if (firstCall)
             {
-                n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy()); 
+                bool n2IsBisector = n2.T() == 0;
+                bool n1ISBisrctor = n1.T() == 0;
+                if (n2IsBisector)
+                {
+                    n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy());
+                }
+                if (angle < 0)
+                {
+                    if (n2IsBisector)
+                    {
+                        n = n1.Segment().GetNormal(1);
+                    }
+                    else if (n1ISBisrctor)
+                    {
+                        n = n1.Segment().GetNormal(0);
+                    }
+                    else n = n1.Combine(n2);
+                }
+                else n = n1.Combine(n2);
             }
+            else n = n1.Combine(n2);
 
-            var n = n1.Combine(n2);
             var middlePoint = n1.Segment().GetCurvePoint(n.T());
-
             var mspoint = finder.FindMSPoint(middlePoint, n);
 
-            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n);
+            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n, angle);
             points.Add(mspoint);
-            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2);
+            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2, angle);
 
             stackCounter--;
         }

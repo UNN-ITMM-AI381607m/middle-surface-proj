@@ -5,21 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-
-
 namespace MidSurfaceNameSpace.Solver
 {
     public class Averager : IAverager
     {
         public class LinearSegment
         {
-            public double K { get; }
-            public double B { get; }
-            public Point StartPoint { get; }
+            public double K { get; private set; }
+            public double B { get; private set; }
+            public Point StartPoint { get; private set; }
 
-            public double Len { get; }
+            public double Len { get; private set; }
 
-            public int Direction { get; }
+            public int Direction { get; private set; }
 
             public LinearSegment(Point first, Point second)
             {
