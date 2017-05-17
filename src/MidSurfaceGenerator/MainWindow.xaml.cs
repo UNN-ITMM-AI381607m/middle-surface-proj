@@ -432,7 +432,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
             try
             {
-                step = int.Parse(textBox_Debug.Text);
+                step = int.Parse(textBox_DebugNormalStep.Text);
             }
             catch
             {

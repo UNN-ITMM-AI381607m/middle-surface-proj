@@ -12,7 +12,7 @@ namespace MidSurfaceNameSpace.Solver
         private IMSPointFinder finder;
         private double accuracy;
         private List<ISegment> segments;
-        static int stackCounter;
+        static int DCIStackCounter;
         const int stackSize = 2000;
 
         public Detailizer(IMSPointFinder finder, List<ICustomLine> lines, List<ISegment> segments, double accuracy)
@@ -21,7 +21,7 @@ namespace MidSurfaceNameSpace.Solver
             this.finder = finder;
             this.segments = segments;
             this.accuracy = accuracy > 1 ? 100 : accuracy * 100;
-            stackCounter = 0;
+            DCIStackCounter = 0;
         }
 
         private IMSPoint GetMSPoint(ICustomLine nextLine, ICustomLine prevLine, ref Normal normal)
@@ -67,11 +67,18 @@ namespace MidSurfaceNameSpace.Solver
 
                 mspoints.Add(mspoint1);
                 firstAdded = true;
+                var vectorK = lines[k].GetPoint1().GetPoint() - lines[k].GetPoint2().GetPoint();
+                var vectorI = lines[i].GetPoint1().GetPoint() - lines[i].GetPoint2().GetPoint();
+                var vectorJ = lines[j].GetPoint2().GetPoint() - lines[j].GetPoint1().GetPoint();
+
+                var angle1 = Vector.AngleBetween(vectorI, vectorK);
+                var angle2 = Vector.AngleBetween(vectorI, vectorJ);
 
                 if (lines[i].GetPoint2().GetPoint() == lines[j].GetPoint1().GetPoint() &&
-                    DetailRequired(mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2))
+                  DetailRequired(mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2))
                 {
-                    DetalizeChunk(ref mspoints, mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2);
+                    DetalizeChunk(ref mspoints, mspoint1.GetPoint(), mspoint2.GetPoint(), n1, n2,
+                        angle1, angle2);
                 }
             }
 
@@ -81,37 +88,57 @@ namespace MidSurfaceNameSpace.Solver
         private bool DetailRequired(Point point1, Point point2, Normal n1, Normal n2)
         {
             if (accuracy <= -1) return false;
-
             if ((point2 - point1).Length <= accuracy) return false;
-            //TO DO: move to MSPointFinder 
-            if ((n1.Segment().GetCurvePoint(n1.T()) - point1).Length <= accuracy) return false;
-            if ((n2.Segment().GetCurvePoint(n2.T()) - point2).Length <= accuracy) return false;
             return true;
         }
 
-        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2, Normal n1, Normal n2)
+        private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2,
+            Normal n1, Normal n2, double angle1, double angle2)
         {
-            //Workaround to prevent StackOverflowed exception
-            if (stackCounter > stackSize)
-                return;
+            Normal n = null;
 
-            stackCounter++;
-
-            if (segments.IndexOf(n1.Segment()) != segments.IndexOf(n2.Segment()))
+            bool n2IsBisector = n2.T() == 0;
+            bool n1ISBisrctor = n1.T() == 0;
+            if (n2IsBisector)
             {
-                n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy()); 
+                n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy());
             }
+            if (n2IsBisector && angle2 < 0)
+            {
+                n = n1.Segment().GetNormal(1);
+            }
+            else if (n1ISBisrctor && angle1 < 0)
+            {
+                n = n1.Segment().GetNormal(0);
+            }
+            else n = n1.Combine(n2);
 
-            var n = n1.Combine(n2);
             var middlePoint = n1.Segment().GetCurvePoint(n.T());
-
             var mspoint = finder.FindMSPoint(middlePoint, n);
 
-            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunk(ref points, point1, mspoint.GetPoint(), n1, n);
+            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
             points.Add(mspoint);
-            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunk(ref points, mspoint.GetPoint(), point2, n, n2);
+            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunkInternal(ref points, mspoint.GetPoint(), point2, n, n2);
+        }
 
-            stackCounter--;
+        private void DetalizeChunkInternal(ref List<IMSPoint> points, Point point1, Point point2,
+          Normal n1, Normal n2)
+        {
+            //Workaround to prevent StackOverflowed exception
+            if (DCIStackCounter > stackSize)
+                return;
+
+            DCIStackCounter++;
+            var n = n1.Combine(n2);
+
+            var middlePoint = n1.Segment().GetCurvePoint(n.T());
+            var mspoint = finder.FindMSPoint(middlePoint, n);
+
+            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
+            points.Add(mspoint);
+            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunkInternal(ref points, mspoint.GetPoint(), point2, n, n2);
+
+            DCIStackCounter--;
         }
     }
 }
