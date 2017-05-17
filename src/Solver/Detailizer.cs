@@ -95,30 +95,68 @@ namespace MidSurfaceNameSpace.Solver
         private void DetalizeChunk(ref List<IMSPoint> points, Point point1, Point point2,
             Normal n1, Normal n2, double angle1, double angle2)
         {
-            Normal n = null;
-
             bool n2IsBisector = n2.T() == 0;
             bool n1ISBisrctor = n1.T() == 0;
             if (n2IsBisector)
             {
                 n2 = new Normal(n1.Segment(), 1, n2.Dx(), n2.Dy());
             }
-            if (n2IsBisector && angle2 < 0)
-            {
-                n = n1.Segment().GetNormal(1);
-            }
-            else if (n1ISBisrctor && angle1 < 0)
-            {
-                n = n1.Segment().GetNormal(0);
-            }
-            else n = n1.Combine(n2);
 
-            var middlePoint = n1.Segment().GetCurvePoint(n.T());
-            var mspoint = finder.FindMSPoint(middlePoint, n);
+            if(n1ISBisrctor && angle1 < 0 && n2IsBisector && angle2 < 0)
+            {
+                var newN1 = n1.Segment().GetNormal(0);
+                var newN2 = n1.Segment().GetNormal(1);
 
-            if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
-            points.Add(mspoint);
-            if (DetailRequired(mspoint.GetPoint(), point2, n, n2)) DetalizeChunkInternal(ref points, mspoint.GetPoint(), point2, n, n2);
+                var middlePoint1 = n1.Segment().GetCurvePoint(newN1.T());
+                var mspoint1 = finder.FindMSPoint(middlePoint1, newN1);
+
+                var middlePoint2 = n1.Segment().GetCurvePoint(newN2.T());
+                var mspoint2 = finder.FindMSPoint(middlePoint2, newN2);
+
+                if (DetailRequired(point1, mspoint1.GetPoint(), n1, newN1))
+                {
+                    DetalizeChunkInternal(ref points, point1, mspoint1.GetPoint(), n1, newN1);
+                }
+                points.Add(mspoint1);
+
+                if (DetailRequired(mspoint1.GetPoint(), mspoint2.GetPoint(), newN1, newN2))
+                {
+                    DetalizeChunkInternal(ref points, mspoint1.GetPoint(), mspoint2.GetPoint(), newN1, newN2);
+                }
+                points.Add(mspoint2);
+
+                if (DetailRequired(mspoint2.GetPoint(), point2, newN2, n2))
+                {
+                    DetalizeChunkInternal(ref points, mspoint2.GetPoint(), point2, newN2, n2);
+                }
+            }
+            else
+            {
+                Normal n = null;
+                if (n2IsBisector && angle2 < 0)
+                {
+                    n = n1.Segment().GetNormal(1);
+                }
+                else if (n1ISBisrctor && angle1 < 0)
+                {
+                    n = n1.Segment().GetNormal(0);
+                }
+                else n = n1.Combine(n2);
+
+                var middlePoint = n1.Segment().GetCurvePoint(n.T());
+                var mspoint = finder.FindMSPoint(middlePoint, n);
+
+                if (DetailRequired(point1, mspoint.GetPoint(), n1, n))
+                {
+                    DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
+                }
+                points.Add(mspoint);
+                if (DetailRequired(mspoint.GetPoint(), point2, n, n2))
+                {
+                    DetalizeChunkInternal(ref points, mspoint.GetPoint(), point2, n, n2);
+                }
+            }
+
         }
 
         private void DetalizeChunkInternal(ref List<IMSPoint> points, Point point1, Point point2,
