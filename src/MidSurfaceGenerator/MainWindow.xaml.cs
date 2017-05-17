@@ -197,55 +197,27 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Component.IModel current_model = model;
-                SolverData SD = new SolverData(model);
-                List<ISegment> segments = new List<ISegment>();
-                foreach (var contour in SD.GetContours())
-                    segments.AddRange(contour.GetSegments());
+                Segments_iterator SI = new Segments_iterator(model);
 
-                bool[] is_used = new bool[segments.Count];
-                for (int i = 0; i < is_used.Length; i++) is_used[i] = false;
-
-                int k = 0, kolvo = 0, nom_file = 0;
+                int nom_file = 0;
 
                 double splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
                 double detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
                 IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
 
                 Html view = new Html(filename);
-
-                Primitive.Contour tmp_count;
-                Primitive.Figure tmp_fig;
-                Component.Model tmp_model;
-
+            
                 RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 PngBitmapEncoder BufferSave;
 
-                while (kolvo != is_used.Length)
+                while (!SI.IsOver)
                 {
                     model = current_model;
                     RedrawModel();
                     mid_surface_model = alg.Run(new SolverData(model));
                     RedrawMidSurface();
-                    //контролирующий список
 
-                    kolvo = 0;
-                    k = 0;
-                    while (is_used[k] == true) k++;
-                    is_used[k] = true;
-                    for (int i = 0; i < k; i++) is_used[i] = false;
-                    foreach (bool b in is_used)
-                        if (b) kolvo++;
-
-                    //выбор сегментов по контролирующему списку
-
-                    tmp_count = new Primitive.Contour();
-                    for (int i = 0; i < is_used.Length; i++)
-                        if (is_used[i]) tmp_count.Add(segments[i]);
-                    tmp_fig = new Primitive.Figure();
-                    tmp_fig.Add(tmp_count);
-                    tmp_model = new Component.Model();
-                    tmp_model.Add(tmp_fig);
-                    model = tmp_model;
+                    model = SI.Next;
                     RedrawModel(Brushes.Purple);
 
                     //построение текущей поверхности
