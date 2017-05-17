@@ -54,7 +54,7 @@ namespace MidSurfaceNameSpace.Component
             transform_data.center_X = canvas.ActualWidth / 2;
             transform_data.center_Y = canvas.ActualHeight/ 2;
             // scale will be mult to 0.98 in purpose of creating borders
-            transform_data.scale = 0.98d * ( Math.Min(canvas.ActualWidth/ Math.Abs(data.GetSize().Xmax - data.GetSize().Xmin), canvas.ActualHeight/ Math.Abs(data.GetSize().Ymax - data.GetSize().Ymin)));
+            transform_data.scale = 0.7d * ( Math.Min(canvas.ActualWidth/ Math.Abs(data.GetSize().Xmax - data.GetSize().Xmin), canvas.ActualHeight/ Math.Abs(data.GetSize().Ymax - data.GetSize().Ymin)));
 #if DEBUG
             if (zoom > transform_data.scale) transform_data.scale = this.zoom;
             else zoom = transform_data.scale;

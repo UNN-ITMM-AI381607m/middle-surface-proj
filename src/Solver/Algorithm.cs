@@ -43,7 +43,9 @@ namespace MidSurfaceNameSpace.Solver
                     segments.AddRange(contour.GetSegments());
                 }
 
-                simplifiedModel = new Splitter().Split(solverdata.GetContours(), splitterAccuracy);
+                Splitter splitter = new Splitter();
+
+                simplifiedModel = splitter.Split(solverdata.GetContours(), splitterAccuracy);
                 IMSPointFinder mspointfinder = new MSPointFinder(simplifiedModel);
 
                 IDetailizer detailizer = new Detailizer(mspointfinder, simplifiedModel, segments, detalizerAccuracy);

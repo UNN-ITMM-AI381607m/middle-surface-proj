@@ -56,7 +56,8 @@ namespace MidSurfaceNameSpace.Solver
                 if (intersecCounter < 2
                     && CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001) == 0)
                     continue;
-                if (!ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy))
+                //Hack
+                //if (!ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy))
                     return -1;
 
             }
@@ -106,7 +107,6 @@ namespace MidSurfaceNameSpace.Solver
             double R = Rmax;
             Point center = new Point(contourPoint.X + vector.X * R, contourPoint.Y + vector.Y * R);
             int crossStatus = ValidateCircleDueModel(center, R, contourPoint, currentLine);
-            double RMaxPrevious = Rmax;
             while (!Algorithm.EqualDoubles(Rmax, Rmin, radiusAccuracy))
             {
                 R = (Rmax + Rmin) / 2;
@@ -121,15 +121,10 @@ namespace MidSurfaceNameSpace.Solver
                 }
                 else if (crossStatus == -1)
                 {
-                    RMaxPrevious = Rmax;
                     Rmax = R;
                 }
-                else if (crossStatus == 0)
-                {
-                    break;
-                }
             }
-            return new MSPoint(center, contourPoint, segment, RMaxPrevious, normal);
+            return new MSPoint(center, contourPoint, segment, R, normal);
         }
     }
 }
