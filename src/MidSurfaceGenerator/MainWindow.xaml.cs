@@ -206,7 +206,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 IAlgorithm alg = new Algorithm(splitterAccuracy, detalizerAccuracy);
 
                 Html view = new Html(filename);
-            
+
                 RenderTargetBitmap rtb = new RenderTargetBitmap((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
                 PngBitmapEncoder BufferSave;
 
@@ -227,8 +227,9 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
                     // сохранение картинки
 
-                    mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
-                    mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
+                    mainCanvas.UpdateLayout();
+                    //mainCanvas.Measure(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight));
+                    //mainCanvas.Arrange(new Rect(new Size((int)mainCanvas.ActualWidth, (int)mainCanvas.ActualHeight)));
                     rtb.Render(mainCanvas);
                     BufferSave = new PngBitmapEncoder();
                     BufferSave.Frames.Add((BitmapFrame.Create(rtb)));
