@@ -62,20 +62,27 @@ namespace MidSurfaceNameSpace.Solver
         public static int LineSegmentIntersectionCircle(Point center, double R, Point lineSegmentPoint1, Point lineSegmentPoint2,
             ref Point intersecPoint1, ref Point intersecPoint2)
         {
+            Point resultPoint1 = new Point();
+            Point resultPoint2 = new Point();
             int intersecCounter = 0;
-            int lineIntersecsFound = LineCircleIntersection(center, R, lineSegmentPoint1, lineSegmentPoint2, ref intersecPoint1, ref intersecPoint2);
+            int lineIntersecsFound = LineCircleIntersection(center, R, lineSegmentPoint1, lineSegmentPoint2, ref resultPoint1, ref resultPoint2);
 
             if (lineIntersecsFound >= 1
                 && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint1, 0.1))
             {
                 intersecCounter++;
+                intersecPoint1 = resultPoint1;
             }
             if (lineIntersecsFound == 2
                 && IsPointBelongsToLine(lineSegmentPoint1, lineSegmentPoint2, intersecPoint2, 0.1))
             {
                 intersecCounter++;
                 if (intersecCounter == 1)
-                    intersecPoint1 = intersecPoint2;
+                {
+                    intersecPoint2 = resultPoint1;
+                }
+                else
+                    intersecPoint2 = resultPoint2;
             }
             return intersecCounter;
         }
@@ -137,6 +144,35 @@ namespace MidSurfaceNameSpace.Solver
             }
 
             return 2;
+        }
+
+        public static bool CheckLinesIntersection(Point p1, Point p2, Point p3, Point p4)
+        {
+            double k1 = (p2.Y - p1.Y) / (p2.X - p1.X);
+            double b1 = p1.Y - k1 * p1.X;
+
+            double k2 = (p4.Y - p3.Y) / (p4.X - p3.X);
+            double b2 = p3.Y - k2 * p3.X;
+
+            double x = (b1 - b2) / (k2 - k1);
+            double y = k1 * x + b1;
+
+            double xmin = Math.Min(p1.X, p2.X);
+            double xmax = Math.Max(p1.X, p2.X);
+            double ymin = Math.Min(p1.Y, p2.Y);
+            double ymax = Math.Max(p1.Y, p2.Y);
+
+            double xmin1 = Math.Min(p3.X, p4.X);
+            double xmax1 = Math.Max(p3.X, p4.X);
+            double ymin1 = Math.Min(p3.Y, p4.Y);
+            double ymax1 = Math.Max(p3.Y, p4.Y);
+
+            if (x < xmax && x > xmin && y > ymin && y < ymax &&
+                x < xmax1 && x > xmin1 && y > ymin1 && y < ymax1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

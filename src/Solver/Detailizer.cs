@@ -65,6 +65,12 @@ namespace MidSurfaceNameSpace.Solver
                 else mspoint1 = GetMSPoint(lines[i], lines[k], ref n1);
                 mspoint2 = GetMSPoint(lines[j], lines[i], ref n2);
 
+                if (mspoint1 == null || mspoint2 == null)
+                {
+                    firstAdded = false;
+                    continue;
+                }
+
                 mspoints.Add(mspoint1);
                 firstAdded = true;
                 var vectorK = lines[k].GetPoint1().GetPoint() - lines[k].GetPoint2().GetPoint();
@@ -113,6 +119,9 @@ namespace MidSurfaceNameSpace.Solver
                 var middlePoint2 = n1.Segment().GetCurvePoint(newN2.T());
                 var mspoint2 = finder.FindMSPoint(middlePoint2, newN2);
 
+                if (mspoint1 == null || mspoint2 == null)
+                    return;
+
                 if (DetailRequired(point1, mspoint1.GetPoint(), n1, newN1))
                 {
                     DetalizeChunkInternal(ref points, point1, mspoint1.GetPoint(), n1, newN1);
@@ -146,6 +155,9 @@ namespace MidSurfaceNameSpace.Solver
                 var middlePoint = n1.Segment().GetCurvePoint(n.T());
                 var mspoint = finder.FindMSPoint(middlePoint, n);
 
+                if (mspoint == null)
+                    return;
+
                 if (DetailRequired(point1, mspoint.GetPoint(), n1, n))
                 {
                     DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
@@ -171,6 +183,12 @@ namespace MidSurfaceNameSpace.Solver
 
             var middlePoint = n1.Segment().GetCurvePoint(n.T());
             var mspoint = finder.FindMSPoint(middlePoint, n);
+
+            if (mspoint == null)
+            {
+                DCIStackCounter--;
+                return;
+            }
 
             if (DetailRequired(point1, mspoint.GetPoint(), n1, n)) DetalizeChunkInternal(ref points, point1, mspoint.GetPoint(), n1, n);
             points.Add(mspoint);

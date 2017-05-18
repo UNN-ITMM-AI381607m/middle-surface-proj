@@ -12,21 +12,12 @@ namespace MidSurfaceNameSpace.Solver
     {
         const double tStep = 0.01;
         const double lastPartAccuracy = 0.7;
-        double realAccuracy;
         public Splitter()
         {
         }
 
-        public double GetRealAccuracy()
-        {
-            return realAccuracy;
-        }
-
         public List<ICustomLine> Split(IEnumerable<IContour> contours, double accuracy)
         {
-            accuracy = Math.Min(accuracy, 1);
-            accuracy = Math.Max(accuracy, 0.0001);
-            realAccuracy = accuracy * FindMaxLength(contours, tStep);
             List<ICustomLine> customLines = new List<ICustomLine>();
             int segmentNumber = 0;
             foreach (var contour in contours)
@@ -34,7 +25,7 @@ namespace MidSurfaceNameSpace.Solver
                 IEnumerable<ISegment> segments = contour.GetSegments();
                 foreach (var segment in segments)
                 {
-                    List<ICustomPoint> splittedPoints = SplitSegment(segment, realAccuracy, tStep, segmentNumber);
+                    List<ICustomPoint> splittedPoints = SplitSegment(segment, accuracy, tStep, segmentNumber);
 
                     for (int i = 0; i < splittedPoints.Count - 1; i++)
                     {
@@ -47,39 +38,6 @@ namespace MidSurfaceNameSpace.Solver
             return customLines;
         }
 
-        double FindMaxLength(IEnumerable<IContour> contours, double step)
-        {
-            double maxLength = 0;
-            foreach (var contour in contours)
-            {
-                IEnumerable<ISegment> segments = contour.GetSegments();
-                foreach (var segment in segments)
-                {
-                    double length = 0;
-                    double t = 0;
-                    while (t < 1)
-                    {
-                        double nextT = t + step;
-                        if (nextT > 1)
-                        {
-                            nextT = 1;
-                        }
-                        Point currentPoint = segment.GetCurvePoint(t);
-                        Point nextPoint = segment.GetCurvePoint(nextT);
-                        length += (currentPoint - nextPoint).Length;
-
-                        t = nextT;
-                    }
-                    if (maxLength < length)
-                    {
-                        maxLength = length;
-                    }
-                }
-            }
-
-            return maxLength;
-        }
-
         List<ICustomPoint> SplitSegment(ISegment segment, double accuracy, double step, int segmentNum)
         {
             Point startPoint = segment.GetCurvePoint(0);
@@ -87,34 +45,34 @@ namespace MidSurfaceNameSpace.Solver
             List<ICustomPoint> result = new List<ICustomPoint>() { new CustomPoint(segmentNum, 0, startPoint) };
 
             double t = 0;
-            double prevLength = 0;
-            double prevT = t;
+            double startT = t;
             while (t < 1)
             {
-                t += step;
-                if (t >= 1)
+                double nextT = t + step;
+                if (nextT > 1)
                 {
-                    break;
+                    nextT = 1;
                 }
                 Point currentPoint = segment.GetCurvePoint(t);
+                Point nextPoint = segment.GetCurvePoint(nextT);
 
                 double length = (currentPoint - startPoint).Length;
+                double nextLength = (nextPoint - startPoint).Length;
 
-                if ((prevLength < accuracy && length > accuracy) || length < prevLength)
+                if ((length < accuracy && nextLength > accuracy) || nextLength < length)
                 {
-                    if (t + step >= 1)
-                    {
-                        double middleT = (1 + prevT) / 2;
-                        result.Add(new CustomPoint(segmentNum, middleT, segment.GetCurvePoint(middleT)));
-                        break;
-                    }
-                    result.Add(new CustomPoint(segmentNum, t, currentPoint));
-                    startPoint = currentPoint;
-                    prevT = t;
-                    prevLength = 0;
+                    result.Add(new CustomPoint(segmentNum, nextT, nextPoint));
+                    startPoint = nextPoint;
+                    startT = nextT;
                 }
-                else
-                    prevLength = length;
+                t = nextT;
+            }
+
+            if (result.Count > 1 && (lastPoint - result.Last().GetPoint()).Length < lastPartAccuracy * accuracy)
+            {
+                result.RemoveAt(result.Count - 1);
+                double middleT = (1 + result.Last().GetT()) / 2;
+                result.Add(new CustomPoint(segmentNum, middleT, segment.GetCurvePoint(middleT)));
             }
 
             result.Add(new CustomPoint(segmentNum, 1, lastPoint));

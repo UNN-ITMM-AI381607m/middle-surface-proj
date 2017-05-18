@@ -113,7 +113,8 @@ namespace MidSurfaceNameSpace.UnitTests
         [TestMethod]
         public void TestBoundaryAccuracy()
         {
-            List<ICustomLine> lines = splitter.Split(contours, 1);
+            double splitAccuracy = Algorithm.FindMaxLength(contours, 0.01);
+            List<ICustomLine> lines = splitter.Split(contours, splitAccuracy);
             int segmentsCount = 0;
             foreach (var contour in contours)
             {
