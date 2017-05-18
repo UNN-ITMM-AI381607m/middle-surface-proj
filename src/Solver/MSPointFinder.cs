@@ -20,7 +20,7 @@ namespace MidSurfaceNameSpace.Solver
         {
             simplifiedModel = lines;
             Rmax = CalculateMaxRadius();
-            radiusCutOff = radiusThreshold;
+            radiusCutOff = 2 * radiusThreshold;
         }
 
         ICustomLine FindLineWithPoint(Point point)
