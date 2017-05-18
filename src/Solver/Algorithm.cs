@@ -58,7 +58,8 @@ namespace MidSurfaceNameSpace.Solver
             maxLengthModel = FindMaxLength(solverdata.GetContours(), 0.01);
 
             BaseAlgorithm baseAlgorithm = new BaseAlgorithm();
-            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy * maxLengthModel, detalizerAccuracy);
+            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy * maxLengthModel, 
+                detalizerAccuracy * maxLengthModel);
 
             //Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
             //msGraph.RemoveCycles(maxCycleSize);
