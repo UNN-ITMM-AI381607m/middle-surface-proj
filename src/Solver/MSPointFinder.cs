@@ -13,7 +13,7 @@ namespace MidSurfaceNameSpace.Solver
         List<ICustomLine> simplifiedModel;
         double Rmax;
         const double radiusAccuracy = 0.00001;
-        const double closePointsAccuracy = 5;
+        const double minAngleToCross = 15;
 
         public MSPointFinder(List<ICustomLine> lines)
         {
@@ -34,14 +34,15 @@ namespace MidSurfaceNameSpace.Solver
             {
                 if (CustomLine.IsPointBelongsToLine(line.GetPoint1().GetPoint(),
                     line.GetPoint2().GetPoint(), point, 0.01))
-                    return line;      
+                    return line;
             }
             return null;
         }
 
-        int ValidateCircleDueModel(Point center, double R, Point currentPoint, ICustomLine currentLine)
+        int ValidateCircleDueModel(Point center, double R, Point currentPoint)
         {
-            foreach (var line in simplifiedModel)
+            int result = 1;
+            Parallel.ForEach(simplifiedModel, (line) =>
             {
                 Point linePoint1 = line.GetPoint1().GetPoint();
                 Point linePoint2 = line.GetPoint2().GetPoint();
@@ -49,19 +50,19 @@ namespace MidSurfaceNameSpace.Solver
                 Point resultPoint1 = new Point();
                 Point resultPoint2 = new Point();
 
-                //if (currentLine != null && Math.Abs(Vector.AngleBetween(currentLine.GetRightNormal(), line.GetRightNormal())) < 40)
-                //    continue;
-
                 int intersecCounter = CustomLine.LineSegmentIntersectionCircle(center, R, linePoint1, linePoint2, ref resultPoint1, ref resultPoint2);
-                if (intersecCounter < 2
-                    && CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001) == 0)
-                    continue;
-                if (!ClosePoints(Vector.Add((resultPoint1 - resultPoint2) / 2, resultPoint2), currentPoint, closePointsAccuracy))
-                    return -1;
-
-            }
-
-            return 1;
+                if (!(intersecCounter < 2
+                    && CustomLine.CheckMutualArrangementLineCircle(linePoint1, linePoint2, center, R, 0.001) == 0))
+                {
+                    //Hack improved
+                    if (intersecCounter == 0 || Math.Abs(Vector.AngleBetween(resultPoint1 - center, currentPoint - center)) > minAngleToCross
+                        || (intersecCounter == 2 && Math.Abs(Vector.AngleBetween(resultPoint2 - center, currentPoint - center)) > minAngleToCross))
+                    {
+                        result = -1;
+                    }
+                }
+            });
+            return result;
         }
 
         double CalculateMaxRadius()
@@ -99,14 +100,11 @@ namespace MidSurfaceNameSpace.Solver
             var vector = new Vector(normal.Dx(), normal.Dy());
             var segment = normal.Segment();
 
-            var currentLine = FindLineWithPoint(contourPoint);
-
             double Rmax = this.Rmax;
             double Rmin = 0;
             double R = Rmax;
             Point center = new Point(contourPoint.X + vector.X * R, contourPoint.Y + vector.Y * R);
-            int crossStatus = ValidateCircleDueModel(center, R, contourPoint, currentLine);
-            double RMaxPrevious = Rmax;
+            int crossStatus = ValidateCircleDueModel(center, R, contourPoint);
             while (!Algorithm.EqualDoubles(Rmax, Rmin, radiusAccuracy))
             {
                 R = (Rmax + Rmin) / 2;
@@ -114,22 +112,31 @@ namespace MidSurfaceNameSpace.Solver
                 center.X = contourPoint.X + vector.X * R;
                 center.Y = contourPoint.Y + vector.Y * R;
 
-                crossStatus = ValidateCircleDueModel(center, R, contourPoint, currentLine);
+                crossStatus = ValidateCircleDueModel(center, R, contourPoint);
                 if (crossStatus == 1)
                 {
                     Rmin = R;
                 }
                 else if (crossStatus == -1)
                 {
-                    RMaxPrevious = Rmax;
                     Rmax = R;
                 }
-                else if (crossStatus == 0)
-                {
-                    break;
-                }
             }
-            return new MSPoint(center, contourPoint, segment, RMaxPrevious, normal);
+
+            if (CheckOutOfBoundary(contourPoint, center))
+                return null;
+            return new MSPoint(center, contourPoint, segment, R, normal);
+        }
+
+        bool CheckOutOfBoundary(Point linePoint1, Point linePoint2)
+        {
+            bool isOutOfBoundary = false;
+            Parallel.ForEach(simplifiedModel, (line) =>
+            {
+                if (CustomLine.CheckLinesIntersection(linePoint1, linePoint2, line.GetPoint1().GetPoint(), line.GetPoint2().GetPoint()))
+                    isOutOfBoundary = true;
+            });
+            return isOutOfBoundary;
         }
     }
 }

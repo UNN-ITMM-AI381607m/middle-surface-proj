@@ -12,6 +12,7 @@ namespace MidSurfaceNameSpace.Solver
     {
         double splitterAccuracy;
         double detalizerAccuracy;
+        double maxLengthModel;
         const int maxCycleSize = 20;
 
         public Algorithm(double splitterAccuracy, double detalizerAccuracy)
@@ -54,9 +55,10 @@ namespace MidSurfaceNameSpace.Solver
         public IMidSurface Run(ISolverData solverdata)
         {
             IMidSurface midsurface = new MidSurface();
+            maxLengthModel = FindMaxLength(solverdata.GetContours(), 0.01);
 
             BaseAlgorithm baseAlgorithm = new BaseAlgorithm();
-            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy, detalizerAccuracy);
+            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy * maxLengthModel, detalizerAccuracy);
 
             //Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
             //msGraph.RemoveCycles(maxCycleSize);
@@ -168,6 +170,39 @@ namespace MidSurfaceNameSpace.Solver
         public static bool EqualDoubles(double n1, double n2, double precision_)
         {
             return (Math.Abs(n1 - n2) <= precision_);
+        }
+
+        public static double FindMaxLength(IEnumerable<IContour> contours, double step)
+        {
+            double maxLength = 0;
+            foreach (var contour in contours)
+            {
+                IEnumerable<ISegment> segments = contour.GetSegments();
+                foreach (var segment in segments)
+                {
+                    double length = 0;
+                    double t = 0;
+                    while (t < 1)
+                    {
+                        double nextT = t + step;
+                        if (nextT > 1)
+                        {
+                            nextT = 1;
+                        }
+                        Point currentPoint = segment.GetCurvePoint(t);
+                        Point nextPoint = segment.GetCurvePoint(nextT);
+                        length += (currentPoint - nextPoint).Length;
+
+                        t = nextT;
+                    }
+                    if (maxLength < length)
+                    {
+                        maxLength = length;
+                    }
+                }
+            }
+
+            return maxLength;
         }
 
     }
