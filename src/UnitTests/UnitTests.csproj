@@ -69,6 +69,7 @@
     <Compile Include="CompositeSegmentTest.cs" />
     <Compile Include="GraphTest.cs" />
     <Compile Include="MSModelTest.cs" />
+    <Compile Include="MSPointFinderTest.cs" />
     <Compile Include="ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplitterTest.cs" />

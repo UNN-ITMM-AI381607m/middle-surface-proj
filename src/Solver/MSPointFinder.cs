@@ -21,13 +21,6 @@ namespace MidSurfaceNameSpace.Solver
             Rmax = CalculateMaxRadius();
         }
 
-        bool ClosePoints(Point a, Point b, double accuracy)
-        {
-            if ((a - b).Length <= accuracy)
-                return true;
-            return false;
-        }
-
         ICustomLine FindLineWithPoint(Point point)
         {
             foreach (var line in simplifiedModel)
