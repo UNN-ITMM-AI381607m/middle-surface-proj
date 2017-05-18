@@ -14,11 +14,13 @@ namespace MidSurfaceNameSpace.Solver
         double Rmax;
         const double radiusAccuracy = 0.00001;
         const double minAngleToCross = 15;
+        double radiusCutOff;
 
-        public MSPointFinder(List<ICustomLine> lines)
+        public MSPointFinder(List<ICustomLine> lines, double radiusThreshold)
         {
             simplifiedModel = lines;
             Rmax = CalculateMaxRadius();
+            radiusCutOff = radiusThreshold;
         }
 
         ICustomLine FindLineWithPoint(Point point)
@@ -116,7 +118,7 @@ namespace MidSurfaceNameSpace.Solver
                 }
             }
 
-            if (CheckOutOfBoundary(contourPoint, center))
+            if (R < radiusCutOff || CheckOutOfBoundary(contourPoint, center))
                 return null;
             return new MSPoint(center, contourPoint, segment, R, normal);
         }
