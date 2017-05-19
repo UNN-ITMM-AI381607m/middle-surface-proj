@@ -28,7 +28,7 @@ namespace UnitTests
         [TestMethod]
         public void FindMSPointsForSquareAreInCenter()
         {
-            finder = new MSPointFinder(square5x5);
+            finder = new MSPointFinder(square5x5, 0);
             Point center = new Point(2.5, 2.5);
             double accuracy = 0.0001;
 
