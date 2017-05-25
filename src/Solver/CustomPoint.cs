@@ -35,5 +35,12 @@ namespace MidSurfaceNameSpace.Solver
         {
             return point;
         }
+
+        public static bool ClosePoints(Point a, Point b, double accuracy)
+        {
+            if ((a - b).Length <= accuracy)
+                return true;
+            return false;
+        }
     }
 }

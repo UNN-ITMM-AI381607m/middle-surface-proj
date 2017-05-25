@@ -22,6 +22,7 @@
             <MenuItem Header="Run all tests" Click ="Go_all_tests"/>
             <MenuItem Header="Strategi">
                 <MenuItem Header="Enumeration" Click="Do_Enumeration"/>
+                <MenuItem Header="FlowSlice" Click="FlowSlice_Click"/>
             </MenuItem>
             <MenuItem Header="Debug">
                 <MenuItem Header="Show Normal" Click="ShowNormal_Click"/>

@@ -24,7 +24,7 @@ namespace MidSurfaceNameSpace.Component
         }
 
 #if DEBUG
-        double zoom;
+        double zoom=1;
         System.Windows.Point center;
         public void ChangeZoom(double zoom)
         {
@@ -54,15 +54,15 @@ namespace MidSurfaceNameSpace.Component
             transform_data.center_X = canvas.ActualWidth / 2;
             transform_data.center_Y = canvas.ActualHeight/ 2;
             // scale will be mult to 0.98 in purpose of creating borders
-            transform_data.scale = 0.7d * ( Math.Min(canvas.ActualWidth/ Math.Abs(data.GetSize().Xmax - data.GetSize().Xmin), canvas.ActualHeight/ Math.Abs(data.GetSize().Ymax - data.GetSize().Ymin)));
+            transform_data.scale = 0.9d * ( Math.Min(canvas.ActualWidth/ Math.Abs(data.GetSize().Xmax - data.GetSize().Xmin), canvas.ActualHeight/ Math.Abs(data.GetSize().Ymax - data.GetSize().Ymin)));
 #if DEBUG
-            if (zoom > transform_data.scale) transform_data.scale = this.zoom;
-            else zoom = transform_data.scale;
+            transform_data.scale = this.zoom;
+            
             transform_data.center_X = center.X;
             transform_data.center_Y = center.Y;
             
 #endif
-            double step = 1d / (1 + Math.Round(transform_data.scale) * 100d);
+            double step = 1d / (100d);
             int index = 0;
             foreach (ISegment segment in data.GetSegments())
             {           

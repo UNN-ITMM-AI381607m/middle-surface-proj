@@ -20,7 +20,7 @@ namespace MidSurfaceNameSpace.Solver
             this.lines = lines;
             this.finder = finder;
             this.segments = segments;
-            this.accuracy = accuracy > 1 ? 100 : accuracy * 100;
+            this.accuracy = accuracy;
             DCIStackCounter = 0;
         }
 

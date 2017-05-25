@@ -84,7 +84,35 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             //TODO: Dinar: prepare window with setting. Place for settings! 
 
         }
+        private void FlowSlice_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Dinar: prepare generating implementation
+            if (model == null) return;
+            RedrawModel();
+            currentStatus.Content = "Generating...";
 
+            //TODO: Move to some input checking
+            double splitterAccuracy = 0;
+            double detalizerAccuracy = 0;
+            try
+            {
+                splitterAccuracy = double.Parse(textBox_Splitter_Accuracy.Text, CultureInfo.InvariantCulture);
+                detalizerAccuracy = double.Parse(textBox_Detalizer_Accuracy.Text, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            IAlgorithm alg = new FlowAlgorithm(splitterAccuracy, detalizerAccuracy);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            mid_surface_model = alg.Run(new SolverData(model));
+            sw.Stop();
+            RedrawMidSurface();
+            currentStatus.Content = "Elapsed: " + sw.Elapsed;
+        }
+        
         private void Generate(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: prepare generating implementation

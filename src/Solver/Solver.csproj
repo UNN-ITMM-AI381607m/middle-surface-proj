@@ -48,6 +48,7 @@
     <Compile Include="CustomPoint.cs" />
     <Compile Include="CustomSolverData.cs" />
     <Compile Include="Detailizer.cs" />
+    <Compile Include="FlowAlgorithm.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="IAlgorithm.cs" />
     <Compile Include="IAverager.cs" />
