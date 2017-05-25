@@ -17,14 +17,16 @@ namespace MidSurfaceNameSpace.Solver
 
         public Algorithm(double splitterAccuracy, double detalizerAccuracy)
         {
-            if (splitterAccuracy <= 0.001)
+            if (splitterAccuracy < 0.001)
                 splitterAccuracy = 0.001;
-            if (splitterAccuracy >= 1)
+            else if (splitterAccuracy > 1)
                 splitterAccuracy = 1;
-            if (detalizerAccuracy <= 0.001)
+
+            if (detalizerAccuracy < 0.001)
                 detalizerAccuracy = 0.001;
-            if (detalizerAccuracy >= 1)
+            else if (detalizerAccuracy > 1)
                 detalizerAccuracy = 1;
+
             this.splitterAccuracy = splitterAccuracy;
             this.detalizerAccuracy = detalizerAccuracy;
         }
