@@ -42,9 +42,9 @@
             <Label x:Name="label2" Content="Detalizer Accuracy" Height="26" VerticalAlignment="Top"/>
             <TextBox x:Name="textBox_Detalizer_Accuracy" Height="26" Margin="0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Center" HorizontalContentAlignment="Center" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
             <Separator/>
-            <Label x:Name="label3" Content="Debug Parameters" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Label x:Name="label_Debug" Content="Debug Parameters" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <TextBox x:Name="textBox_Debug" Height="26" Margin="0" TextWrapping="Wrap" Text="0; 0.5; 10" VerticalAlignment="Center" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
-            <Label x:Name="label4" Content="Debug Parameters: Normal step " Height="26" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Label x:Name="label_DebugNormalStep" Content="Debug Parameters: Normal step " Height="26" VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <TextBox x:Name="textBox_DebugNormalStep" Height="26" Margin="0" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" VerticalContentAlignment="Center" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Bottom" Height="22">

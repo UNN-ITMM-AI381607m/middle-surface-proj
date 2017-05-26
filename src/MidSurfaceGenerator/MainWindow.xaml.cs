@@ -43,10 +43,10 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             view = new Component.View(mainCanvas);
             global_settings = new Settings();
 #if RELEASE
-            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
-            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
-            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
-            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
+            toolBar.Items.Remove(label_Debug);
+            toolBar.Items.Remove(textBox_Debug);
+            toolBar.Items.Remove(label_DebugNormalStep);
+            toolBar.Items.Remove(textBox_DebugNormalStep);
 #endif
 
 #if DEBUG
