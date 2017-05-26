@@ -28,6 +28,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
     public partial class MainWindow : Window
     {
         private Component.IModel model;
+        Settings global_settings;
         private IMidSurface mid_surface_model;
         private Component.IView view;
         string filename;
@@ -40,11 +41,40 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             InitializeComponent();
             view = new Component.View(mainCanvas);
+            global_settings = new Settings();
+#if RELEASE
+            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
+            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
+            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
+            toolBar.Items.RemoveAt(toolBar.Items.Count - 1);
+#endif
+
 #if DEBUG
             mainCanvas.MouseLeftButtonDown += CanvasDragBegin;
             mainCanvas.MouseLeftButtonUp += CanvasDragEnd;
             mainCanvas.MouseWheel += mainCanvas_MouseWheel;
             mainCanvas.SizeChanged += mainCanvas_SizeChanged;
+            MenuItem debug = new MenuItem();
+            List<RoutedEventHandler> debug_funcs = new List<RoutedEventHandler>();
+
+            debug_funcs.Add(ShowNormal_Click);
+            debug_funcs.Add(ClearDebug_Click);
+            debug_funcs.Add(ShowOnlyPoints_Click);
+            debug_funcs.Add(ShowIndices_Click);
+            debug_funcs.Add(ShowOnlyModelIndices_Click);
+            debug_funcs.Add(ShowSimplified_Click);
+            debug_funcs.Add(ShowDetalizerNormals_Click);
+
+            debug.SetValue(MenuItem.HeaderProperty ,"DEBUG");
+            foreach(var item in debug_funcs)
+            {
+                MenuItem temp = new MenuItem();
+                temp.Header = item.Method.ToString();
+                temp.Click += item;
+                debug.Items.Add(temp);
+            }
+            menu.Items.Add(debug);
+
 #endif
         }
 
@@ -76,13 +106,16 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 }
             }
             mid_surface_model = null;
-            currentStatus.Content = "Ready for work";
+            currentStatus.Content = "Importing was successful. Ready for work";
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: prepare window with setting. Place for settings! 
-
+            //MidSurfaceGenerator
+            global_settings.ShowDialog();
+            RedrawModel();
+            RedrawMidSurface();
         }
         private void FlowSlice_Click(object sender, RoutedEventArgs e)
         {
@@ -149,8 +182,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             mainCanvas.Children.Clear();
             View.VisibleDataSettings settings = new View.VisibleDataSettings()
             {
-                Brush = Brushes.Black,
-                Thikness = 2
+                Brush = global_settings.colofOfModel,
+                Thikness = global_settings.thikModel
             };
             View.VisibleData visible_data = new View.VisibleData(model, settings);
             view.Paint(visible_data);
@@ -160,8 +193,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             if (mid_surface_model == null) return;
             //TODO: Dinar: continue connecting parameters
             View.VisibleDataSettings settings = new View.VisibleDataSettings();
-            settings.Brush = Brushes.Red;
-            settings.Thikness = 1;
+            settings.Brush = global_settings.colofOfMidSurface;
+            settings.Thikness = global_settings.thikMidSurface;
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
         }
@@ -475,6 +508,61 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             settings.Thikness = 1;
             View.VisibleData visible_data = new View.VisibleData(debugSurface, settings);
             view.Paint(visible_data);
+        }
+
+        private void OperatorGuide_Click(object sender, RoutedEventArgs e)
+        {
+            Process myProcess = new Process();
+            try
+            {
+                // true is the default, but it is important not to set it to false
+                myProcess.StartInfo.UseShellExecute = true;
+                myProcess.StartInfo.FileName = "https://github.com/sevoster/UNN_ITMM_AI381607m/blob/master/doc/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_v.1.0.docx";
+                myProcess.Start();
+            }
+            catch (Exception t)
+            {
+                Console.WriteLine(t.Message);
+            }
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            global_settings.Close();
+            this.Close();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            //TODO: Dinar: think about changing statuses and implementation
+            currentStatus.Content = "Exporing model...";
+
+            SaveFileDialog importDlg = new SaveFileDialog();
+            importDlg.InitialDirectory = "C:\\";
+            importDlg.Filter = "All files (*.*)|*.*|XML Models (*.xml)|*.xml";
+            importDlg.FilterIndex = 2;
+            importDlg.RestoreDirectory = true;
+            if (importDlg.ShowDialog() != null)
+            {
+                try
+                {
+                    Component.Model model_temp = new Component.Model();
+                    new Parser().ExportFile(mid_surface_model, importDlg.FileName);
+
+                    //TODO: Dinar: some trick, maybe not good solution
+                    model = null;
+                    mid_surface_model = null;
+                    RedrawModel();
+                }
+                catch (Exception ex)
+                {
+                    //TODO: Dinar: replace 
+                    MessageBox.Show("Error: Could not read file from disk, cause is: " + ex.Message);
+                }
+            }
+            mid_surface_model = null;
+            currentStatus.Content = "Exporting was successful. Ready for work";
         }
 #if DEBUG
         private void CanvasDragBegin(object sender, MouseButtonEventArgs e)

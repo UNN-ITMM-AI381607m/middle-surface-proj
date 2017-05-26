@@ -49,6 +49,10 @@
     <Compile Include="ShapeSchema.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MidSurface\MidSurface.csproj">
+      <Project>{FA7D280E-88DF-4FC9-9387-1FB2B42F44BD}</Project>
+      <Name>MidSurface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{1a03ae92-4ad6-4c80-8165-f7f277f766be}</Project>
       <Name>Model</Name>

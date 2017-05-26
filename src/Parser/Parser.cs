@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using System.Windows;
+using MidSurfaceNameSpace;
 
 namespace MidSurfaceNameSpace.IO
 {
@@ -38,6 +39,14 @@ namespace MidSurfaceNameSpace.IO
 
             Figure figure = Convert(deserialized);
             return figure;
+        }
+
+        public void ExportFile(IMidSurface f,  string filePath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(MidSurfaceNameSpace.Component.MSModel));
+            FileStream fs = new FileStream(filePath, FileMode.Open);
+            serializer.Serialize(fs, f);
+            fs.Close();
         }
 
         private Shape2D Parse(string filePath)

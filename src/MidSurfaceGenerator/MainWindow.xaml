@@ -10,21 +10,21 @@
         <Menu x:Name="menu" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Import" Click="Import_Click"/>
-                <MenuItem Header="Export"/>
-                <MenuItem Header="Close"/>
+                <MenuItem Header="Export" Click="MenuItem_Click_1"/>
+                <MenuItem Header="Close" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Generate" Click="Generate"/>
             <MenuItem Header="Settings" Click="Settings_Click"/>
             <MenuItem Header="Help">
-                <MenuItem Header="Operator guide"/>
-                <MenuItem Header="About"/>
+                <MenuItem Header="Operator guide" Click="OperatorGuide_Click" />
+                <!--  <MenuItem Header="About"/>-->
             </MenuItem>
-            <MenuItem Header="Run all tests" Click ="Go_all_tests"/>
+             <MenuItem Header="Run all tests" Click ="Go_all_tests"/>
             <MenuItem Header="Strategi">
                 <MenuItem Header="Enumeration" Click="Do_Enumeration"/>
                 <MenuItem Header="FlowSlice" Click="FlowSlice_Click"/>
             </MenuItem>
-            <MenuItem Header="Debug">
+            <!-- <MenuItem Header="Debug">
                 <MenuItem Header="Show Normal" Click="ShowNormal_Click"/>
                 <MenuItem Header="Show Only Points" Click="ShowOnlyPoints_Click"/>
                 <MenuItem Header="Show Indices" Click="ShowIndices_Click"/>
@@ -33,7 +33,7 @@
                 <MenuItem Header="Show Detalizer Normals" Click="ShowDetalizerNormals_Click"/>
                 <Separator/>
                 <MenuItem Header="Clear" Click="ClearDebug_Click"/>
-            </MenuItem>
+            </MenuItem> -->
         </Menu>
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
             <Label x:Name="label1" Content="Splitter Accuracy" Height="26" VerticalAlignment="Top"/>
