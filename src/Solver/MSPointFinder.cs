@@ -20,7 +20,7 @@ namespace MidSurfaceNameSpace.Solver
         {
             simplifiedModel = lines;
             Rmax = CalculateMaxRadius();
-            radiusCutOff = 2 * radiusThreshold;
+            radiusCutOff = radiusThreshold;
         }
 
         ICustomLine FindLineWithPoint(Point point)
@@ -118,12 +118,12 @@ namespace MidSurfaceNameSpace.Solver
                 }
             }
 
-            if (R < radiusCutOff || CheckOutOfBoundary(contourPoint, center))
+            if (R < radiusCutOff || CheckOutOfBoundary(contourPoint, center, simplifiedModel))
                 return null;
             return new MSPoint(center, contourPoint, segment, R, normal);
         }
 
-        bool CheckOutOfBoundary(Point linePoint1, Point linePoint2)
+        public static bool CheckOutOfBoundary(Point linePoint1, Point linePoint2, IEnumerable<ICustomLine> simplifiedModel)
         {
             bool isOutOfBoundary = false;
             Parallel.ForEach(simplifiedModel, (line) =>

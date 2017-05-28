@@ -10,9 +10,9 @@ namespace MidSurfaceNameSpace.Solver
 {
     public interface IJoinMSPoints
     {
-        IMidSurface Join();
         //for debug
         IMidSurface Join(List<IMSPoint> points);
         IMidSurface Join(List<Point> points);
+        IMidSurface Join(Graph graph);
     }
 }

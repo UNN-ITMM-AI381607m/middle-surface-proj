@@ -8,14 +8,10 @@ namespace MidSurfaceNameSpace.Solver
 {
     public class JoinMSPoints : IJoinMSPoints
     {
-        private Graph graph;
+        public JoinMSPoints()
+        {}
 
-        public JoinMSPoints(Graph graph)
-        {
-            this.graph = graph;
-        }
-
-        public IMidSurface Join()
+        public IMidSurface Join(Graph graph)
         {
             IMidSurface midsurface = new MidSurface();
 
@@ -41,7 +37,7 @@ namespace MidSurfaceNameSpace.Solver
         public IMidSurface Join(List<IMSPoint> points)
         {
             IMidSurface midsurface = new MidSurface();
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < points.Count - 1; i++)
             {
                 int j = i == points.Count - 1 ? 0 : i + 1;
                 midsurface.Add(PointsToMSSegment(points[i], points[j]));

@@ -66,10 +66,10 @@ namespace MidSurfaceNameSpace.Solver
             maxLengthModel = FindMaxLength(solverdata.GetContours(), 0.01);
 
             BaseAlgorithm baseAlgorithm = new BaseAlgorithm();
-            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy * maxLengthModel, 
+            List<IMSPoint> msPoints = baseAlgorithm.Run(solverdata, splitterAccuracy * maxLengthModel,
                 detalizerAccuracy * maxLengthModel);
 
-            //Graph msGraph = ConstructGraph(msPoints, baseAlgorithm.GetSimplifiedModel());
+            //Graph msGraph = ConstructGraph(msPoints);
             //msGraph.RemoveCycles(maxCycleSize);
 
             //List<Point> points = msGraph.GetPath();
@@ -77,8 +77,7 @@ namespace MidSurfaceNameSpace.Solver
             ////Точки для работы
             //List<IMSPoint> new_mspoints = ConvertPointToMSPoint(points, msPoints);
 
-            IJoinMSPoints jointpoints = new JoinMSPoints(null);
-
+            IJoinMSPoints jointpoints = new JoinMSPoints();
             return jointpoints.Join(msPoints);
         }
 
@@ -90,7 +89,7 @@ namespace MidSurfaceNameSpace.Solver
             {
                 foreach (var mspoint in mspoints)
                 {
-                    if ((point.X == mspoint.GetPoint().X) && (point.Y == mspoint.GetPoint().Y))
+                    if (point == mspoint.GetPoint())
                         new_mspoints.Add(mspoint);
                 }
             }
@@ -98,82 +97,135 @@ namespace MidSurfaceNameSpace.Solver
             return new_mspoints;
         }
 
-        Graph ConstructGraph(IEnumerable<IMSPoint> msPoints, IEnumerable<ICustomLine> simplifiedModel)
+        Graph ConstructGraph(IEnumerable<IMSPoint> msPoints)
         {
+            List<MaskPoint> maskPoints = PrefilterPoints(msPoints);
+
+            List<Point> connectionsBetweenComponents;
+            var components = FormInternallyConnectedComponents(maskPoints, out connectionsBetweenComponents);
+
             Graph graph = new Graph();
 
-            List<int> connectionOrder = new List<int>();
-            var marks = SetMarks(msPoints, simplifiedModel);
-            foreach (var mark in marks)
+            foreach (var component in components)
             {
-                connectionOrder.Add(mark.MSPointIndex);
+                for (int i = 0; i < component.Count - 1; i++)
+                {
+                    graph.AddEdge(component[i].GetPoint(), component[i + 1].GetPoint());
+                }
             }
 
-            for (int i = 0; i < connectionOrder.Count - 1; i++)
+            for (int i = 0; i < connectionsBetweenComponents.Count - 1; i += 2)
             {
-                graph.AddEdge(msPoints.ElementAt(connectionOrder[i]).GetPoint(), msPoints.ElementAt(connectionOrder[i + 1]).GetPoint());
+                graph.AddEdge(connectionsBetweenComponents[i], connectionsBetweenComponents[i + 1]);
             }
-
-            //for (int i = 0; i < msPoints.Count(); i++)
-            //{
-            //    int j = i + 1 == msPoints.Count() ? 0 : i + 1;
-            //    graph.AddEdge(msPoints.ElementAt(i).GetPoint(), msPoints.ElementAt(j).GetPoint());
-            //}
 
             return graph;
         }
 
-        //Temporary
-        List<Mark> SetMarks(IEnumerable<IMSPoint> mspoints, IEnumerable<ICustomLine> simplifiedModel)
+        struct MaskPoint
         {
-            List<Mark> marks = new List<Mark>();
-            int idCounter = 0;
-            foreach (var mspoint in mspoints)
+            public IMSPoint msPoint;
+            public IMSPoint ghostedBy;
+            public bool IsGhost()
             {
-                foreach (var line in simplifiedModel)
+                return ghostedBy != null;
+            }
+        }
+        List<MaskPoint> PrefilterPoints(IEnumerable<IMSPoint> msPoints)
+        {
+            List<MaskPoint> maskPoints = new List<MaskPoint>(msPoints.Count());
+            foreach (var msPoint in msPoints)
+            {
+                maskPoints.Add(new MaskPoint()
                 {
-                    Point intersecPoint1 = new Point();
-                    Point intersecPoint2 = new Point();
-                    int intersecCount = CustomLine.LineSegmentIntersectionCircle(mspoint.GetPoint(), mspoint.GetRadius(),
-                        line.GetPoint1().GetPoint(),
-                        line.GetPoint2().GetPoint(), ref intersecPoint1, ref intersecPoint2);
-                    if (intersecCount == 1)
+                    msPoint = msPoint,
+                    ghostedBy = null
+                });
+            }
+
+            for (int i = 0; i < maskPoints.Count - 1; i++)
+            {
+                if (maskPoints[i].IsGhost() || maskPoints[i + 1].IsGhost())
+                    continue;
+
+                double distance = (maskPoints[i].msPoint.GetPoint() - maskPoints[i + 1].msPoint.GetPoint()).Length;
+                if (i != 0)
+                {
+                    double prevDistance = (maskPoints[i].msPoint.GetPoint() - maskPoints[i - 1].msPoint.GetPoint()).Length;
+                    distance = Math.Min(prevDistance, distance);
+                }
+                for (int j = i + 1; j < maskPoints.Count; j++)
+                {
+                    if (j == i + 1 || maskPoints[j].IsGhost())
+                        continue;
+                    if ((maskPoints[j].msPoint.GetPoint() - maskPoints[i].msPoint.GetPoint()).Length <= distance)
                     {
-                        AddMark(idCounter, intersecPoint1, line.GetPoint1(), ref marks);
-                    }
-                    else if (intersecCount == 2)
-                    {
-                        Point contactPoint = Vector.Add((intersecPoint2 - intersecPoint1) / 2, intersecPoint1);
-                        AddMark(idCounter, contactPoint, line.GetPoint1(), ref marks);
+                        maskPoints[j] = new MaskPoint()
+                        {
+                            msPoint = maskPoints[j].msPoint,
+                            ghostedBy = maskPoints[i].msPoint
+                        };
                     }
                 }
-                idCounter++;
             }
-            return marks;
-        }
 
-        public struct Mark
-        {
-            public int MSPointIndex { get; private set; }
-            public Point ContactPoint { get; private set; }
-            public Mark(int index, Point point)
+            for (int i = maskPoints.Count - 1; i > 0; i--)
             {
-                MSPointIndex = index;
-                ContactPoint = point;
+                if (maskPoints[i - 1].IsGhost() && maskPoints[i].IsGhost())
+                {
+                    maskPoints.RemoveAt(i - 1);
+                }
             }
+
+            if (maskPoints.Last().IsGhost())
+                maskPoints.RemoveAt(maskPoints.Count - 1);
+
+            return maskPoints;
         }
 
-        public void AddMark(int id, Point contactPoint, ICustomPoint point1, ref List<Mark> marks)
+        List<List<IMSPoint>> FormInternallyConnectedComponents(List<MaskPoint> mspoints, out List<Point> connectionsBetweenComponents)
         {
-            if (marks.Any(x => (x.ContactPoint - contactPoint).Length <= 0.1))
-                return;
+            List<List<IMSPoint>> internallyConnectedComponents = new List<List<IMSPoint>>();
+            connectionsBetweenComponents = new List<Point>();
 
-            Mark newMark = new Mark(id, contactPoint);
-            int index = marks.FindIndex(x => (x.ContactPoint - point1.GetPoint()).Length > (contactPoint - point1.GetPoint()).Length);
-            if (index == -1)
-                marks.Add(newMark);
-            else
-                marks.Insert(index, newMark);
+            int index = 0;
+
+            while (index < mspoints.Count)
+            {
+                List<IMSPoint> currentComponent = new List<IMSPoint>();
+                while (index < mspoints.Count && !mspoints[index].IsGhost())
+                {
+                    currentComponent.Add(mspoints[index].msPoint);
+                    index++;
+                }
+                if (index + 1 < mspoints.Count)
+                {
+                    connectionsBetweenComponents.Add(mspoints[index].ghostedBy.GetPoint());
+                    index++;
+                    connectionsBetweenComponents.Add(mspoints[index].msPoint.GetPoint());
+                }
+                if (currentComponent.Count != 0)
+                    internallyConnectedComponents.Add(currentComponent);
+            }
+
+            return internallyConnectedComponents;
+        }
+
+        IMSPoint FindClosestPoint(IEnumerable<IMSPoint> pointList, IMSPoint point)
+        {
+            int closestPointIndex = 0;
+            double minDistance = double.MaxValue;
+            for (int i = 0; i < pointList.Count(); i++)
+            {
+                double currentDistance = (point.GetPoint() - pointList.ElementAt(i).GetPoint()).Length;
+                if (currentDistance < minDistance &&
+                    point.GetPoint() != pointList.ElementAt(i).GetPoint())
+                {
+                    closestPointIndex = i;
+                    minDistance = currentDistance;
+                }
+            }
+            return pointList.ElementAt(closestPointIndex);
         }
 
         public static bool EqualDoubles(double n1, double n2, double precision_)

@@ -18,7 +18,7 @@ namespace MidSurfaceNameSpace.UnitTests
             msGraph.AddEdge(new Point(2, 2), new Point(2, 0));
             msGraph.AddEdge(new Point(2, 0), new Point(0, 0));
 
-            var midsurface = new JoinMSPoints(msGraph).Join();
+            var midsurface = new JoinMSPoints().Join(msGraph);
 
             // 4 edges = 4 segments of contour
             Assert.AreEqual(4, midsurface.GetData().Count());
