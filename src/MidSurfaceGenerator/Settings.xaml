@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidSurfaceNameSpace.MidSurfaceGenerator"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="300">
+        Title="Settings" Height="300" Width="300" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="290">
             <Label Content="Color of Model" HorizontalAlignment="Left" Height="27" Margin="10,10,0,0" VerticalAlignment="Top" Width="128"/>

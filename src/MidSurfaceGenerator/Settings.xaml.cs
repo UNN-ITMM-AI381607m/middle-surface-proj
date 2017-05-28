@@ -19,37 +19,37 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
     /// </summary>
     public partial class Settings : Window
     {
-        public Brush colofOfModel;
-        public Brush colofOfMidSurface;
-        public double thikModel;
-        public double thikMidSurface;
-        private Dictionary<string, Brush> BrushesColor;
+        public static Brush colofOfModel = Brushes.Black;
+        public static Brush colofOfMidSurface = Brushes.Red;
+        public static double thicknessModel = 1d;
+        public static double thicknessMidSurface = 1d;
+        private static Dictionary<string, Brush> BrushesColor = new Dictionary<string, Brush>()
+        {
+            {"Black", Brushes.Black },
+            {"Red", Brushes.Red },
+            {"Blue", Brushes.Blue },
+            {"Green", Brushes.Green },
+            {"Yellow", Brushes.Yellow }
+        };
+
         public Settings()
         {
             InitializeComponent();
-            colofOfModel = Brushes .Black;
-            colofOfMidSurface = Brushes.Red;
-            colorsMidSurface.SelectedValue = "Red";
-            colorsModel.SelectedValue = "Black";
-            thikModel = thikMidSurface = 1d;
-            BrushesColor = new Dictionary<string, Brush>();
-            BrushesColor.Add("Black", Brushes.Black);
-            BrushesColor.Add("Red", Brushes.Red);
-            BrushesColor.Add("Blue", Brushes.Blue);
-            BrushesColor.Add("Green", Brushes.Green);
-            BrushesColor.Add("Yellow", Brushes.Yellow);
+            colorsMidSurface.SelectedValue = BrushesColor.FirstOrDefault(x => x.Value == colofOfMidSurface).Key;
+            colorsModel.SelectedValue = BrushesColor.FirstOrDefault(x => x.Value == colofOfModel).Key;
+            tb_thikMidSurf.Text = thicknessMidSurface.ToString();
+            tb_thikModel.Text = thicknessModel.ToString();
             
             foreach (var c in BrushesColor)
             {
                 colorsModel.Items.Add(c.Key);
                 colorsMidSurface.Items.Add(c.Key);
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -58,15 +58,15 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             colofOfModel = BrushesColor[colorsModel.SelectedValue.ToString()];
             try
             {
-                thikModel = double.Parse(tb_thikModel.Text);
-                thikMidSurface = double.Parse(tb_thikMidSurf.Text);
+                thicknessModel = double.Parse(tb_thikModel.Text);
+                thicknessMidSurface = double.Parse(tb_thikMidSurf.Text);
             }
             catch(Exception ex)
             {
-                thikModel = thikMidSurface = 1d;
+                thicknessModel = thicknessMidSurface = 1d;
             }
 
-            this.Hide();
+            Close();
         }
     }
 }

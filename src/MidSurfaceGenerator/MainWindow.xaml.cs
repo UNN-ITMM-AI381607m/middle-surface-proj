@@ -28,7 +28,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
     public partial class MainWindow : Window
     {
         private Component.IModel model;
-        Settings global_settings;
         private IMidSurface mid_surface_model;
         private Component.IView view;
         string filename;
@@ -41,7 +40,6 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             InitializeComponent();
             view = new Component.View(mainCanvas);
-            global_settings = new Settings();
 #if RELEASE
             toolBar.Items.Remove(label_Debug);
             toolBar.Items.Remove(textBox_Debug);
@@ -113,7 +111,11 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         {
             //TODO: Dinar: prepare window with setting. Place for settings! 
             //MidSurfaceGenerator
-            global_settings.ShowDialog();
+            new Settings()
+            {
+                Owner = this
+            }
+            .ShowDialog();
             RedrawModel();
             RedrawMidSurface();
         }
@@ -182,8 +184,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             mainCanvas.Children.Clear();
             View.VisibleDataSettings settings = new View.VisibleDataSettings()
             {
-                Brush = global_settings.colofOfModel,
-                Thikness = global_settings.thikModel
+                Brush = Settings.colofOfModel,
+                Thikness = Settings.thicknessModel
             };
             View.VisibleData visible_data = new View.VisibleData(model, settings);
             view.Paint(visible_data);
@@ -193,8 +195,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             if (mid_surface_model == null) return;
             //TODO: Dinar: continue connecting parameters
             View.VisibleDataSettings settings = new View.VisibleDataSettings();
-            settings.Brush = global_settings.colofOfMidSurface;
-            settings.Thikness = global_settings.thikMidSurface;
+            settings.Brush = Settings.colofOfMidSurface;
+            settings.Thikness = Settings.thicknessMidSurface;
             View.VisibleData visible_data = new View.VisibleData(mid_surface_model, settings);
             view.Paint(visible_data);
         }
@@ -529,8 +531,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            global_settings.Close();
-            this.Close();
+            Close();
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
