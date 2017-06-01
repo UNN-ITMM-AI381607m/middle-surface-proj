@@ -25,11 +25,11 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         public static double thicknessMidSurface = 1d;
         private static Dictionary<string, Brush> BrushesColor = new Dictionary<string, Brush>()
         {
-            {"Black", Brushes.Black },
-            {"Red", Brushes.Red },
-            {"Blue", Brushes.Blue },
-            {"Green", Brushes.Green },
-            {"Yellow", Brushes.Yellow }
+            {"Черный", Brushes.Black },
+            {"Красный", Brushes.Red },
+            {"Синий", Brushes.Blue },
+            {"Зелёный", Brushes.Green },
+            {"Желтый", Brushes.Yellow }
         };
 
         public Settings()

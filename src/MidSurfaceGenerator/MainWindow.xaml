@@ -5,24 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidSurfaceNameSpace.MidSurfaceGenerator"
         mc:Ignorable="d"
-         Title="MidSurface Generator" WindowState="Maximized">
+         Title="Генератор срединной поверхности" WindowState="Maximized">
     <DockPanel Margin="0" OverridesDefaultStyle="True" UseLayoutRounding="False">
         <Menu x:Name="menu" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
-            <MenuItem Header="File">
-                <MenuItem Header="Import" Click="Import_Click"/>
-                <MenuItem Header="Export" Click="MenuItem_Click_1"/>
-                <MenuItem Header="Close" Click="MenuItem_Click"/>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Импорт" Click="Import_Click"/>
+                <MenuItem Header="Экспорт" Click="MenuItem_Click_1"/>
+                <MenuItem Header="Закрыть" Click="MenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Generate" Click="Generate"/>
-            <MenuItem Header="Settings" Click="Settings_Click"/>
-            <MenuItem Header="Help">
-                <MenuItem Header="Operator guide" Click="OperatorGuide_Click" />
+            <MenuItem Header="Генерация" Click="Generate"/>
+            <MenuItem Header="Настройки" Click="Settings_Click"/>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Руководство оператора" Click="OperatorGuide_Click" />
                 <!--  <MenuItem Header="About"/>-->
             </MenuItem>
-             <MenuItem Header="Run all tests" Click ="Go_all_tests"/>
-            <MenuItem Header="Strategi">
-                <MenuItem Header="Enumeration" Click="Do_Enumeration"/>
-                <MenuItem Header="FlowSlice" Click="FlowSlice_Click"/>
+             <MenuItem Header="Заустить все тесты" Click ="Go_all_tests"/>
+            <MenuItem Header="Стратегии">
+                <MenuItem Header="Перебор" Click="Do_Enumeration"/>
+                <MenuItem Header="Поток" Click="FlowSlice_Click"/>
             </MenuItem>
             <!-- <MenuItem Header="Debug">
                 <MenuItem Header="Show Normal" Click="ShowNormal_Click"/>
@@ -36,10 +36,10 @@
             </MenuItem> -->
         </Menu>
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
-            <Label x:Name="label1" Content="Splitter Accuracy" Height="26" VerticalAlignment="Top"/>
+            <Label x:Name="label1" Content="Точность линеаризации" Height="26" VerticalAlignment="Top"/>
             <TextBox x:Name="textBox_Splitter_Accuracy" Height="26" Margin="0" TextWrapping="Wrap" Text="0.01" VerticalAlignment="Center" HorizontalContentAlignment="Center" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
             <Separator/>
-            <Label x:Name="label2" Content="Detalizer Accuracy" Height="26" VerticalAlignment="Top"/>
+            <Label x:Name="label2" Content="Точность детализации" Height="26" VerticalAlignment="Top"/>
             <TextBox x:Name="textBox_Detalizer_Accuracy" Height="26" Margin="0" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Center" HorizontalContentAlignment="Center" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
             <Separator/>
             <Label x:Name="label_Debug" Content="Debug Parameters" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right"/>
@@ -48,8 +48,8 @@
             <TextBox x:Name="textBox_DebugNormalStep" Height="26" Margin="0" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" MinHeight="10" Padding="2" BorderThickness="2" MinWidth="20" MaxWidth="100"/>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" VerticalContentAlignment="Center" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Bottom" Height="22">
-            <Label x:Name="label" Content="Status " Padding="0" BorderBrush="Black" BorderThickness="0,0,1,0"/>
-            <Label x:Name="currentStatus" Content="Ready for work" Padding="0" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Center"/>
+            <Label x:Name="label" Content="Статус " Padding="0" BorderBrush="Black" BorderThickness="0,0,1,0"/>
+            <Label x:Name="currentStatus" Content="Готов к работе." Padding="0" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Center"/>
         </StatusBar>
         <Canvas x:Name="mainCanvas" Background="White" d:LayoutOverrides="TopPosition, BottomPosition" AutomationProperties.IsOffscreenBehavior="FromClip" DockPanel.Dock="Top" UseLayoutRounding="False" ClipToBounds="True" ScrollViewer.CanContentScroll="True"/>
     </DockPanel>

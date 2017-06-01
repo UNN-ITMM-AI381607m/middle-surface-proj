@@ -79,7 +79,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void Import_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: think about changing statuses and implementation
-            currentStatus.Content = "Imporing model...";
+            currentStatus.Content = "Импортирование модели.";
+            currentStatus.UpdateLayout();
 
             OpenFileDialog importDlg = new OpenFileDialog();
             importDlg.InitialDirectory = "C:\\";
@@ -100,11 +101,12 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 catch (Exception ex)
                 {
                     //TODO: Dinar: replace 
-                    MessageBox.Show("Error: Could not read file from disk, cause is: " + ex.Message);
+                    MessageBox.Show("Ошибка! Причина ошибки: " + ex.Message);
+                    currentStatus.Content = "Готов к работе.";
                 }
             }
             mid_surface_model = null;
-            currentStatus.Content = "Importing was successful. Ready for work";
+            currentStatus.Content = "Импортирование завершено успешно. Готов к работе.";
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -124,8 +126,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             //TODO: Dinar: prepare generating implementation
             if (model == null) return;
             RedrawModel();
-            currentStatus.Content = "Generating...";
-
+            currentStatus.Content = "Генерация в процессе";
+            currentStatus.UpdateLayout();
             //TODO: Move to some input checking
             double splitterAccuracy = 0;
             double detalizerAccuracy = 0;
@@ -145,7 +147,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             mid_surface_model = alg.Run(new SolverData(model));
             sw.Stop();
             RedrawMidSurface();
-            currentStatus.Content = "Elapsed: " + sw.Elapsed;
+            currentStatus.Content = "Генерация завершена успешно. Затраченное время: " + sw.Elapsed;
         }
         
         private void Generate(object sender, RoutedEventArgs e)
@@ -153,8 +155,8 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             //TODO: Dinar: prepare generating implementation
             if (model == null) return;
             RedrawModel();
-            currentStatus.Content = "Generating...";
-
+            currentStatus.Content = "Генерация в процессе";
+            currentStatus.UpdateLayout();
             //TODO: Move to some input checking
             double splitterAccuracy = 0;
             double detalizerAccuracy = 0;
@@ -174,7 +176,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             mid_surface_model = alg.Run(new SolverData(model));
             sw.Stop();
             RedrawMidSurface();
-            currentStatus.Content = "Elapsed: " + sw.Elapsed;
+            currentStatus.Content = "Генерация завершена успешно. Затраченное время: "+sw.Elapsed;
         }
 
         private void RedrawModel()
@@ -537,7 +539,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             //TODO: Dinar: think about changing statuses and implementation
-            currentStatus.Content = "Exporing model...";
+            currentStatus.Content = "Экспортирование модели.";
 
             SaveFileDialog importDlg = new SaveFileDialog();
             importDlg.InitialDirectory = "C:\\";
@@ -559,11 +561,12 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 catch (Exception ex)
                 {
                     //TODO: Dinar: replace 
-                    MessageBox.Show("Error: Could not read file from disk, cause is: " + ex.Message);
+                    MessageBox.Show("Ошибка! Причина ошибки: " + ex.Message);
+                    currentStatus.Content = "Готов к работе.";
                 }
             }
             mid_surface_model = null;
-            currentStatus.Content = "Exporting was successful. Ready for work";
+            currentStatus.Content = "Экспортирование завершено успешно. Готов к работе.";
         }
 #if DEBUG
         private void CanvasDragBegin(object sender, MouseButtonEventArgs e)
