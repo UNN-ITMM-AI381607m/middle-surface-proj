@@ -84,7 +84,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
             OpenFileDialog importDlg = new OpenFileDialog();
             importDlg.InitialDirectory = "C:\\";
-            importDlg.Filter = "All files (*.*)|*.*|XML Models (*.xml)|*.xml";
+            importDlg.Filter = "All files (*.*)|*.*|XML (*.xml)|*.xml";
             importDlg.FilterIndex = 2;
             importDlg.RestoreDirectory = true;
             if (importDlg.ShowDialog() != null)
@@ -101,8 +101,12 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 catch (Exception ex)
                 {
                     //TODO: Dinar: replace 
-                    MessageBox.Show("Ошибка! Причина ошибки: " + ex.Message);
+                    MessageBox.Show("Ошибка импорта! Причина ошибки: " + ex.Message);
                     currentStatus.Content = "Готов к работе.";
+                    model = null;
+                    mid_surface_model = null;
+                    RedrawModel();
+                    return;
                 }
             }
             mid_surface_model = null;
@@ -126,7 +130,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             //TODO: Dinar: prepare generating implementation
             if (model == null) return;
             RedrawModel();
-            currentStatus.Content = "Генерация в процессе";
+            currentStatus.Content = "Генерация в процессе.";
             currentStatus.UpdateLayout();
             //TODO: Move to some input checking
             double splitterAccuracy = 0;
@@ -138,6 +142,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             }
             catch (Exception)
             {
+                currentStatus.Content = "Генерация прервана. Введите корректные настройки точностей.";
                 return;
             }
 
@@ -155,7 +160,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             //TODO: Dinar: prepare generating implementation
             if (model == null) return;
             RedrawModel();
-            currentStatus.Content = "Генерация в процессе";
+            currentStatus.Content = "Генерация в процессе.";
             currentStatus.UpdateLayout();
             //TODO: Move to some input checking
             double splitterAccuracy = 0;
@@ -167,6 +172,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
             }
             catch (Exception)
             {
+                currentStatus.Content = "Генерация прервана. Введите корректные настройки точностей.";
                 return;
             }
 
@@ -543,7 +549,7 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
 
             SaveFileDialog importDlg = new SaveFileDialog();
             importDlg.InitialDirectory = "C:\\";
-            importDlg.Filter = "All files (*.*)|*.*|XML Models (*.xml)|*.xml";
+            importDlg.Filter = "All files (*.*)|*.*|XML (*.xml)|*.xml";
             importDlg.FilterIndex = 2;
             importDlg.RestoreDirectory = true;
             if (importDlg.ShowDialog() != null)
@@ -561,8 +567,9 @@ namespace MidSurfaceNameSpace.MidSurfaceGenerator
                 catch (Exception ex)
                 {
                     //TODO: Dinar: replace 
-                    MessageBox.Show("Ошибка! Причина ошибки: " + ex.Message);
+                    MessageBox.Show("Ошибка экспорта! Причина ошибки: " + ex.Message);
                     currentStatus.Content = "Готов к работе.";
+                    return;
                 }
             }
             mid_surface_model = null;
