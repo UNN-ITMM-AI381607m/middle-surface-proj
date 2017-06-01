@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidSurfaceNameSpace.MidSurfaceGenerator"
         mc:Ignorable="d"
-         Title="Генератор срединной поверхности" WindowState="Maximized">
+         Title="MIDSURFACE" WindowState="Maximized">
     <DockPanel Margin="0" OverridesDefaultStyle="True" UseLayoutRounding="False">
         <Menu x:Name="menu" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" d:LayoutOverrides="TopPosition, BottomPosition" DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -19,7 +19,7 @@
                 <MenuItem Header="Руководство оператора" Click="OperatorGuide_Click" />
                 <!--  <MenuItem Header="About"/>-->
             </MenuItem>
-             <MenuItem Header="Заустить все тесты" Click ="Go_all_tests"/>
+             <MenuItem Header="Запустить все тесты" Click ="Go_all_tests"/>
             <MenuItem Header="Стратегии">
                 <MenuItem Header="Перебор" Click="Do_Enumeration"/>
                 <MenuItem Header="Поток" Click="FlowSlice_Click"/>
